@@ -5,7 +5,7 @@ import { Plus } from "lucide-react"
 export default function ProductCard({ item }) {
   console.log(item)
   return (
-    <div className=" m-4 bg-white rounded-lg p-4 flex flex-col relative">
+    <div className=" m-4  rounded-lg p-4 flex flex-col relative">
       <Image src={item?.image} alt="Image" width={150} height={150}  />
       <h3 className="font-medium">{item?.name}</h3>
       <p className="text-[#2c5c1e] font-bold">${item?.price}</p>

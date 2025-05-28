@@ -12,8 +12,8 @@ export default function OnSaleSidebar() {
           <Image
             src={img1}
             alt="Pineapple"
-            width={500}
-            height={500}
+            width={400}
+            height={400}
             className="object-contain"
           />
         </div>
@@ -21,8 +21,8 @@ export default function OnSaleSidebar() {
           <Image
             src={img2}
             alt="Orange"
-            width={500}
-            height={500}
+            width={400}
+            height={400}
             className="object-contain"
           />
         </div>

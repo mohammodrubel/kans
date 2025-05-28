@@ -11,13 +11,16 @@ export default function BestSellingSection() {
     { name: "Eggs", price: "$4.48 g", rating: 5, icon: "plus", image: img1 },
     { name: "Pistachios", price: "$4.48 g", rating: 0, icon: "plus", image: img2 },
     { name: "Mangoes", price: "$0.40 x", rating: 0, icon: "circle", image: img3 },
-    { name: "Cashews", price: "$9.90", rating: 0, icon: "plus", image: img4 },
   ]
 
   const bottomProducts = [
     { name: "Bestkelus", price: "", rating: 5, icon: "heart", image: img5 },
     { name: "Eggs", price: "$2.28 g", rating: 0, icon: "circle", image: img1 },
     { name: "Apple", price: "$8.82 g", rating: 0, icon: "heart", image: img2 },
+    { name: "Cashews", price: "$9.90", rating: 0, icon: "plus", image: img4 },
+    { name: "Mangoes", price: "$9.90", rating: 0, icon: "plus", image: img4 },
+    { name: "Pistachios", price: "$4.48 g", rating: 0, icon: "plus", image: img2 },
+    { name: "Bestkelus", price: "", rating: 5, icon: "heart", image: img5 },
   ]
 
   return (
