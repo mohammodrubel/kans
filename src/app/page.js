@@ -1,15 +1,80 @@
-import Advertisement from "@/components/Advertisement";
-import Banner from "@/components/Banner";
-import { Footer } from "@/components/Footer";
-import Header from "@/components/Header";
+import BestSallingPartOne from "@/components/BestSallingPartOne"
+import BestSallingPartTwo from "@/components/BestSallingPartTwo"
+import Categories from "@/components/Categories"
+import FeaturedProducts from "@/components/FeaturedProducts"
+import { Footer } from "@/components/Footer"
+import Header from "@/components/Header"
+import MajorTopVendor from "@/components/MajorTopVendor"
+import OnSale from "@/components/OnSale"
+import OnSaleProduct from "@/components/OnSaleProduct"
+import Image from "next/image"
+import banner from '../assets/demo.jpg'
+import Promotion from "@/components/Promotion"
 
 export default function Home() {
+   
   return (
-    <div className="min-h-screen bg-[#f8f9f4]">
-      <Header/>
-      <Banner/>
-      <Advertisement/>
-      <Footer/>
+    <>
+      <div className="min-h-screen py-5 bg-[#f9f9f5]">
+      <Header></Header>
+
+      <div className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          {/* Sidebar */}
+          <div className="lg:col-span-2">
+            <div className="bg-white rounded-lg p-4 shadow-sm mb-6">
+              <h2 className="font-bold text-lg mb-4">Categories</h2>
+              <ul className="space-y-3">
+              <Categories/>
+              </ul>
+            </div>
+
+            <OnSale />
+            <div className="bg-white rounded-lg p-4 shadow-sm">
+              <h2 className="font-bold text-lg mb-4">Major Top Vendor</h2>
+              
+              <div className="bg-[#f5f5f0] rounded-lg p-2 mt-4 flex justify-center">
+                <Image
+                  src={banner}
+                  alt="Vendor"
+                  width={250}
+                  height={250}
+                  className="h-auto w-auto"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Main Content */}
+          <div className="lg:col-span-7">
+            {/* Hero Banner */}
+            <div className="bg-[#e8f4e8] rounded-lg overflow-hidden mb-6 relative">
+              <MajorTopVendor />
+            </div>
+
+            {/* On Sale Section */}
+            <OnSaleProduct />
+            {/* Promotional Banners */}
+          </div>
+
+          {/* Right Sidebar */}
+          <div className="lg:col-span-3">
+            <BestSallingPartOne/>
+
+            <BestSallingPartTwo/>
+          </div>
+        </div>
+      </div>
+      <FeaturedProducts/>
+      <Promotion/>
     </div>
-  );
+    <Footer/>
+    </>
+  )
 }
+
+// Data
+
+
+
+
