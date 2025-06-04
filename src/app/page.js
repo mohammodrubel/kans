@@ -9,6 +9,7 @@ import OnSaleProduct from "@/components/OnSaleProduct"
 import Promotion from "@/components/Promotion"
 import Image from "next/image"
 import banner from '../assets/demo.jpg'
+import Review from "@/components/Review/Review"
 
 export default function Home() {
    
@@ -63,6 +64,7 @@ export default function Home() {
         </div>
       </div>
       <FeaturedProducts/>
+      <Review/>
       <Promotion/>
     </div>
     <Footer/>
