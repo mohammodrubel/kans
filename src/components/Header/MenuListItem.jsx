@@ -1,7 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { NavigationMenuLink } from "./ui/navigation-menu"
+import { NavigationMenuLink } from "../ui/navigation-menu"
+
 
 export default function ListItem({ title, children, href, ...props }) {
   return (

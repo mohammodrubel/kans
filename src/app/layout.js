@@ -1,7 +1,7 @@
+import Header from "@/components/Header/Header";
+import 'flag-icons/css/flag-icons.min.css';
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import 'flag-icons/css/flag-icons.min.css';
 
 
 const geistSans = Geist({

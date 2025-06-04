@@ -3,13 +3,12 @@ import BestSallingPartTwo from "@/components/BestSallingPartTwo"
 import Categories from "@/components/Categories"
 import FeaturedProducts from "@/components/FeaturedProducts"
 import { Footer } from "@/components/Footer"
-import Header from "@/components/Header"
 import MajorTopVendor from "@/components/MajorTopVendor"
 import OnSale from "@/components/OnSale"
 import OnSaleProduct from "@/components/OnSaleProduct"
+import Promotion from "@/components/Promotion"
 import Image from "next/image"
 import banner from '../assets/demo.jpg'
-import Promotion from "@/components/Promotion"
 
 export default function Home() {
    

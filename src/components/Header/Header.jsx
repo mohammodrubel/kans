@@ -1,9 +1,10 @@
 import { User } from 'lucide-react'; // or any icon lib you're using
-import Logo from './Logo';
+import Logo from '../Logo';
 import { MainMenu } from './MainMenu';
 import MobileMenu from './MobileMenu';
 import NavbarDropDownLanguage from './NavbarDropDownLanguage';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
+
 
 
 function Header() {
@@ -19,14 +20,15 @@ function Header() {
           </div>
           <div className="flex items-center gap-0.5">
             <User /> <span>Login</span>
+            <div className="lg:hidden mx-2">
+          <MobileMenu />
+        </div>
           </div>
           <div className="hidden lg:block">
             <Button className="bg-[#016630d8] hover:bg-[#016630]">Request Demo</Button>
           </div>
         </div>
-        <div className="lg:hidden mx-2">
-          <MobileMenu />
-        </div>
+        
       </div>
     </header>
   );
