@@ -7,9 +7,10 @@ import MajorTopVendor from "@/components/MajorTopVendor"
 import OnSale from "@/components/OnSale"
 import OnSaleProduct from "@/components/OnSaleProduct"
 import Promotion from "@/components/Promotion"
+import Review from "@/components/Review/Review"
+import Team from "@/components/Team/Team"
 import Image from "next/image"
 import banner from '../assets/demo.jpg'
-import Review from "@/components/Review/Review"
 
 export default function Home() {
    
@@ -66,6 +67,7 @@ export default function Home() {
       <FeaturedProducts/>
       <Review/>
       <Promotion/>
+      <Team/>
     </div>
     <Footer/>
     </>
