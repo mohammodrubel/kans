@@ -4,12 +4,13 @@ import { MainMenu } from './MainMenu';
 import MobileMenu from './MobileMenu';
 import NavbarDropDownLanguage from './NavbarDropDownLanguage';
 import { Button } from '../ui/button';
+import Link from 'next/link';
 
 function Header() {
   return (
     <header className="container mx-auto px-4">
       <div className="flex justify-between items-center">
-        <Logo />
+        <Link href="/"><Logo /></Link>
 
         {/* Desktop Main Menu */}
         <div className="hidden lg:block">
