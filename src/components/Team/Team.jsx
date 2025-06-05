@@ -1,34 +1,34 @@
 'use client'
 import { Users } from 'lucide-react'
 import Image from 'next/image'
-import img1 from '../../assets/team/6.jpg'
-import img2 from '../../assets/team/6.jpg'
-import img3 from '../../assets/team/6.jpg'
-import img4 from '../../assets/team/6.jpg'
-import img5 from '../../assets/team/6.jpg'
-import img6 from '../../assets/team/6.jpg'
-import img7 from '../../assets/team/6.jpg'
-import img8 from '../../assets/team/6.jpg'
-import img9 from '../../assets/team/6.jpg'
-import img10 from '../../assets/team/6.jpg'
-import img11 from '../../assets/team/6.jpg'
-import img12 from '../../assets/team/6.jpg'
-import img13 from '../../assets/team/6.jpg'
-import img14 from '../../assets/team/6.jpg'
-import img15 from '../../assets/team/6.jpg'
+import img1 from '../../assets/team/img1.jpg'
+import img2 from '../../assets/team/img2.jpg'
+import img3 from '../../assets/team/img3.jpg'
+import img4 from '../../assets/team/img1.jpg'
+import img5 from '../../assets/team/img2.jpg'
+import img6 from '../../assets/team/img3.jpg'
+import img7 from '../../assets/team/img1.jpg'
+import img8 from '../../assets/team/img2.jpg'
+import img9 from '../../assets/team/img3.jpg'
+import img10 from '../../assets/team/img1.jpg'
+import img11 from '../../assets/team/img2.jpg'
+import img12 from '../../assets/team/img3.jpg'
+import img13 from '../../assets/team/img1.jpg'
+import img14 from '../../assets/team/img2.jpg'
+import img15 from '../../assets/team/img3.jpg'
 
 
 function Team() {
     const teamdata = [
-        { name: 'Ariana Khan', specialist: 'Business Manager', img: img1 },
-        { name: 'Tanvir Alam', specialist: 'Marketing Expert', img: img2 },
-        { name: 'Farzana Nila', specialist: 'UI/UX Designer', img: img3 },
-        { name: 'Sajid Rahman', specialist: 'Full Stack Developer', img: img4 },
-        { name: 'Nadia Haque', specialist: 'Project Coordinator', img: img5 },
-        { name: 'Rezaul Karim', specialist: 'DevOps Engineer', img: img6 },
-        { name: 'Tania Chowdhury', specialist: 'Product Manager', img: img7 },
-        { name: 'Imran Hossain', specialist: 'QA Specialist', img: img8 },
-        { name: 'Mim Akter', specialist: 'HR Executive', img: img9 },
+        { name: 'Ariana Khan', specialist: 'Business Manager', img:img1 },
+        { name: 'Tanvir Alam', specialist: 'Marketing Expert', img:img2 },
+        { name: 'Farzana Nila', specialist: 'UI/UX Designer', img:img3 },
+        { name: 'Sajid Rahman', specialist: 'Full Stack Developer', img:img4 },
+        { name: 'Nadia Haque', specialist: 'Project Coordinator', img:img5 },
+        { name: 'Rezaul Karim', specialist: 'DevOps Engineer', img:img6 },
+        { name: 'Tania Chowdhury', specialist: 'Product Manager', img:img7 },
+        { name: 'Imran Hossain', specialist: 'QA Specialist', img:img8 },
+        { name: 'Mim Akter', specialist: 'HR Executive', img:img9 },
         { name: 'Shahriar Kabir', specialist: 'Content Strategist', img: img10 },
         { name: 'Rifat Mahmud', specialist: 'Digital Marketer', img: img11 },
         { name: 'Mahira Rahman', specialist: 'Graphic Designer', img: img12 },
