@@ -1,25 +1,28 @@
-import Image from "next/image";
-import majorImage from "../assets/f.png";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
-  CarouselPrevious
+  CarouselPrevious,
 } from "@/components/ui/carousel";
+import Image from "next/image";
 
-function MajorTopVendor() {
+async function MajorTopVendor() {
+  const res = await fetch("https://egg.dordham.com/api/v1/sliders", {
+    cache: "no-store",
+  });
+  const data = await res.json();
   return (
     <div>
       <Carousel>
         <CarouselContent className="w-full">
-          {[1, 2, 3].map((_, index) => (
-            <CarouselItem key={index} className="relative h-[600px]">
+          {data?.data?.map((item, index) => (
+            <CarouselItem key={item.id || index} className="relative h-[600px]">
               <Image
-                src={majorImage}
+                src={item?.photo?.original_url}
                 alt={`slider image ${index + 1}`}
                 fill
-                className="object-contain"
+                className="object-cover"
               />
             </CarouselItem>
           ))}
