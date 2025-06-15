@@ -59,7 +59,6 @@ export default function Home() {
           {/* Right Sidebar */}
           <div className="lg:col-span-3">
             <BestSallingPartOne/>
-
             <BestSallingPartTwo/>
           </div>
         </div>

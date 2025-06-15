@@ -21,8 +21,9 @@ async function MajorTopVendor() {
               <Image
                 src={item?.photo?.original_url}
                 alt={`slider image ${index + 1}`}
-                fill
-                className="object-cover"
+                height={600}
+                width={600}
+                className="object-cover w-full"
               />
             </CarouselItem>
           ))}
