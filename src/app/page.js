@@ -2,8 +2,9 @@ import BestSallingPartOne from "@/components/BestSallingPartOne"
 import BestSallingPartTwo from "@/components/BestSallingPartTwo"
 import Categories from "@/components/Categories"
 import FeaturedProducts from "@/components/FeaturedProducts"
-import { Footer } from "@/components/Footer"
+import KeyFeatchers from "@/components/KeyFeatchers"
 import MajorTopVendor from "@/components/MajorTopVendor"
+import { ModalForStart } from "@/components/ModalForStart"
 import OnSale from "@/components/OnSale"
 import OnSaleProduct from "@/components/OnSaleProduct"
 import Promotion from "@/components/Promotion"
@@ -11,7 +12,6 @@ import Review from "@/components/Review/Review"
 import Team from "@/components/Team/Team"
 import Image from "next/image"
 import banner from '../assets/demo.jpg'
-import { ModalForStart } from "@/components/ModalForStart"
 
 export default function Home() {
    
@@ -74,6 +74,7 @@ export default function Home() {
       </div>
       <FeaturedProducts/>
       <Review/>
+      <KeyFeatchers/>
       <Promotion/>
       <Team/>
     </div>

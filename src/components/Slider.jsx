@@ -40,7 +40,7 @@ export function CarouselPlugin({ data }) {
                                     </div>
                                     <div className="font-bold px-5 text-[20px]">{item?.placeName}</div>
                                     <CardContent className="py-0 font-medium my-0">
-                                        <span>{item?.description.slice(0, 100)}</span>
+                                        <span className="text-gray-600">{item?.description.slice(0, 100)}</span>
                                     </CardContent>
                                     <CardContent className="flex items-center justify-between bg-[#F4F4F4] gap-2 py-4">
                                         <div className="flex items-center gap-2">

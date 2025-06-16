@@ -158,3 +158,19 @@
     @apply bg-background text-foreground;
   }
 } */
+
+.underlined {
+  position: relative;
+  margin-right: 1rem;
+}
+.underlined:after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  height: 20px;
+  width: 100%;
+  border: solid 3px rgb(1, 102, 48);
+  border-color: rgb(1, 102, 48) transparent transparent transparent;
+  border-radius: 50%;
+}

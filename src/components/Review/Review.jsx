@@ -4,8 +4,7 @@ import React from 'react'
 import { CarouselPlugin } from '../Slider'
 
 function Review() {
-   console.log(data)
-
+  
     return (
         <div>
             <CarouselPlugin data={data}/>
