@@ -8,39 +8,37 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import React from "react";
+import Image from "next/image";
 
-function Categories() {
-  const categories = [
-    { name: "Fresh Eggs & Egg Products", icon: "🍽️" },
-    { name: "Dairy Products", icon: "🥛" },
-    { name: "Meat & Poultry", icon: "🥩" },
-    { name: "Grains & Cereals", icon: "🌾" },
-    { name: "Fruits & Vegetables", icon: "🥦" },
-    { name: "Oils & Fats", icon: "🧈" },
-    { name: "Confectionery & Snacks", icon: "🍬" },
-    { name: "Bakery & Pastry Products", icon: "🥐" },
-    { name: "Beverages", icon: "🥤" },
-    { name: "Canned & Preserved Foods", icon: "🥫" },
-    { name: "Dry Food & Pulses", icon: "🌰" },
-    { name: "Spices, Herbs & Condiments", icon: "🧂" },
-    { name: "Frozen & Ready-to-Eat Foods", icon: "❄️" },
-    { name: "Baby Food & Nutrition Products", icon: "🍼" },
-  ];
+function Categories({ data }) {
+  console.log(data)
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" className="text-green-700 w-full">
-        Categories
+          Categories
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-full">
-        {categories.map((category, index) => (
+        {data?.map((category, index) => (
           <DropdownMenuItem
             key={index}
             className="flex items-center space-x-2 cursor-pointer"
           >
-            <span>{category.icon}</span>
+            {category?.photo?.thumbnail
+              ? (
+                <Image
+                  src={category.photo.thumbnail}
+                  width={20}
+                  height={20}
+                  className="rounded-full"
+                  alt="category photo"
+                />
+              )
+              : (
+                <div className="w-5 h-5 rounded-full bg-gray-200" /> // or use a default icon
+              )}
             <span>{category.name}</span>
           </DropdownMenuItem>
         ))}

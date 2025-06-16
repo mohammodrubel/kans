@@ -1,6 +1,6 @@
 import BestSallingPartOne from "@/components/BestSallingPartOne"
 import BestSallingPartTwo from "@/components/BestSallingPartTwo"
-import Categories from "@/components/Categories"
+import CategoriesWarpar from "@/components/CategoriesWarpar"
 import FeaturedProducts from "@/components/FeaturedProducts"
 import KeyFeatchers from "@/components/KeyFeatchers"
 import MajorTopVendor from "@/components/MajorTopVendor"
@@ -26,7 +26,7 @@ export default function Home() {
             <div className="bg-white rounded-lg p-4 shadow-sm mb-6">
               <h2 className="font-bold text-lg mb-4">Categories</h2>
               <ul className="space-y-3">
-              <Categories/>
+              <CategoriesWarpar/>
               </ul>
             </div>
 
