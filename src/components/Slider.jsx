@@ -20,7 +20,7 @@ export function CarouselPlugin({ data }) {
     )
 
     return (
-        <div className="container py-10 mx-auto">
+        <div className="relative container mx-auto">
             <Carousel
                 plugins={[plugin.current]}
                 className="w-full"
@@ -29,7 +29,7 @@ export function CarouselPlugin({ data }) {
             >
                 <CarouselContent>
                     {data.map((item, index) => (
-                        <CarouselItem key={index} className="sm:basis-1/1 md:basis-1/2  xl:basis-1/3">
+                        <CarouselItem key={index} className="sm:basis-1/1 md:basis-1/2 xl:basis-1/3">
                             <div className="p-1">
                                 <Card className="py-0 rounded-2xl gap-2">
                                     <div className="relative">
@@ -40,27 +40,30 @@ export function CarouselPlugin({ data }) {
                                     </div>
                                     <div className="font-bold px-5 text-[20px]">{item?.placeName}</div>
                                     <CardContent className="py-0 font-medium my-0">
-                                        <span className="">{item?.description.slice(0, 100)}</span>
+                                        <span>{item?.description.slice(0, 100)}</span>
                                     </CardContent>
                                     <CardContent className="flex items-center justify-between bg-[#F4F4F4] gap-2 py-4">
-                                        <div>
-
-                                            <Image src={item?.User?.image} className="rounded-full" width={60} height={60} alt="image" />
+                                        <div className="flex items-center gap-2">
+                                            <Image src={item?.User?.image} className="rounded-full" width={60} height={60} alt="user" />
                                             <div>
                                                 <div className="text-[20px] font-bold">{item?.User?.userName}</div>
                                                 <div className="text-gray-500">{item?.User?.position}</div>
                                             </div>
                                         </div>
-                                        <Button className="bg-[#f8f3f3] hover:bg-[#f8f3f3] cursor-pointer shadow text-gray-700 capitalize">{item?.User?.placeName}</Button>
-
+                                        <Button className="bg-[#f8f3f3] hover:bg-[#f8f3f3] cursor-pointer shadow text-gray-700 capitalize">
+                                            {item?.User?.placeName}
+                                        </Button>
                                     </CardContent>
                                 </Card>
                             </div>
                         </CarouselItem>
                     ))}
                 </CarouselContent>
-                <CarouselPrevious />
-                <CarouselNext />
+
+                    {/* carosel indicator off  */}
+                {/* Responsive navigation buttons */}
+                {/* <CarouselPrevious className="!left-2 sm:!left-4 md:!left-6 lg:!left-8 !top-[45%] z-10" />
+                <CarouselNext className="!right-2 sm:!right-4 md:!right-6 lg:!right-8 !top-[45%] z-10" /> */}
             </Carousel>
         </div>
     )

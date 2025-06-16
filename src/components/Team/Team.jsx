@@ -51,11 +51,11 @@ function Team() {
                     The dedicated professionals behind BestFoodImporters, bringing you quality and excellence in every import
                 </p>
 
-                <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 justify-center gap-5 mt-10'>
+                <div className='grid grid-cols-1 mx-auto md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 justify-center gap-5 mt-10'>
                     {teamdata.map((item, index) => (
-                        <div key={index} className='relative group w-[200px] h-[200px]'>
+                        <div key={index} className='relative mx-auto group w-[200px] h-[200px]'>
                             <Image
-                                className='rounded-2xl w-full h-full object-cover'
+                                className='rounded-2xl w-full h-full text-center object-cover'
                                 src={item.img}
                                 width={200}
                                 height={200}

@@ -17,7 +17,7 @@ async function MajorTopVendor() {
       <Carousel>
         <CarouselContent className="w-full">
           {data?.data?.map((item, index) => (
-            <CarouselItem key={item.id || index} className="relative h-[600px]">
+            <CarouselItem key={item.id || index} className="relative md:h-[600px]">
               <Image
                 src={item?.photo?.original_url}
                 alt={`slider image ${index + 1}`}
