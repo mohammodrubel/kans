@@ -34,13 +34,20 @@ export default function Home() {
             <div className="bg-white rounded-lg p-4 shadow-sm">
               <h2 className="font-bold text-lg mb-4">Major Top Vendor</h2>
               
-              <div className="bg-[#f5f5f0] rounded-lg p-2 mt-4 flex justify-center">
+              <div className=" rounded-lg p-2 mt-4">
                 <Image
                   src={banner}
                   alt="Vendor"
-                  width={250}
-                  height={250}
-                  className="h-auto w-auto"
+                  width={300}
+                  height={300}
+                  className="h-auto w-auto mt-5"
+                />
+                <Image
+                  src={banner}
+                  alt="Vendor"
+                  width={300}
+                  height={300}
+                  className="h-auto w-auto mt-5"
                 />
               </div>
             </div>
