@@ -5,7 +5,8 @@ import kiwi from '../assets/kiwi.jpg'
 import { Button } from './ui/button'
 import { Card, CardContent } from './ui/card'
 
-function OnSaleProduct() {
+const  OnSaleProduct = async()=> {
+
 
     const featuredProducts = [
         { name: "Apple", price: "5.50", img: apple },

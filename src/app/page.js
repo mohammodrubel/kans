@@ -12,9 +12,11 @@ import Review from "@/components/Review/Review"
 import Team from "@/components/Team/Team"
 import Image from "next/image"
 import banner from '../assets/demo.jpg'
+import FetcherProductWarper from "@/components/FetcherProductWarper"
+
 
 export default function Home() {
-   
+
   return (
     <>
     <ModalForStart/>
@@ -72,7 +74,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <FeaturedProducts/>
+      <FetcherProductWarper/>
       <Review/>
       <KeyFeatchers/>
       <Promotion/>
