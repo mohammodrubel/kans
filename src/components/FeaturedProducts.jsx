@@ -28,8 +28,6 @@ export function FeaturedProducts() {
 
     return (
         <div className="container mx-auto px-4">
-            <h2 className="text-2xl font-bold text-gray-700 mb-4">Featured Products</h2>
-
             <div className="grid grid-cols-1 md:grid-cols-12 items-center justify-center gap-4">
                 {/* Left side: 3 columns */}
                 <div className="md:col-span-3 md:h-[500px] p-4 rounded">
@@ -44,6 +42,7 @@ export function FeaturedProducts() {
 
                 {/* Right side: 9 columns */}
                 <div className="md:col-span-9">
+                     <h2 className="text-2xl font-bold text-gray-700 mb-4">Featured Products</h2>
                     <Carousel
                         plugins={[plugin.current]}
                         className="w-full"

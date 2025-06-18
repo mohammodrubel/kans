@@ -2,6 +2,7 @@
 
 import { Heart } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 import { useState } from "react"
 import { DetailsModal } from "./DetailsModal"
 import { Button } from "./ui/button"
@@ -36,11 +37,13 @@ function Product({ product }) {
           </div>
 
           <div className="flex justify-between items-center my-5">
-            <div className="px-2 space-y-3">
-              <h3 className="font-semibold text-lg text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors duration-200">
-                {product.name}
-              </h3>
-            </div>
+            <Link href={`/products/${product.id}`}>
+              <div className="px-2 space-y-3">
+                <h3 className="font-semibold text-lg text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors duration-200">
+                  {product.name}
+                </h3>
+              </div>
+            </Link>
             <Button variant="outline" size="sm" className="px-3 hover:bg-gray-50" onClick={openDetails}>
               Details
             </Button>

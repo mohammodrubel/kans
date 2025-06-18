@@ -28,7 +28,7 @@ export default function DeskTopMenu() {
         {/* Pricing */}
         <NavigationMenuItem>
           <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link href="/pricing">Pricing</Link>
+            <Link href="/products">Products</Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
 
