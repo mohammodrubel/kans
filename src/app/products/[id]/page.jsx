@@ -79,24 +79,12 @@ export default function ProductPage() {
 
                     <p className="text-muted-foreground leading-relaxed">{product.data?.product?.descrioptin || descrioptin}</p>
 
-                    {/* Quantity */}
-                    <div>
-                        <h3 className="font-semibold mb-3">Quantity</h3>
-                        <div className="flex items-center gap-3">
-                            <div className="flex items-center border rounded-md">
-                                <Button variant="ghost" size="sm"><Minus className="w-4 h-4" /></Button>
-                                <span className="px-4 py-2 min-w-[3rem] text-center">1</span>
-                                <Button variant="ghost" size="sm"><Plus className="w-4 h-4" /></Button>
-                            </div>
-                            <span className="text-sm text-muted-foreground">{product.total_quantity} available</span>
-                        </div>
-                    </div>
-
+                   
                     {/* Action Buttons */}
                     <div className="flex gap-3">
                         <Button size="lg" className="flex-1 bg-[#016630] hover:bg-[#016630]">
                             <ShoppingCart className="w-4 h-4 mr-2" />
-                            Add to Cart
+                            Call Now
                         </Button>
                         <Button variant="outline" size="lg"><Heart /></Button>
                         <Button variant="outline" size="lg"><Share2 className="w-4 h-4" /></Button>

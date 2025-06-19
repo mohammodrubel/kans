@@ -1,7 +1,8 @@
+
 import BestSallingPartOne from "@/components/BestSallingPartOne"
 import BestSallingPartTwo from "@/components/BestSallingPartTwo"
 import CategoriesWarpar from "@/components/CategoriesWarpar"
-import FeaturedProducts from "@/components/FeaturedProducts"
+import FetcherProductWarper from "@/components/FetcherProductWarper"
 import KeyFeatchers from "@/components/KeyFeatchers"
 import MajorTopVendor from "@/components/MajorTopVendor"
 import { ModalForStart } from "@/components/ModalForStart"
@@ -12,7 +13,6 @@ import Review from "@/components/Review/Review"
 import Team from "@/components/Team/Team"
 import Image from "next/image"
 import banner from '../assets/demo.jpg'
-import FetcherProductWarper from "@/components/FetcherProductWarper"
 
 
 export default function Home() {
