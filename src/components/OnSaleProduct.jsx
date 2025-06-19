@@ -1,13 +1,8 @@
 'use client'
-import { getOnsaleProduct } from '@/app/api/0nSale'
-import Image from 'next/image'
+
 import { useEffect, useState } from 'react'
-import apple from '../assets/apple.jpg'
-import Brown from '../assets/BrownOnion.jpg'
-import kiwi from '../assets/kiwi.jpg'
-import { Button } from './ui/button'
-import { Card, CardContent } from './ui/card'
 import Product from './Product'
+import { getOnSaleProduct } from '@/app/api/0nSale'
 
 const OnSaleProduct = () => {
     const [onSaleProduct, setOnSaleProduct] = useState([])
@@ -16,9 +11,9 @@ const OnSaleProduct = () => {
     useEffect(() => {
         const fetchOnSaleProduct = async () => {
             try {
-                const res = await getOnsaleProduct()
+                const res = await getOnSaleProduct()
                 const data = await res
-                console.log(data)
+                console.log(res)
                 setOnSaleProduct(data?.data || [])
                 setOnSaleProductLoading(false)
             } catch (error) {
@@ -30,13 +25,13 @@ const OnSaleProduct = () => {
 
         fetchOnSaleProduct()
     }, [])
-    
-console.log(onSaleProduct)
+
+    console.log(onSaleProduct)
     return (
         <div className="mb-2 p-3 bg-white rounded-2xl">
             <h2 className="font-bold text-xl mb-2">On Sale</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {onSaleProduct?.slice(0,3).map((product, index) => <Product key={product?.id} product={product}/>)}
+                {onSaleProduct?.slice(0, 3).map((product, index) => <Product key={product?.id} product={product} />)}
             </div>
         </div>
     )

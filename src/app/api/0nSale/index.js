@@ -1,20 +1,17 @@
 "use server"
 
-export const getOnsaleProduct = async () => {
+export const getOnSaleProduct = async () => {
   try {
     const res = await fetch('https://egg.dordham.com/api/v1/on-sale', {
       cache: 'no-store'
     })
-    
-    console.log('Response:', res)
-
-    // Check if the response is okay
+  
     if (!res.ok) {
       throw new Error(`Failed to fetch: ${res.status} ${res.statusText}`)
     }
 
     const data = await res.json() 
-    
+    console.log(data)
     return data
   } catch (error) {
     console.error("Error fetching categories:", error)
