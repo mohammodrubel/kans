@@ -1,10 +1,10 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import Product from '@/components/Product'
 import ProductHeader from '@/components/ProductHeader'
 import ProductPagination from '@/components/ProductPagination'
 import ProductSidebar from '@/components/ProductSidebar'
+import { useEffect, useState } from 'react'
 import { getProductCategory } from '../api/category'
 import { getProduct } from '../api/product'
 
@@ -15,12 +15,16 @@ function Page({ children }) {
   const [loadingProduct, setLoadingProduct] = useState(true)
   const [search, setSearch] = useState('')
   const [selectCategory, setSelectCategory] = useState('')
+  const [page, setPage] = useState(1)
+  const [limit, setLimit] = useState(8)
 
   const metaData = [
     { name: 'search', value: search },
     { name: 'category', value: selectCategory },
+    { name: 'limit', value: limit },
+    { page: 'page', value: page }
   ]
-
+console.log(selectCategory)
   useEffect(() => {
     const fetchCategory = async () => {
       try {
@@ -52,14 +56,11 @@ function Page({ children }) {
 
   return (
     <div className="container mx-auto px-5">
-      <ProductHeader search={search} setSearch={setSearch} />
+      <ProductHeader search={search} setSearch={setSearch} categoryData={categoryData}setSelectCategory={setSelectCategory} />
 
       <div className="flex gap-5 mt-5">
-        <div className="hidden w-[350px] md:block">
-          <ProductSidebar
-            category={categoryData}
-            setSelectCategory={setSelectCategory}
-          />
+        <div className="hidden w-[300px] md:block">
+          <ProductSidebar category={categoryData} setSelectCategory={setSelectCategory} />
         </div>
 
         <div className="flex-1">

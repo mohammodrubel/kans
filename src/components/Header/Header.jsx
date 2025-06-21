@@ -18,11 +18,6 @@ function Header() {
         </div>
 
         <div className="flex items-center gap-4">
-          {/* Language dropdown - Desktop only */}
-          <div className="hidden xl:block">
-            <NavbarDropDownLanguage />
-          </div>
-
           {/* Login + MobileMenu Toggle */}
           <div className="flex items-center gap-2">
             <User />
