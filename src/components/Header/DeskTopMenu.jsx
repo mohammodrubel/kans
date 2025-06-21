@@ -32,23 +32,7 @@ export default function DeskTopMenu() {
           </NavigationMenuLink>
         </NavigationMenuItem>
 
-        {/* Services */}
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>Services</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid gap-2 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-              <ListItem href="/services/design" title="Design">
-                Custom UI/UX design services
-              </ListItem>
-              <ListItem href="/services/development" title="Development">
-                Full-stack development solutions
-              </ListItem>
-              <ListItem href="/services/consulting" title="Consulting">
-                Expert advice for your projects
-              </ListItem>
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
+        
 
         {/* Customers */}
         <NavigationMenuItem>
@@ -57,17 +41,6 @@ export default function DeskTopMenu() {
           </NavigationMenuLink>
         </NavigationMenuItem>
 
-        {/* Company */}
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>Company</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid w-[200px] gap-2 p-4">
-              <ListItem href="/about" title="About Us">
-                Learn about our company
-              </ListItem>
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
 
         {/* Contact Us */}
         <NavigationMenuItem>

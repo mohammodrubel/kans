@@ -85,9 +85,6 @@ console.log(selectCategory)
         </div>
       </div>
 
-      <div className="mt-10 mb-10">
-        <ProductPagination />
-      </div>
     </div>
   )
 }
