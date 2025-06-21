@@ -1,12 +1,9 @@
-import { ChevronDown, ChevronUp, X } from 'lucide-react';
-import { useState } from 'react';
+import { X } from 'lucide-react';
 import { Button } from './ui/button';
 import { Label } from './ui/label';
 import { RadioGroup, RadioGroupItem } from './ui/radio-group';
 
-function ProductSidebar({ category }) {
-  const [showCategory, setShowCategory] = useState(false);
-
+function ProductSidebar({ category,setSelectCategory }) {
   const data = category?.data;
 
   return (
@@ -20,24 +17,14 @@ function ProductSidebar({ category }) {
         </Button>
       </div>
 
-      {/* Category Filter Toggle */}
-      <div
-        className='flex justify-between px-2 items-center cursor-pointer'
-        onClick={() => setShowCategory(!showCategory)}
-      >
-        <h2 className='my-4 font-bold hover:underline m-2'>Category</h2>
-        {showCategory ? <ChevronUp /> : <ChevronDown />}
-      </div>
-
-      {/* Always in DOM: animated open/close */}
-      <div
-        className={`transition-all duration-700 ease-in-out overflow-hidden ${showCategory ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 pointer-events-none'
-          }`}
-      >
+      {/* Category Filter */}
+      <div className='px-2 mt-4'>
+        <h2 className='font-bold mb-2'>Category</h2>
         <RadioGroup defaultValue="comfortable">
           {data?.map((item) => (
             <div key={item?.id} className="flex items-center gap-3 mb-2">
               <RadioGroupItem
+              onClick={()=>setSelectCategory(item?.id)}
                 className="text-[#016630]"
                 value={String(item?.id)}
                 id={String(item?.id)}
@@ -47,11 +34,8 @@ function ProductSidebar({ category }) {
           ))}
         </RadioGroup>
       </div>
-
     </div>
   );
 }
 
 export default ProductSidebar;
-
-

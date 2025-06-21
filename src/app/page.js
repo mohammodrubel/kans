@@ -2,7 +2,7 @@
 import BestSallingPartOne from "@/components/BestSallingPartOne"
 import BestSallingPartTwo from "@/components/BestSallingPartTwo"
 import CategoriesWarpar from "@/components/CategoriesWarpar"
-import FetcherProductWarper from "@/components/FetcherProductWarper"
+import { FeaturedProducts } from "@/components/FeaturedProducts"
 import KeyFeatchers from "@/components/KeyFeatchers"
 import MajorTopVendor from "@/components/MajorTopVendor"
 import { ModalForStart } from "@/components/ModalForStart"
@@ -74,7 +74,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <FetcherProductWarper/>
+      <FeaturedProducts/>
       <Review/>
       <KeyFeatchers/>
       <Promotion/>

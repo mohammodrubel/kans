@@ -1,65 +1,94 @@
-"use client"
+'use client'
 
+import { useEffect, useState } from 'react'
 import Product from '@/components/Product'
 import ProductHeader from '@/components/ProductHeader'
 import ProductPagination from '@/components/ProductPagination'
 import ProductSidebar from '@/components/ProductSidebar'
-import { useEffect, useState } from 'react'
 import { getProductCategory } from '../api/category'
 import { getProduct } from '../api/product'
 
+function Page({ children }) {
+  const [categoryData, setCategoryData] = useState(null)
+  const [categoryLoading, setCategoryLoading] = useState(true)
+  const [productData, setProductData] = useState(null)
+  const [loadingProduct, setLoadingProduct] = useState(true)
+  const [search, setSearch] = useState('')
+  const [selectCategory, setSelectCategory] = useState('')
 
-function Layout({ children }) {
-    const [categoryData, setCategoryData] = useState(null)
-    const [categoryLoading, setCategoryLoading] = useState(true)
-    const [productData, setProductData] = useState(null)
-    const [loadingProduct, setLoadingProduct] = useState(true)
+  const metaData = [
+    { name: 'search', value: search },
+    { name: 'category', value: selectCategory },
+  ]
 
-    useEffect(() => {
-        const fetchCategory = async () => {
-            try {
-                const data = await getProductCategory()
-                setCategoryData(data)
-            } catch (error) {
-                console.error(error)
-            } finally {
-                setCategoryLoading(false)
-            }
-        }
+  useEffect(() => {
+    const fetchCategory = async () => {
+      try {
+        const data = await getProductCategory()
+        setCategoryData(data)
+      } catch (error) {
+        console.error(error)
+      } finally {
+        setCategoryLoading(false)
+      }
+    }
 
-        const fetchProduct = async () => {
-            try {
-                const data = await getProduct()
-                setProductData(data)
-            } catch (error) {
-                console.error(error)
-            } finally {
-                setLoadingProduct(false)
-            }
-        }
+    const fetchProduct = async () => {
+      try {
+        const data = await getProduct(metaData)
+        setProductData(data)
+      } catch (error) {
+        console.error(error)
+      } finally {
+        setLoadingProduct(false)
+      }
+    }
 
-        fetchCategory()
-        fetchProduct()
-    }, [])
+    fetchCategory()
+    fetchProduct()
+  }, [search, selectCategory])
 
-    return (
-        <div className='container mx-auto px-5'>
-            <ProductHeader />
-            <div className='flex gap-5 mt-5'>
-                <div className='hidden w-[350px] md:block'>
-                    <ProductSidebar category={categoryData} />
-                </div>
-                <div className='grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-4 mx-auto'>
-                    {
-                        productData?.data?.map((item) => (
-                            <Product key={item?.id} product={item} />
-                        ))
-                    }
-                </div>
-            </div>
-            <div className='mt-10 mb-10'><ProductPagination /></div>
+  const products = productData?.data || []
+
+  return (
+    <div className="container mx-auto px-5">
+      <ProductHeader search={search} setSearch={setSearch} />
+
+      <div className="flex gap-5 mt-5">
+        <div className="hidden w-[350px] md:block">
+          <ProductSidebar
+            category={categoryData}
+            setSelectCategory={setSelectCategory}
+          />
         </div>
-    )
+
+        <div className="flex-1">
+          <div
+            className={`grid gap-4 justify-center
+              grid-cols-1
+              ${products.length === 1 ? 'md:grid-cols-1' : 'md:grid-cols-2'}
+              ${products.length <= 2 ? 'lg:grid-cols-2' : 'lg:grid-cols-3'}
+              ${products.length <= 3 ? 'xl:grid-cols-3' : 'xl:grid-cols-4'}
+            `}
+          >
+            {products.length > 0 ? (
+              products.map((item) => (
+                <Product key={item?.id} product={item} />
+              ))
+            ) : (
+              <p className="col-span-full text-center text-gray-500">
+                No products found.
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-10 mb-10">
+        <ProductPagination />
+      </div>
+    </div>
+  )
 }
 
-export default Layout
+export default Page

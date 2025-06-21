@@ -57,7 +57,7 @@ export function ModalForStart() {
                     </DialogClose>
                     <Button type="submit">Save changes</Button>
                 </DialogFooter> */}
-                <Button type="submit">Get Template</Button>
+                <Button className="bg-[#016630] hover:bg-[#016630]" type="submit">Get Template</Button>
                 <div className="text-gray-700">By submitting this form, you are agreeing to BestDataNet <span className="text-[#016630]!">Privacy Policy</span> and <span className="text-[#016630]!">Terms of Use</span></div>
             </DialogContent>
         </Dialog>

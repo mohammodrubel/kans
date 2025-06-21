@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from './ui/select';
 
-function ProductHeader() {
+function ProductHeader({search,setSearch}) {
   return (
     <div>
       <div className="relative p-5 border rounded-2xl flex items-center gap-5">
@@ -18,6 +18,7 @@ function ProductHeader() {
         <div className="relative w-full">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           <Input
+            onChange={(e)=>setSearch(e.target.value)}
             type="text"
             placeholder="Search"
             className="pl-10 text-[#016630] caret-[#016630] focus:outline-none focus:ring-2 focus:ring-[#016630] focus:border-[#016630] focus:shadow-md focus:shadow-[#016630]/30"
