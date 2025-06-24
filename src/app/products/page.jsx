@@ -26,7 +26,7 @@ function Page({ children }) {
     { name: 'limit', value: limit },
     { page: 'page', value: page }
   ]
-  console.log(selectCategory)
+
   useEffect(() => {
     const fetchCategory = async () => {
       try {

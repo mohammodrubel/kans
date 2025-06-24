@@ -19,10 +19,24 @@ import img6 from '../../assets/img6.jpg'
 import testimonialimg from '../../assets/testimonial.jpg'
 
 import { ChevronRightIcon, StarIcon, UserIcon } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { getAllBlog } from '../api/blog'
 
 function page() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [data, setData] = useState([])
+  useEffect(() => {
+
+    const fetchBlog = async () => {
+      try {
+        const data = await getAllBlog()
+        setData(data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchBlog()
+  }, [])
 
   const clientLogos = [
     { name: "Client 1", logo: customer1 },
@@ -180,19 +194,19 @@ function page() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {successStories.map((story) => (
+            {data?.data?.map((story) => (
               <div
                 key={story.id}
                 className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
               >
                 <div className="h-48 overflow-hidden">
-                  <Image width={500} height={500} alt='image' src={story?.image}
+                  <Image width={500} height={500} alt='image' src={story?.photo?.original_url}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-semibold text-gray-900 mb-3">{story.title}</h3>
-                  <p className="text-gray-600 mb-6 leading-relaxed">{story.description}</p>
+                  <p>{story.description?.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, '').trim()}</p>
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
                       {story.avatar ? (

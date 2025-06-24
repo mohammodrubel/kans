@@ -83,8 +83,17 @@ function Team() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+       {/* Custom Arrow Buttons */}
+        <CarouselPrevious 
+          className="left-4 hidden md:flex" 
+          variant="default"
+          size="lg"
+        />
+        <CarouselNext 
+          className="right-4 hidden md:flex" 
+          variant="default"
+          size="lg"
+        />
       </Carousel>
     </div>
   )
