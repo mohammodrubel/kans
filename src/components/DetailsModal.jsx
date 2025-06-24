@@ -2,7 +2,7 @@
 
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { DialogTitle } from "@radix-ui/react-dialog"
-import { PhoneCall } from "lucide-react"
+import { Heart, PhoneCall, RotateCcw, Share2, Shield, ShoppingCart, Truck } from "lucide-react"
 import Image from "next/image"
 import { useState } from "react"
 import { Badge } from "./ui/badge"
@@ -37,12 +37,45 @@ export function DetailsModal({ product, isOpen, onClose }) {
                             <p>{product?.description || descrioption}</p>
                             <h2 className="mt-4 text-2xl font-bold text-green-500"><span className="text-gray-700!">Price :</span> ${product?.price}</h2>
                             <div className="flex gap-5 mt-10">
-                                <Button className="px-8 bg-[#016630]">  <PhoneCall /> Call Us</Button>
                                 <Button className="px-8 bg-[#016630]">Send Inquiry</Button>
                             </div>
                         </div>
                     </div>
                 </div>
+                {/* Action Buttons */}
+                    <div className="flex gap-3">
+                        <Button size="lg" className="flex-1 bg-[#016630] hover:bg-[#016630]">
+                            <ShoppingCart className="w-4 h-4 mr-2" />
+                            Call Now
+                        </Button>
+                        <Button variant="outline" size="lg"><Heart /></Button>
+                        <Button variant="outline" size="lg"><Share2 className="w-4 h-4" /></Button>
+                    </div>
+
+                    {/* Shipping Info */}
+                    <div className="grid grid-cols-3 gap-4 text-center">
+                        <div className="flex flex-col items-center gap-2">
+                            <Truck className="w-6 h-6 text-primary" />
+                            <div>
+                                <p className="font-semibold text-sm">Free Shipping</p>
+                                <p className="text-xs text-muted-foreground">Orders over $50</p>
+                            </div>
+                        </div>
+                        <div className="flex flex-col items-center gap-2">
+                            <Shield className="w-6 h-6 text-primary" />
+                            <div>
+                                <p className="font-semibold text-sm">2 Year Warranty</p>
+                                <p className="text-xs text-muted-foreground">Full coverage</p>
+                            </div>
+                        </div>
+                        <div className="flex flex-col items-center gap-2">
+                            <RotateCcw className="w-6 h-6 text-primary" />
+                            <div>
+                                <p className="font-semibold text-sm">30-Day Returns</p>
+                                <p className="text-xs text-muted-foreground">No questions asked</p>
+                            </div>
+                        </div>
+                    </div>
 
             </DialogContent>
         </Dialog>
