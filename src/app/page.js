@@ -6,18 +6,18 @@ import { FeaturedProducts } from "@/components/FeaturedProducts"
 import KeyFeatchers from "@/components/KeyFeatchers"
 import MajorTopVendor from "@/components/MajorTopVendor"
 import { ModalForStart } from "@/components/ModalForStart"
-import OnSale from "@/components/OnSale"
 import OnSaleProduct from "@/components/OnSaleProduct"
 import Promotion from "@/components/Promotion"
 import Review from "@/components/Review/Review"
 import Team from "@/components/Team/Team"
+import { ChevronRightIcon } from "lucide-react"
 import Image from "next/image"
 import banner from '../assets/sale2.png'
-import banne2 from '../assets/sale3.png'
+import Customar from "@/components/Customar/Customar"
 
 
 export default function Home() {
-
+ 
   return (
     <>
     <ModalForStart/>
@@ -69,6 +69,7 @@ export default function Home() {
         </div>
       </div>
       <FeaturedProducts/>
+      <Customar/>
       <Review/>
       <KeyFeatchers/>
       <Promotion/>

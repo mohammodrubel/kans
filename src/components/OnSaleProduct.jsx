@@ -7,7 +7,7 @@ import { getOnSaleProduct } from '@/app/api/0nSale'
 const OnSaleProduct = () => {
     const [onSaleProduct, setOnSaleProduct] = useState([])
     const [onSaleProductLoading, setOnSaleProductLoading] = useState(true)
-    console.log(onSaleProduct)
+
     useEffect(() => {
         const fetchOnSaleProduct = async () => {
             try {
@@ -26,7 +26,7 @@ const OnSaleProduct = () => {
         fetchOnSaleProduct()
     }, [])
 
-    console.log(onSaleProduct)
+
     return (
         <div className="mb-2 p-3 bg-white rounded-2xl">
             <h2 className="font-bold text-xl mb-2">On Sale</h2>
