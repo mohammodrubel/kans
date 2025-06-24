@@ -1,28 +1,22 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
+import { Card, CardContent } from "./ui/card";
 
 function Categories({ data }) {
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="text-green-700 w-full">
-          Categories
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-full">
-        {data?.map((category, index) => (
-          <DropdownMenuItem
-            key={index}
-            className="flex items-center space-x-2 cursor-pointer"
-          >
-            {category?.photo?.thumbnail
+    <>
+      <Card>
+        <CardContent className="p-4">
+          <h3 className="font-semibold mb-3 text-green-600">Categories</h3>
+          <ul className="space-y-2 text-sm">
+            {
+              data?.map((item,index)=> <li key={item?.id} className="flex mt-2">
+                {item?.photo?.thumbnail
               ? (
                 <Image
-                  src={category.photo.thumbnail}
+                  src={item.photo.thumbnail}
                   width={20}
                   height={20}
                   className="rounded-full"
@@ -30,13 +24,15 @@ function Categories({ data }) {
                 />
               )
               : (
-                <div className="w-5 h-5 rounded-full bg-gray-200" /> // or use a default icon
+                <div className="w-5 h-5 rounded-full bg-gray-200" /> 
               )}
-            <span>{category.name}</span>
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+                <div className="mx-2">{item?.name}</div>
+              </li>)
+            }
+          </ul>
+        </CardContent>
+      </Card>
+    </>
   );
 }
 

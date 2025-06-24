@@ -3,7 +3,7 @@
 export const getOnSaleProduct = async () => {
   try {
     const res = await fetch('https://egg.dordham.com/api/v1/on-sale', {
-      cache: 'no-store'
+      cache: 'force-cache'
     })
   
     if (!res.ok) {

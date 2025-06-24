@@ -7,7 +7,7 @@ import { getOnSaleProduct } from '@/app/api/0nSale'
 const OnSaleProduct = () => {
     const [onSaleProduct, setOnSaleProduct] = useState([])
     const [onSaleProductLoading, setOnSaleProductLoading] = useState(true)
-
+    console.log(onSaleProduct)
     useEffect(() => {
         const fetchOnSaleProduct = async () => {
             try {

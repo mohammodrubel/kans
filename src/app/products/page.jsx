@@ -2,8 +2,8 @@
 
 import Product from '@/components/Product'
 import ProductHeader from '@/components/ProductHeader'
-import ProductPagination from '@/components/ProductPagination'
 import ProductSidebar from '@/components/ProductSidebar'
+import { useParams, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { getProductCategory } from '../api/category'
 import { getProduct } from '../api/product'
@@ -17,14 +17,16 @@ function Page({ children }) {
   const [selectCategory, setSelectCategory] = useState('')
   const [page, setPage] = useState(1)
   const [limit, setLimit] = useState(8)
+ const searchParams = useSearchParams();
+  const id = searchParams.get("id"); 
 
   const metaData = [
     { name: 'search', value: search },
-    { name: 'category', value: selectCategory },
+    { name: 'category', value: selectCategory | id },
     { name: 'limit', value: limit },
     { page: 'page', value: page }
   ]
-console.log(selectCategory)
+  console.log(selectCategory)
   useEffect(() => {
     const fetchCategory = async () => {
       try {
@@ -56,7 +58,7 @@ console.log(selectCategory)
 
   return (
     <div className="container mx-auto px-5">
-      <ProductHeader search={search} setSearch={setSearch} categoryData={categoryData}setSelectCategory={setSelectCategory} />
+      <ProductHeader search={search} setSearch={setSearch} categoryData={categoryData} setSelectCategory={setSelectCategory} />
 
       <div className="flex gap-5 mt-5">
         <div className="hidden w-[300px] md:block">

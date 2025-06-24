@@ -12,7 +12,8 @@ import Promotion from "@/components/Promotion"
 import Review from "@/components/Review/Review"
 import Team from "@/components/Team/Team"
 import Image from "next/image"
-import banner from '../assets/demo.jpg'
+import banner from '../assets/sale2.png'
+import banne2 from '../assets/sale3.png'
 
 
 export default function Home() {
@@ -24,7 +25,7 @@ export default function Home() {
       <div className="container mx-auto px-4 py-2">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Sidebar */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-3">
             <div className="bg-white rounded-lg p-4 shadow-sm mb-6">
               <h2 className="font-bold text-lg mb-4">Categories</h2>
               <ul className="space-y-3">
@@ -32,33 +33,26 @@ export default function Home() {
               </ul>
             </div>
 
-            <OnSale />
+            {/* <OnSale /> */}
             <div className="bg-white rounded-lg p-4 shadow-sm">
               <h2 className="font-bold text-lg mb-4">Major Top Vendor</h2>
               
-              <div className=" rounded-lg p-2 mt-4">
+                <div className=" rounded-lg mx-auto text-center p-2 mt-4">
                 <Image
                   src={banner}
                   alt="Vendor"
                   width={300}
-                  height={300}
-                  className="h-auto w-auto mt-5"
-                />
-                <Image
-                  src={banner}
-                  alt="Vendor"
-                  width={300}
-                  height={300}
-                  className="h-auto w-auto mt-5"
-                />
+                  height={400}
+                  className="h-auto mx-auto text-center w-full mt-5"
+                /> 
               </div>
             </div>
           </div>
 
           {/* Main Content */}
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-6">
             {/* Hero Banner */}
-            <div className="bg-[#e8f4e8] rounded-lg overflow-hidden mb-6 relative">
+            <div className="bg-[#e8f4e8] z-0! rounded-lg overflow-hidden mb-6 relative">
               <MajorTopVendor />
             </div>
 
