@@ -11,10 +11,6 @@ function ProductSidebar({ category,setSelectCategory }) {
       {/* Header */}
       <div className='flex justify-between items-center'>
         <h2 className='text-2xl font-medium'>Filter</h2>
-        <Button className="bg-[#016630] text-white hover:bg-[#014d27]">
-          <X className="w-4 h-4 mr-2" />
-          Clear Filter
-        </Button>
       </div>
 
       {/* Category Filter */}

@@ -37,6 +37,7 @@ function page() {
     }
     fetchBlog()
   }, [])
+  console.log(data)
 
   const clientLogos = [
     { name: "Client 1", logo: customer1 },
@@ -50,69 +51,7 @@ function page() {
     { name: "Client 9", logo: customer9 },
   ]
 
-  const successStories = [
-    {
-      id: 1,
-      image: img1,
-      title: "Premium Coffee Beans Import Success",
-      description:
-        "How we helped a specialty coffee roaster source premium beans from Ethiopia and Colombia, resulting in 40% increase in customer satisfaction.",
-      author: "Sarah Johnson",
-      role: "Import Manager",
-      avatar: avatar,
-    },
-    {
-      id: 2,
-      image: img2,
-      title: "Organic Spice Distribution Network",
-      description:
-        "Establishing a comprehensive distribution network for organic spices across North America, connecting 50+ suppliers with retailers.",
-      author: "Michael Chen",
-      role: "Supply Chain Director",
-      avatar: avatar,
-    },
-    {
-      id: 3,
-      image: img3,
-      title: "Sustainable Seafood Sourcing",
-      description:
-        "Implementing sustainable seafood sourcing practices that reduced costs by 25% while maintaining quality standards.",
-      author: "Emma Rodriguez",
-      role: "Sustainability Manager",
-      avatar: avatar,
-    },
-    {
-      id: 4,
-      image: img4,
-      title: "Exotic Fruit Import Expansion",
-      description:
-        "Successfully expanded exotic fruit imports from Southeast Asia, introducing 15 new varieties to the North American market.",
-      author: "David Kim",
-      role: "Product Development",
-      avatar: avatar,
-    },
-    {
-      id: 5,
-      image: img5,
-      title: "Artisan Cheese Collection",
-      description:
-        "Curated a premium artisan cheese collection from European producers, achieving 60% profit margin increase.",
-      author: "Lisa Thompson",
-      role: "Category Manager",
-      avatar: avatar,
-    },
-    {
-      id: 6,
-      image: img6,
-      title: "Bulk Grain Trading Platform",
-      description:
-        "Developed an innovative trading platform for bulk grain imports, streamlining operations for 200+ agricultural businesses.",
-      author: "Robert Wilson",
-      role: "Technology Director",
-      avatar: avatar,
-    },
-  ]
-
+  
   const testimonials = [
     {
       quote:
@@ -206,21 +145,10 @@ function page() {
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-semibold text-gray-900 mb-3">{story.title}</h3>
-                  <p>{story.description?.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, '').trim()}</p>
-                  <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
-                      {story.avatar ? (
-                        <Image width={120} height={120} src={story?.avatar} alt="avatar"
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <UserIcon className="h-6 w-6 text-gray-400" />
-                      )}
-                    </div>
-                    <div className="ml-3">
-                      <p className="font-semibold text-gray-900">{story.author}</p>
-                      <p className="text-sm text-gray-600">{story.role}</p>
-                    </div>
+                  <p className=''>{story.description?.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, '').trim()}</p>
+                  <div className='flex bg-gray-100 rounded-2xl gap-2'>
+                    <p>{story?.author?.first_name}</p>
+                    <p>{story?.author?.last_name}</p>
                   </div>
                 </div>
               </div>
