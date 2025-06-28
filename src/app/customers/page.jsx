@@ -21,6 +21,8 @@ import testimonialimg from '../../assets/testimonial.jpg'
 import { ChevronRightIcon, StarIcon, UserIcon } from "lucide-react"
 import { useEffect, useState } from "react"
 import { getAllBlog } from '../api/blog'
+import { getProductSuccessStory } from '../api/successStory'
+import Link from 'next/link'
 
 function page() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -29,7 +31,7 @@ function page() {
 
     const fetchBlog = async () => {
       try {
-        const data = await getAllBlog()
+        const data = await getProductSuccessStory()
         setData(data)
       } catch (error) {
         console.log(error)
@@ -37,8 +39,6 @@ function page() {
     }
     fetchBlog()
   }, [])
-  console.log(data)
-
   const clientLogos = [
     { name: "Client 1", logo: customer1 },
     { name: "Client 2", logo: customer2 },
@@ -51,7 +51,8 @@ function page() {
     { name: "Client 9", logo: customer9 },
   ]
 
-  
+
+
   const testimonials = [
     {
       quote:
@@ -99,9 +100,11 @@ function page() {
                   Explore Success Stories
                   <ChevronRightIcon className="ml-2 h-5 w-5" />
                 </button>
+                <Link href='/client'>
                 <button className="border border-gray-300 hover:border-gray-400 text-gray-700 px-8 py-3 rounded-lg font-medium transition-colors">
                   View All Clients
                 </button>
+                </Link>
               </div>
             </div>
             <div className="bg-white p-10 rounded-2xl shadow-lg">
@@ -139,7 +142,11 @@ function page() {
                 className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
               >
                 <div className="h-48 overflow-hidden">
-                  <Image width={500} height={500} alt='image' src={story?.photo?.original_url}
+                  <Image
+                    width={500}
+                    height={500}
+                    src={story?.photo?.original_url || '/default-image.jpg'} // fallback image in public folder
+                    alt='image customers'
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                   />
                 </div>

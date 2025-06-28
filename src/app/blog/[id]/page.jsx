@@ -112,91 +112,14 @@ function Page() {
                                     {blog.description.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ')}
                                 </p>
 
-                                <p>
-                                    Eating an apple daily can reduce the risk of diabetes and even contribute to healthier skin. Whether
-                                    eaten raw, baked, or juiced, apples are versatile and easy to include in any diet. Their natural
-                                    sweetness makes them a great alternative to sugary snacks, helping you maintain energy levels and
-                                    support a balanced, healthy lifestyle.
-                                </p>
-
-                                {/* Key Benefits Section */}
-                                <div className="bg-green-50 rounded-lg p-6 my-8">
-                                    <h3 className="text-xl font-semibold text-green-800 mb-4">Key Health Benefits</h3>
-                                    <ul className="space-y-2 text-green-700">
-                                        <li className="flex items-start space-x-2">
-                                            <span className="text-green-600 mt-1">•</span>
-                                            <span>Rich in fiber, vitamin C, and antioxidants</span>
-                                        </li>
-                                        <li className="flex items-start space-x-2">
-                                            <span className="text-green-600 mt-1">•</span>
-                                            <span>Supports heart health and reduces chronic disease risk</span>
-                                        </li>
-                                        <li className="flex items-start space-x-2">
-                                            <span className="text-green-600 mt-1">•</span>
-                                            <span>Helps with weight management</span>
-                                        </li>
-                                        <li className="flex items-start space-x-2">
-                                            <span className="text-green-600 mt-1">•</span>
-                                            <span>Promotes digestive health and gut bacteria</span>
-                                        </li>
-                                        <li className="flex items-start space-x-2">
-                                            <span className="text-green-600 mt-1">•</span>
-                                            <span>May reduce diabetes risk and improve skin health</span>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <p>
-                                    The versatility of apples makes them an excellent choice for any meal or snack. From fresh apple
-                                    slices with nut butter to baked apple desserts, there are countless ways to enjoy this nutritious
-                                    fruit while reaping its health benefits.
-                                </p>
+                           
                             </div>
                         </div>
 
-                        {/* Tags */}
-                        <div className="mt-8 pt-6 border-t border-gray-200">
-                            <div className="flex flex-wrap gap-2">
-                                <span className="px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full">Nutrition</span>
-                                <span className="px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full">Health</span>
-                                <span className="px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full">Wellness</span>
-                                <span className="px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full">Diet</span>
-                                <span className="px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full">Fruits</span>
-                            </div>
-                        </div>
                     </div>
                 </article>
 
-                {/* Author Bio Card */}
-                <div className="mt-8 bg-white rounded-lg shadow-sm p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">About the Author</h3>
-                    <div className="flex items-start space-x-4">
-                        <div className="relative w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
-                            <Image
-                                src={blog?.author?.photo?.original_url || "/placeholder.svg"}
-                                alt={`${blog.author.first_name} ${blog.author.last_name}`}
-                                fill
-                                className="object-cover"
-                            />
-                        </div>
-                        <div>
-                            <h4 className="font-semibold text-gray-900">
-                                {blog.author.first_name} {blog.author.last_name}
-                            </h4>
-                            <p className="text-green-600 text-sm font-medium mb-2">{blog.author.designation}</p>
-                            <p className="text-gray-600 text-sm leading-relaxed">
-                                Passionate about creating user-centered designs and promoting healthy lifestyle choices. Based in{" "}
-                                {blog.author.address}, Liam combines his expertise in UI/UX with a deep interest in nutrition and
-                                wellness.
-                            </p>
-                            <div className="flex items-center space-x-4 mt-3 text-sm text-gray-500">
-                                <span>{blog.author.email}</span>
-                                <span>•</span>
-                                <span>{blog.author.phone}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               
             </main>
 
         </div>
