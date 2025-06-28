@@ -6,7 +6,6 @@ function Logo() {
   return (
     <div>
         <Image src={logo} width={100} height={100} alt='kans-logo' />
-      
     </div>
   )
 }

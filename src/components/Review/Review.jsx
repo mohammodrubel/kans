@@ -2,19 +2,18 @@
 import { getAllBlog } from '@/app/api/blog'
 import { useEffect, useState } from 'react'
 import { CarouselPlugin } from '../Slider'
+import { Button } from '../ui/button'
+import Link from 'next/link'
 
 function Review() {
     const [blog, setBlog] = useState([])
     const [blogLoading, setBlogLoading] = useState(true)
-    console.log(blog)
     useEffect(() => {
         const fetchBlog = async () => {
             try {
                 const data = await getAllBlog()
                 setBlog(data)
-                console.log(data,'fetch data')
             } catch (error) {
-                console.error(error)
             } finally {
                 setBlogLoading(false)
             }
@@ -25,6 +24,11 @@ function Review() {
     return (
         <div>
             <CarouselPlugin data={blog?.data} />
+            <div className='text-center py-5'>
+                <Link href="/blog">
+                <Button className="bg-[#287D50]">All Blogs</Button>
+                </Link>
+            </div>
         </div>
     )
 }
