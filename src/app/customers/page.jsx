@@ -144,8 +144,8 @@ function page() {
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-3">{story.title}</h3>
-                  <p className=''>{story.description?.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, '').trim()}</p>
+                  <h3 className="text-xl font-semibold line-clamp-2 text-gray-900 mb-3">{story.title}</h3>
+                  <p className='line-clamp-5'>{story.description?.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, '').trim()}</p>
                   <div className='flex bg-gray-100 rounded-2xl gap-2'>
                     <p>{story?.author?.first_name}</p>
                     <p>{story?.author?.last_name}</p>

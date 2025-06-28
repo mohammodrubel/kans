@@ -1,8 +1,5 @@
 "use client"
 
-import Autoplay from "embla-carousel-autoplay"
-import * as React from "react"
-
 import { Card, CardContent } from "@/components/ui/card"
 import {
     Carousel,
@@ -11,13 +8,19 @@ import {
     CarouselNext,
     CarouselPrevious
 } from "@/components/ui/carousel"
+import Autoplay from "embla-carousel-autoplay"
 import Image from "next/image"
+import { useRef } from "react"
 import { Button } from "./ui/button"
 
-export function CarouselPlugin({ data }) {
-    const plugin = React.useRef(
+export function CarouselPlugin({ data = [] }) {
+    const plugin = useRef(
         Autoplay({ delay: 2000, stopOnInteraction: true })
     )
+
+    if (!data || data.length === 0) {
+        return <div className="container mx-auto py-10 text-center">No items to display</div>
+    }
 
     return (
         <div className="relative container mx-auto">
@@ -28,42 +31,100 @@ export function CarouselPlugin({ data }) {
                 onMouseLeave={plugin.current.reset}
             >
                 <CarouselContent>
-                    {data.map((item, index) => (
-                        <CarouselItem key={index} className="sm:basis-1/1 md:basis-1/2 xl:basis-1/3">
-                            <div className="p-1">
-                                <Card className="py-0 rounded-2xl gap-2">
-                                    <div className="relative">
-                                        <Image src={item?.Image} className="rounded-2xl" width={500} height={500} alt="image" />
-                                        <div className="absolute top-[85%] bg-white shadow rounded-2xl right-[20px]">
-                                            <Image src={item?.shortImage} className="rounded-2xl" width={80} height={100} alt="image" />
+                    {data.map((item) => {
+                        const fullName = `${item?.author?.first_name || ''} ${item?.author?.last_name || ''}`.trim()
+                        const cleanDescription = item?.description
+                            ? item.description.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ')
+                            : ''
+                        
+                        return (
+                            <CarouselItem
+                                key={item?.id}
+                                className="sm:basis-1/1 md:basis-1/2 xl:basis-1/3"
+                            >
+                                <div className="p-2 h-[500px]">
+                                    <Card className="h-full gap-2 py-0 w-full rounded-2xl overflow-hidden flex flex-col">
+                                        {/* Image Section */}
+                                        <div className="relative h-[300px] w-full flex-shrink-0">
+                                            {item?.photo?.original_url && (
+                                                <Image
+                                                    src={item.photo.original_url}
+                                                    className="rounded-t-2xl object-cover"
+                                                    fill
+                                                    alt={item.title || "Carousel item image"}
+                                                />
+                                            )}
+                                            {item?.logo?.original_url && (
+                                                <div className="absolute bottom-2 right-4 bg-white shadow rounded-2xl p-1">
+                                                    <Image
+                                                        src={item.logo.original_url}
+                                                        className="rounded-2xl"
+                                                        width={50}
+                                                        height={50}
+                                                        alt="Company logo"
+                                                    />
+                                                </div>
+                                            )}
                                         </div>
-                                    </div>
-                                    <div className="font-bold px-5 text-[20px]">{item?.placeName}</div>
-                                    <CardContent className="py-0 font-medium my-0">
-                                        <span className="text-gray-600">{item?.description.slice(0, 100)}</span>
-                                    </CardContent>
-                                    <CardContent className="flex items-center justify-between bg-[#F4F4F4] gap-2 py-4">
-                                        <div className="flex items-center gap-2">
-                                            <Image src={item?.User?.image} className="rounded-full" width={60} height={60} alt="user" />
-                                            <div>
-                                                <div className="text-[20px] font-bold">{item?.User?.userName}</div>
-                                                <div className="text-gray-500">{item?.User?.position}</div>
+
+                                        {/* Content Section */}
+                                        <div className="p-5 flex-grow flex flex-col">
+                                            {item?.placeName && (
+                                                <div className="font-bold text-[18px] mb-2">
+                                                    {item.placeName}
+                                                </div>
+                                            )}
+
+                                            {item?.title && (
+                                                <p className="text-gray-900 text-[20px] line-clamp-1 mb-2">
+                                                    {item.title}
+                                                </p>
+                                            )}
+
+                                            {cleanDescription && (
+                                                <p className="text-gray-600 text-sm line-clamp-2 mb-4">
+                                                    {cleanDescription}
+                                                </p>
+                                            )}
+
+                                            {/* Author Section */}
+                                            <div className="mt-auto pt-4 border-t border-gray-200">
+                                                <div className="flex items-center justify-between gap-2">
+                                                    <div className="flex items-center gap-2">
+                                                        {item?.author?.photo?.thumbnail && (
+                                                            <Image
+                                                                src={item.author.photo.thumbnail}
+                                                                className="rounded-full"
+                                                                width={40}
+                                                                height={40}
+                                                                alt={fullName || "Author image"}
+                                                            />
+                                                        )}
+                                                        {fullName && (
+                                                            <div className="text-[16px] font-medium">
+                                                                {fullName}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    {item?.author?.address && (
+                                                        <Button 
+                                                            className="bg-[#f8f3f3] hover:bg-[#f8f3f3] shadow text-gray-700 capitalize"
+                                                            variant="ghost"
+                                                        >
+                                                            {item.author.address}
+                                                        </Button>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
-                                        <Button className="bg-[#f8f3f3] hover:bg-[#f8f3f3] cursor-pointer shadow text-gray-700 capitalize">
-                                            {item?.User?.placeName}
-                                        </Button>
-                                    </CardContent>
-                                </Card>
-                            </div>
-                        </CarouselItem>
-                    ))}
+                                    </Card>
+                                </div>
+                            </CarouselItem>
+                        )
+                    })}
                 </CarouselContent>
-
-                    {/* carosel indicator off  */}
-                {/* Responsive navigation buttons */}
-                {/* <CarouselPrevious className="!left-2 sm:!left-4 md:!left-6 lg:!left-8 !top-[45%] z-10" />
-                <CarouselNext className="!right-2 sm:!right-4 md:!right-6 lg:!right-8 !top-[45%] z-10" /> */}
+                <CarouselPrevious className="!left-2 !top-[45%] z-10" />
+                <CarouselNext className="!right-2 !top-[45%] z-10" />
             </Carousel>
         </div>
     )

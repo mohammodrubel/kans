@@ -7,6 +7,7 @@ export const getAllBlog = async () => {
       cache: 'force-cache'
     })
     return await res.json()
+
   } catch (error) {
     console.error("Error fetching categories:", error)
     return null
