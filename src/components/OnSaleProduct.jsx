@@ -31,7 +31,7 @@ const OnSaleProduct = () => {
         <div className="mb-2 p-3 bg-white rounded-2xl">
             <h2 className="font-bold text-xl mb-2">On Sale</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {onSaleProduct?.slice(0, 3).map((product, index) => <Product key={product?.id} product={product} />)}
+                {onSaleProduct?.slice(0, 6).map((product, index) => <Product key={product?.id} product={product} />)}
             </div>
         </div>
     )

@@ -13,6 +13,7 @@ import Review from "@/components/Review/Review"
 import Team from "@/components/Team/Team"
 import Image from "next/image"
 import banner from '../assets/sale2.png'
+import banner2 from '../assets/choise.jpg'
 
 
 export default function Home() {
@@ -39,6 +40,13 @@ export default function Home() {
                 <div className=" rounded-lg mx-auto text-center p-2 mt-4">
                 <Image
                   src={banner}
+                  alt="Vendor"
+                  width={300}
+                  height={400}
+                  className="h-auto mx-auto text-center w-full mt-5"
+                /> 
+                 <Image
+                  src={banner2}
                   alt="Vendor"
                   width={300}
                   height={400}

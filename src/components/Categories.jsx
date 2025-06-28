@@ -10,7 +10,7 @@ function Categories({ data }) {
     <>
       <Card>
         <CardContent className="p-4">
-          <h3 className="font-semibold mb-3 text-green-600">Categories</h3>
+          <h3 className="font-semibold mb-3 ">Categories</h3>
           <ul className="space-y-2 text-sm">
             {
               data?.map((item,index)=> <Link  key={item?.id} href={`/products?id=${item?.id}`} >
