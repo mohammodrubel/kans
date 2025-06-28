@@ -26,7 +26,7 @@ function Review() {
             <CarouselPlugin data={blog?.data} />
             <div className='text-center py-5'>
                 <Link href="/blog">
-                <Button className="bg-[#287D50]">All Blogs</Button>
+                <Button className="bg-[#287D50] px-10 hover:bg-[#287D50]">All Blogs</Button>
                 </Link>
             </div>
         </div>

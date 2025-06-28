@@ -12,6 +12,7 @@ import Autoplay from "embla-carousel-autoplay"
 import Image from "next/image"
 import { useRef } from "react"
 import { Button } from "./ui/button"
+import Link from "next/link"
 
 export function CarouselPlugin({ data = [] }) {
     const plugin = useRef(
@@ -42,7 +43,8 @@ export function CarouselPlugin({ data = [] }) {
                                 key={item?.id}
                                 className="sm:basis-1/1 md:basis-1/2 xl:basis-1/3"
                             >
-                                <div className="p-2 h-[500px]">
+                               <Link href={`/blog/${item?.id}`}>
+                                 <div className="p-2 h-[500px]">
                                     <Card className="h-full gap-2 py-0 w-full rounded-2xl overflow-hidden flex flex-col">
                                         {/* Image Section */}
                                         <div className="relative h-[300px] w-full flex-shrink-0">
@@ -119,6 +121,7 @@ export function CarouselPlugin({ data = [] }) {
                                         </div>
                                     </Card>
                                 </div>
+                               </Link>
                             </CarouselItem>
                         )
                     })}
