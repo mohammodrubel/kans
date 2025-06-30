@@ -21,13 +21,13 @@ export function DetailsModal({ product, isOpen, onClose }) {
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
             <DialogContent className="max-w-6xl min-w-[310] md:min-w-[800px]  max-h-[95vh] overflow-y-auto">
-                <div className="grid grid-cols-2 gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 justify-between gap-5">
                     <div className="bg-gray-100 py-4 relative">
                         <Image className="rounded-2xl text-center mx-auto" width={300} height={300} src={selectImage || product?.photo[0].original_url} alt="image" />
                         <Badge className="bg-red-500 absolute top-7 left-5 mx-5">New</Badge>
-                        <div className="flex p-4 justify-between gap-4">
+                        <div className="grid px-4 text-center mx-auto grid-cols-2 sm:grid-cols-3 gap-4">
                             {
-                                product?.photo?.map((item, index) => <Image onClick={() => setSelectImage(item?.original_url)} key={index} className="mt-2 rounded-2xl" width={100} height={100} src={item?.original_url} alt="gallery for product" />)
+                                product?.photo?.map((item, index) => <Image onClick={() => setSelectImage(item?.original_url)} key={index} className="mt-2 text-center mx-auto rounded-2xl" width={100} height={100} src={item?.original_url} alt="gallery for product" />)
                             }
                         </div>
                     </div>

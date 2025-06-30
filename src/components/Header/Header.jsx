@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { User } from "lucide-react";
 import Link from "next/link";
 import Logo from "../Logo";
 import MobileMenu from "./MobileMenu";
@@ -14,7 +13,7 @@ export default function Header() {
     <header className="container mx-auto px-4 py-4 relative z-[9999]">
       <div className="flex justify-between items-center relative">
         {/* Logo */}
-        <Link href="/">
+        <Link href="/" className="z-10">
           <Logo />
         </Link>
 
@@ -22,7 +21,7 @@ export default function Header() {
         <nav className="absolute left-1/2 top-1/2 justify-center -translate-x-1/2 -translate-y-1/2 hidden lg:flex gap-6 text-sm font-medium">
           {/* Category with Mega Menu */}
           <div className="relative">
-            <button 
+            <button
               className="hover:text-green-600 transition"
               onMouseEnter={() => setShowMegaMenu(true)}
             >
@@ -30,7 +29,7 @@ export default function Header() {
             </button>
 
             {showMegaMenu && (
-              <div 
+              <div
                 className="fixed left-0 right-0 flex justify-center z-[9999]"
                 onMouseEnter={() => setMegaMenuHover(true)}
                 onMouseLeave={() => {
@@ -38,7 +37,7 @@ export default function Header() {
                   setShowMegaMenu(false);
                 }}
               >
-                <div 
+                <div
                   className="absolute top-full mt-2 w-screen max-w-[1200px] px-4"
                   onMouseLeave={() => {
                     if (!megaMenuHover) {
@@ -66,12 +65,19 @@ export default function Header() {
           </Link>
         </nav>
 
+        {/* Desktop CTA Button */}
         <div className="hidden lg:block">
           <button className="bg-[#016630d8] hover:bg-[#016630] text-white px-4 py-2 rounded-md transition">
             Request Demo
           </button>
         </div>
+
+        {/* Mobile Menu Button - shown only on mobile */}
+        <div className="lg:hidden">
+          <MobileMenu />
+        </div>
       </div>
+
     </header>
   );
 }

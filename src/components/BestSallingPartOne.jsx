@@ -34,11 +34,11 @@ function BestSallingPartOne() {
   return (
     <div className="bg-white rounded-lg p-4 shadow-sm mb-6">
       <h2 className="font-bold text-lg mb-4">Best Selling</h2>
-      <div className="space-y-4">
+      <div className="space-y-4 grid grid-cols-1 sm:grid-cols-2 gap-2 lg:grid-cols-1">
         {bestProductData.map((product, index) => (
           <div
             key={index}
-            className="flex items-center justify-between gap-4 border-b pb-3 last:border-none"
+            className="flex  items-center justify-between gap-4 border-b pb-3 last:border-none"
           >
             {/* Image and Name */}
             <div className="flex items-center gap-3 flex-1 min-w-0">

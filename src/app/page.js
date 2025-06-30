@@ -37,7 +37,7 @@ export default function Home() {
             <div className="bg-white rounded-lg p-4 shadow-sm">
               <h2 className="font-bold text-lg mb-4">Major Top Vendor</h2>
               
-                <div className=" rounded-lg mx-auto text-center p-2 mt-4">
+                <div className="grid grid-cols-1 items-center sm:grid-cols-2 xl:grid-cols-1 rounded-lg mx-auto text-center p-2 mt-4">
                 <Image
                   src={banner}
                   alt="Vendor"

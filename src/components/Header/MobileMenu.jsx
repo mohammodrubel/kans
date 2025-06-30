@@ -11,7 +11,7 @@ function MobileMenu() {
   return (
     <>
       {/* Toggle Button */}
-      <div className="md:hidden p-4 z-50">
+      <div className="lg:hidden p-4 z-50">
         {openMenu ? (
           <X className="w-6 h-6" onClick={() => setOpenMenu(false)} />
         ) : (
