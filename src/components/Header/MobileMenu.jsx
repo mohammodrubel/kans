@@ -36,13 +36,13 @@ function MobileMenu() {
             <Link href="/" className="text-gray-700 hover:text-black" onClick={() => setOpenMenu(false)}>
               Home
             </Link>
-            <Link href="/pricing" className="text-gray-700 hover:text-black" onClick={() => setOpenMenu(false)}>
-              Pricing
+            <Link href="/products" className="text-gray-700 hover:text-black" onClick={() => setOpenMenu(false)}>
+              products
             </Link>
-            <Link href="/services" className="text-gray-700 hover:text-black" onClick={() => setOpenMenu(false)}>
-              Services
+            <Link href="/customers" className="text-gray-700 hover:text-black" onClick={() => setOpenMenu(false)}>
+              Customers
             </Link>
-            <Link href="/contact" className="text-gray-700 hover:text-black" onClick={() => setOpenMenu(false)}>
+            <Link href="/contact-us" className="text-gray-700 hover:text-black" onClick={() => setOpenMenu(false)}>
               Contact
             </Link>
           </nav>
