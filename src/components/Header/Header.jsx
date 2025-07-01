@@ -1,9 +1,17 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+
 import Logo from "../Logo";
 import MobileMenu from "./MobileMenu";
 import MegaMenu from "./MegaMenu";
+// import GoogleTranslate from "../GoogleTranslate";
+
+const GoogleTranslate = dynamic(() => import("../GoogleTranslate"), {
+  ssr: false,
+});
+
 
 export default function Header() {
   const [showMegaMenu, setShowMegaMenu] = useState(false);
@@ -65,19 +73,20 @@ export default function Header() {
           </Link>
         </nav>
 
-        {/* Desktop CTA Button */}
-        <div className="hidden lg:block">
-          <button className="bg-[#016630d8] hover:bg-[#016630] text-white px-4 py-2 rounded-md transition">
-            Request Demo
-          </button>
-        </div>
+        {/* Desktop CTA Button + Google Translate */}
+       <div className="hidden lg:flex items-center gap-4">
+  {/* <button className="bg-[#016630d8] hover:bg-[#016630] text-white px-4 py-2 rounded-md transition">
+    Request Demo
+  </button> */}
+  <GoogleTranslate />
+</div>
 
-        {/* Mobile Menu Button - shown only on mobile */}
+
+        {/* Mobile Menu */}
         <div className="lg:hidden">
           <MobileMenu />
         </div>
       </div>
-
     </header>
   );
 }
