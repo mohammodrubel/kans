@@ -10,7 +10,7 @@ export default function GoogleTranslate() {
     const script = document.createElement("script");
     script.id = "google-translate-script";
     script.src =
-      "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+      "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit&hl=en";
     document.body.appendChild(script);
 
     window.googleTranslateElementInit = () => {

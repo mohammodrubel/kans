@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 import Logo from "../Logo";
 import MobileMenu from "./MobileMenu";
 import MegaMenu from "./MegaMenu";
-// import GoogleTranslate from "../GoogleTranslate";
+
 
 const GoogleTranslate = dynamic(() => import("../GoogleTranslate"), {
   ssr: false,
