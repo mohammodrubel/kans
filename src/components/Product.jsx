@@ -1,20 +1,20 @@
-"use client"
+"use client";
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Heart } from "lucide-react";
+import Image from "next/image";
+import { DetailsModal } from "./DetailsModal";
+// import DetailsModal from "./DetailsModal";
 
-import { Heart } from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
-import { useState } from "react"
-import { DetailsModal } from "./DetailsModal"
-import { Button } from "./ui/button"
-import { Card, CardContent } from "./ui/card"
+const Product = ({ product }) => {
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
-function Product({ product }) {
-  const [isDetailsOpen, setIsDetailsOpen] = useState(false)
-  const openDetails = () => setIsDetailsOpen(true)
+  const openDetails = () => setIsDetailsOpen(true);
 
   return (
-    <>
-      <Card className={`group p-3 overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 bg-white max-w-sm `}>
+    // <>
+      <Card className="group p-3 border-0 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 bg-white max-w-sm">
         <CardContent className="p-0">
           <div className="relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
             <Button
@@ -42,20 +42,26 @@ function Product({ product }) {
                 {product.name}
               </h3>
             </div>
-            <Button variant="outline" size="sm" className="px-3 hover:bg-gray-50" onClick={openDetails}>
+            <Button
+              variant="outline"
+              size="sm"
+              className="px-3 hover:bg-gray-50"
+              onClick={openDetails}
+            >
               Details
             </Button>
           </div>
         </CardContent>
-      </Card>
 
       <DetailsModal
         product={product}
         isOpen={isDetailsOpen}
         onClose={() => setIsDetailsOpen(false)}
       />
-    </>
-  )
-}
+      </Card>
 
-export default Product
+    // </>
+  );
+};
+
+export default Product;
