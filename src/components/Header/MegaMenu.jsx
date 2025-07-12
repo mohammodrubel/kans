@@ -27,13 +27,13 @@ export default function MegaMenu() {
         fetchMenu();
     }, []);
 
-    if (loading) return <div className="p-4 text-center">Loading menu...</div>;
+    // if (loading) return <div className="p-4 text-center">Loading menu...</div>;
     if (error) return <div className="p-4 text-red-500">Error: {error}</div>;
-    if (!data?.length) return <div className="p-4 text-center">No menu items found</div>;
+    // if (!data?.length) return <div className="p-4 text-center">No menu items found</div>;
 
     return (
         <div className="max-w-[1000px] w-full mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 p-6 bg-white rounded-lg shadow-lg">
-            {data.map((item) => (
+            {data?.map((item) => (
                 <div key={item.id} className="group">
                     <div className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded transition">
                         <Link href={`/products?id=${item?.id}`} className="flex gap-2">
