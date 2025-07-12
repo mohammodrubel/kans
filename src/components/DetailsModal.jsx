@@ -19,7 +19,8 @@ export function DetailsModal({ product, isOpen, onClose }) {
     
 
     return (
-        <Dialog open={isOpen} onOpenChange={onClose}>
+        <div className="mx-5">
+            <Dialog open={isOpen} onOpenChange={onClose}>
             <DialogContent className="max-w-6xl min-w-[310] md:min-w-[800px]  max-h-[95vh] overflow-y-auto">
                 <div className="grid grid-cols-1 md:grid-cols-2 justify-between gap-5">
                     <div className="bg-gray-100 py-4 relative">
@@ -79,5 +80,6 @@ export function DetailsModal({ product, isOpen, onClose }) {
 
             </DialogContent>
         </Dialog>
+        </div>
     )
 }
