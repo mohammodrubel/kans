@@ -18,7 +18,7 @@ export default function Header() {
   const [megaMenuHover, setMegaMenuHover] = useState(false);
 
   return (
-    <header className="container mx-auto px-4 py-4 relative z-[9999]">
+    <header className="container mx-auto px-4 relative z-[9999]">
       <div className="flex justify-between items-center relative">
         {/* Logo */}
         <Link href="/" className="z-10">
@@ -74,12 +74,12 @@ export default function Header() {
         </nav>
 
         {/* Desktop CTA Button + Google Translate */}
-       <div className="hidden lg:flex items-center gap-4">
-  {/* <button className="bg-[#016630d8] hover:bg-[#016630] text-white px-4 py-2 rounded-md transition">
+        <div className="hidden lg:flex items-center gap-4">
+          {/* <button className="bg-[#016630d8] hover:bg-[#016630] text-white px-4 py-2 rounded-md transition">
     Request Demo
   </button> */}
-  <GoogleTranslate />
-</div>
+          <GoogleTranslate />
+        </div>
 
 
         {/* Mobile Menu */}

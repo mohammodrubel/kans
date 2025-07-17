@@ -5,7 +5,7 @@ import logo from '../assets/logo.png'
 function Logo() {
   return (
     <div>
-        <Image src={logo} width={100} height={100} alt='kans-logo' />
+        <Image src={logo} width={150} height={150} alt='kans-logo' />
     </div>
   )
 }

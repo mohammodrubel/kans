@@ -9,7 +9,7 @@ import Image from "next/image";
 
 async function MajorTopVendor() {
   const res = await fetch("https://egg.dordham.com/api/v1/sliders", {
-    cache: "force-cache",
+    cache: "no-store",
   });
   const data = await res.json();
 
