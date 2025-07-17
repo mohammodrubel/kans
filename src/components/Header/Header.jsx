@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -7,15 +8,20 @@ import Logo from "../Logo";
 import MobileMenu from "./MobileMenu";
 import MegaMenu from "./MegaMenu";
 
-
 const GoogleTranslate = dynamic(() => import("../GoogleTranslate"), {
   ssr: false,
 });
 
-
 export default function Header() {
   const [showMegaMenu, setShowMegaMenu] = useState(false);
   const [megaMenuHover, setMegaMenuHover] = useState(false);
+
+  const [labels, setLabels] = useState({
+    category: "Category",
+    products: "Products",
+    customers: "Customers",
+    contact: "Contact Us",
+  });
 
   return (
     <header className="container mx-auto px-4 relative z-[9999]">
@@ -25,15 +31,14 @@ export default function Header() {
           <Logo />
         </Link>
 
-        {/* Centered Desktop Navigation */}
+        {/* Desktop Navigation */}
         <nav className="absolute left-1/2 top-1/2 justify-center -translate-x-1/2 -translate-y-1/2 hidden lg:flex gap-6 text-sm font-medium">
-          {/* Category with Mega Menu */}
           <div className="relative">
             <button
               className="hover:text-green-600 transition"
               onMouseEnter={() => setShowMegaMenu(true)}
             >
-              Category
+              {labels.category}
             </button>
 
             {showMegaMenu && (
@@ -61,26 +66,21 @@ export default function Header() {
             )}
           </div>
 
-          {/* Other Links */}
           <Link href="/products" className="hover:text-green-600 transition">
-            Products
+            {labels.products}
           </Link>
           <Link href="/customers" className="hover:text-green-600 transition">
-            Customers
+            {labels.customers}
           </Link>
           <Link href="/contact-us" className="hover:text-green-600 transition">
-            Contact Us
+            {labels.contact}
           </Link>
         </nav>
 
-        {/* Desktop CTA Button + Google Translate */}
+        {/* Google Translate */}
         <div className="hidden lg:flex items-center gap-4">
-          {/* <button className="bg-[#016630d8] hover:bg-[#016630] text-white px-4 py-2 rounded-md transition">
-    Request Demo
-  </button> */}
-          <GoogleTranslate />
+          <GoogleTranslate onLanguageChange={setLabels} />
         </div>
-
 
         {/* Mobile Menu */}
         <div className="lg:hidden">
