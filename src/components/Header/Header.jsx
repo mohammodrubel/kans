@@ -20,14 +20,38 @@ import MegaMenu from "./MegaMenu";
 import MobileMenu from "./MobileMenu";
 import { CircleUserRound, Heart } from "lucide-react";
 
+// Dynamically import translator (no SSR)
 const GoogleTranslate = dynamic(() => import("../GoogleTranslate"), {
   ssr: false,
 });
+
+// Translation mapping (shared for initial state)
+const translations = {
+  en: {
+    category: "Category",
+    products: "Products",
+    customers: "Customers",
+    contact: "Contact Us",
+  },
+  bn: {
+    category: "বিভাগ",
+    products: "পণ্য",
+    customers: "গ্রাহক",
+    contact: "যোগাযোগ করুন",
+  },
+  fr: {
+    category: "Catégorie",
+    products: "Produits",
+    customers: "Clients",
+    contact: "Contactez-nous",
+  },
+};
 
 export default function Header() {
   const [showMegaMenu, setShowMegaMenu] = useState(false);
   const [megaMenuHover, setMegaMenuHover] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [labels, setLabels] = useState(translations.en);
 
   const router = useRouter();
 
@@ -52,7 +76,7 @@ export default function Header() {
               className="hover:text-green-600 transition cursor-pointer"
               onMouseEnter={() => setShowMegaMenu(true)}
             >
-              Category
+              {labels.category}
             </button>
 
             {showMegaMenu && (
@@ -81,13 +105,13 @@ export default function Header() {
           </div>
 
           <Link href="/products" className="hover:text-green-600 transition cursor-pointer">
-            Products
+            {labels.products}
           </Link>
           <Link href="/customers" className="hover:text-green-600 transition cursor-pointer">
-            Customers
+            {labels.customers}
           </Link>
           <Link href="/contact-us" className="hover:text-green-600 transition cursor-pointer">
-            Contact Us
+            {labels.contact}
           </Link>
         </nav>
 
@@ -111,6 +135,9 @@ export default function Header() {
               Search
             </Button>
           </div>
+
+          {/* Google Translate */}
+          <GoogleTranslate onLanguageChange={(newLabels) => setLabels(newLabels)} />
 
           {/* Wishlist Icon */}
           <Heart className="cursor-pointer text-gray-600 hover:text-green-600 transition" />
