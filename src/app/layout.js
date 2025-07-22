@@ -3,6 +3,7 @@ import Header from "@/components/Header/Header"
 import 'flag-icons/css/flag-icons.min.css';
 import "./globals.css";
 import { Footer } from "@/components/Footer";
+import { Toaster } from "sonner";
 
 export const metadata = {
   title: "Create Next App",
@@ -16,6 +17,7 @@ export default function RootLayout({ children }) {
         <Header />
         {children}
         <Footer/>
+        <Toaster richColors position="top-right" />
       </body>
     </html>
   );

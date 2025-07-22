@@ -140,7 +140,7 @@ export default function Header() {
           <GoogleTranslate onLanguageChange={(newLabels) => setLabels(newLabels)} />
 
           {/* Wishlist Icon */}
-          <Heart className="cursor-pointer text-gray-600 hover:text-green-600 transition" />
+         <Link href="/wishlist"><Heart className="cursor-pointer text-gray-600 hover:text-green-600 transition" /></Link> 
 
           {/* User Profile Dropdown */}
           <DropdownMenu>
@@ -149,6 +149,8 @@ export default function Header() {
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">
               <DropdownMenuItem className="cursor-pointer">Profile</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <Link href="/login"><DropdownMenuItem>Login</DropdownMenuItem></Link>
               <DropdownMenuSeparator />
               <DropdownMenuItem className="cursor-pointer">
                 <Button className="bg-red-500 hover:bg-red-600 text-white w-full cursor-pointer">
