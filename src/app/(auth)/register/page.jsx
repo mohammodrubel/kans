@@ -9,12 +9,13 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
 export default function RegisterForm() {
     const [form, setForm] = useState({ name: "", email: "", password: "" });
-
+    const router = useRouter()
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
@@ -25,10 +26,13 @@ export default function RegisterForm() {
             if (res?.access_token) {
                 storageUserInfo(res.access_token);
                 toast.success(res?.message)
+                setTimeout(()=>{
+                    router.push('/')
+                },2000)
             }
-
-            if(res.success === false){
-                toast.error(res?.message)
+            console.log(res)
+            if(res.error){
+                toast.error(res?.error)
             }
         } catch (error) {
             console.log(error)
