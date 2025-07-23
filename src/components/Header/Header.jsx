@@ -24,12 +24,10 @@ import {
   removeFromLocaleStorage,
 } from "@/utils/localeStoratge";
 
-// Dynamically import translator (no SSR)
 const GoogleTranslate = dynamic(() => import("../GoogleTranslate"), {
   ssr: false,
 });
 
-// Translation mapping (shared for initial state)
 const translations = {
   en: {
     category: "Category",
@@ -66,18 +64,17 @@ export default function Header() {
 
   const handleSearch = () => {
     if (searchTerm.trim()) {
-      router.push(`/search?q=${encodeURIComponent(searchTerm.trim())}`);
+      router.push(`/products?search=${encodeURIComponent(searchTerm.trim())}`);
       setSearchTerm("");
     }
   };
 
-  const logout = async () => {
+  const logout = () => {
     removeFromLocaleStorage("accessToken");
     setToken(null);
     router.push("/login");
   };
 
-  // Sync token with localStorage
   useEffect(() => {
     const checkToken = () => {
       const storedToken = getFormLocaleStorage("accessToken");
@@ -102,8 +99,8 @@ export default function Header() {
             <Logo />
           </Link>
 
-          {/* Centered Desktop Navigation */}
-          <nav className="absolute left-1/2 top-1/2 justify-center -translate-x-1/2 -translate-y-1/2 hidden lg:flex gap-8 text-sm font-medium">
+          {/* Desktop Navigation */}
+          <nav className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:flex gap-8 text-sm font-medium">
             <div className="relative">
               <button
                 className={`hover:text-green-600 transition-colors duration-200 ${
@@ -123,14 +120,7 @@ export default function Header() {
                     setShowMegaMenu(false);
                   }}
                 >
-                  <div
-                    className="absolute top-full mt-2 w-screen max-w-[1200px] px-4"
-                    onMouseLeave={() => {
-                      if (!megaMenuHover) {
-                        setShowMegaMenu(false);
-                      }
-                    }}
-                  >
+                  <div className="absolute top-full mt-2 w-screen max-w-[1200px] px-4">
                     <div onMouseLeave={() => setShowMegaMenu(false)}>
                       <MegaMenu />
                     </div>
@@ -139,7 +129,7 @@ export default function Header() {
               )}
             </div>
 
-            <Link href="/products" className="hover:text-green-600 transition-colors duration-200" prefetch>
+            <Link href="/products" className="hover:text-green-600 transition-colors duration-200">
               {labels.products}
             </Link>
             <Link href="/customers" className="hover:text-green-600 transition-colors duration-200">
@@ -150,14 +140,10 @@ export default function Header() {
             </Link>
           </nav>
 
-          {/* Desktop CTA Area */}
-          <div className="hidden lg:flex items-center gap-4">
-            {/* Search Input + Button */}
-            <div
-              className={`flex items-center border ${
-                isSearchFocused ? "border-green-500 shadow-md" : "border-gray-300"
-              } rounded-lg overflow-hidden transition-all duration-200`}
-            >
+          {/* Right Side */}
+          <div className="flex items-center gap-4">
+            {/* Search (Desktop only) */}
+            <div className="hidden lg:flex items-center border rounded-lg overflow-hidden transition-all duration-200 border-gray-300">
               <Input
                 type="text"
                 placeholder={labels.searchPlaceholder}
@@ -170,7 +156,6 @@ export default function Header() {
               />
               <Button
                 onClick={handleSearch}
-                type="submit"
                 className="rounded-none bg-green-600 hover:bg-green-700 text-white px-4 cursor-pointer active:scale-95 transition-transform"
                 aria-label="Search"
               >
@@ -178,10 +163,12 @@ export default function Header() {
               </Button>
             </div>
 
-            {/* Google Translate */}
-            <GoogleTranslate onLanguageChange={(newLabels) => setLabels(newLabels)} />
+            {/* Google Translate (Desktop only) */}
+            <div className="hidden lg:block">
+              <GoogleTranslate onLanguageChange={(newLabels) => setLabels(newLabels)} />
+            </div>
 
-            {/* Wishlist Icon */}
+            {/* Wishlist */}
             <Link
               href="/wishlist"
               className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors relative group"
@@ -190,7 +177,7 @@ export default function Header() {
               <Heart className="h-5 w-5 text-gray-600 dark:text-gray-400 group-hover:text-green-600 transition-colors" />
             </Link>
 
-            {/* User Profile Dropdown */}
+            {/* User Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <div className="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer">
@@ -206,37 +193,40 @@ export default function Header() {
               >
                 {token ? (
                   <>
-                    <DropdownMenuItem className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 px-4 py-2">
-                      <Link href="/profile" className="w-full my-5">
+                    <DropdownMenuItem asChild>
+                      <Link
+                        href="/profile"
+                        className="w-full px-2 py-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                      >
                         Profile
                       </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuSeparator className="bg-gray-100 dark:bg-gray-700" />
-                    <DropdownMenuItem className="p-0 hover:bg-transparent">
+                    <DropdownMenuSeparator className="bg-gray-100 dark:bg-gray-700 my-1" />
+                    <div className="px-2 pb-2">
                       <Button
-                        onClick={() => logout()}
-                        className="bg-red-500 hover:bg-red-600 text-white w-full cursor-pointer active:scale-95 transition-transform"
+                        onClick={logout}
+                        className="bg-red-500 hover:bg-red-600 text-white w-full active:scale-95 transition-transform"
                       >
                         Logout
                       </Button>
-                    </DropdownMenuItem>
+                    </div>
                   </>
                 ) : (
-                  <DropdownMenuItem className="p-0 hover:bg-transparent">
-                    <Link href="/login" className="w-full">
-                      <Button className="bg-green-600 hover:bg-green-700 text-white w-full cursor-pointer active:scale-95 transition-transform">
+                  <div className="px-2 py-2 mt-4 space-y-2">
+                    <Link href="/login">
+                      <Button className="bg-green-600 hover:bg-green-700 text-white w-full active:scale-95 transition-transform">
                         Login
                       </Button>
                     </Link>
-                  </DropdownMenuItem>
+                  </div>
                 )}
               </DropdownMenuContent>
             </DropdownMenu>
-          </div>
 
-          {/* Mobile Menu */}
-          <div className="lg:hidden cursor-pointer">
-            <MobileMenu />
+            {/* Mobile Menu Button */}
+            <div className="lg:hidden">
+              <MobileMenu />
+            </div>
           </div>
         </div>
       </div>
