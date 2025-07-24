@@ -15,6 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+// import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import Logo from "../Logo";
 import MegaMenu from "./MegaMenu";
 import MobileMenu from "./MobileMenu";
@@ -23,6 +24,7 @@ import {
   getFormLocaleStorage,
   removeFromLocaleStorage,
 } from "@/utils/localeStoratge";
+import SearchModal from "../SearchModal/SearchModal";
 
 const GoogleTranslate = dynamic(() => import("../GoogleTranslate"), {
   ssr: false,
@@ -55,19 +57,11 @@ const translations = {
 export default function Header() {
   const [showMegaMenu, setShowMegaMenu] = useState(false);
   const [megaMenuHover, setMegaMenuHover] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
   const [labels, setLabels] = useState(translations.en);
-  const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [token, setToken] = useState(getFormLocaleStorage("accessToken"));
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const router = useRouter();
-
-  const handleSearch = () => {
-    if (searchTerm.trim()) {
-      router.push(`/products?search=${encodeURIComponent(searchTerm.trim())}`);
-      setSearchTerm("");
-    }
-  };
 
   const logout = () => {
     removeFromLocaleStorage("accessToken");
@@ -100,7 +94,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:flex gap-8 text-sm font-medium">
+          <nav className="hidden lg:flex gap-8 text-sm font-medium">
             <div className="relative">
               <button
                 className={`hover:text-green-600 transition-colors duration-200 ${
@@ -142,28 +136,23 @@ export default function Header() {
 
           {/* Right Side */}
           <div className="flex items-center gap-4">
-            {/* Search (Desktop only) */}
-            <div className="hidden lg:flex items-center border rounded-lg overflow-hidden transition-all duration-200 border-gray-300">
-              <Input
-                type="text"
-                placeholder={labels.searchPlaceholder}
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                onFocus={() => setIsSearchFocused(true)}
-                onBlur={() => setIsSearchFocused(false)}
-                className="border-none focus-visible:ring-0 focus-visible:ring-offset-0 rounded-none cursor-text hover:bg-gray-50 transition-colors w-64"
-              />
-              <Button
-                onClick={handleSearch}
-                className="rounded-none bg-green-600 hover:bg-green-700 text-white px-4 cursor-pointer active:scale-95 transition-transform"
-                aria-label="Search"
-              >
-                <Search className="h-5 w-5" />
-              </Button>
-            </div>
+            {/* Search Icon (Desktop only) */}
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="hidden lg:block p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              aria-label="Search"
+            >
+              <Search className="h-5 w-5 text-gray-600 dark:text-gray-400 hover:text-green-600 transition-colors" />
+            </button>
 
-            {/* Google Translate (Desktop only) */}
+            {/* Search Modal */}
+            <SearchModal
+              open={isSearchOpen}
+              onClose={() => setIsSearchOpen(false)}
+              placeholder={labels.searchPlaceholder}
+            />
+
+            {/* Google Translate */}
             <div className="hidden lg:block">
               <GoogleTranslate onLanguageChange={(newLabels) => setLabels(newLabels)} />
             </div>
