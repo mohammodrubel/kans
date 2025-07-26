@@ -10,6 +10,7 @@ import { DetailsModal } from "./DetailsModal";
 import { getFormLocaleStorage } from "@/utils/localeStoratge";
 import { toast } from "sonner";
 import { addFav, getAllFavList } from "@/app/api/wishlist";
+import AutoCurrencyFormatter from "./AutoCurrencyFormatter/AutoCurrencyFormatter";
 
 const Product = ({ product }) => {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
@@ -89,7 +90,8 @@ const Product = ({ product }) => {
             <h3 className="font-semibold text-lg text-gray-900 line-clamp-2 group-hover:text-[#016630] transition-colors duration-200">
               {product.name}
             </h3>
-            <p className="text-gray-500 font-medium">${product.price}</p>
+            <AutoCurrencyFormatter price={product?.price}/>
+            {/* <p className="text-gray-500 font-medium">{product?.price}</p> */}
           </div>
           <Button
             variant="outline"

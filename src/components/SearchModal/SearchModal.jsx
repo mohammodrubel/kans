@@ -35,9 +35,9 @@ export default function SearchModal({ open, onClose, placeholder }) {
 
         {/* Info Alert */}
         <Alert className="mb-4 bg-green-50 border border-green-200 text-green-800">
-  <Info className="h-4 w-4 text-green-600" />
-  <AlertTitle className="text-green-700">Search any authentic fruit .</AlertTitle>
-</Alert>
+          <Info className="h-4 w-4 text-green-600" />
+          <AlertTitle className="text-green-700">Search any authentic fruit .</AlertTitle>
+        </Alert>
         <div className="flex items-center gap-2">
           <Input
             type="text"

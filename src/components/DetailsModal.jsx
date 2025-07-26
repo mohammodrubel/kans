@@ -9,6 +9,7 @@ import { Badge } from "./ui/badge"
 import { Button } from "./ui/button"
 import { addFav, getAllFavList } from "@/app/api/wishlist"
 import { toast } from "sonner"
+import AutoCurrencyFormatter from "./AutoCurrencyFormatter/AutoCurrencyFormatter"
 
 export function DetailsModal({ product, isOpen, onClose }) {
   const [selectedImage, setSelectedImage] = useState("")
@@ -132,7 +133,7 @@ export function DetailsModal({ product, isOpen, onClose }) {
                 </DialogTitle>
                 <p>{product.description || defaultDescription}</p>
                 <h2 className="mt-4 text-2xl font-bold text-green-500">
-                  <span className="text-gray-700">Price: </span> ${product.price}
+                  <AutoCurrencyFormatter price={product?.price} />
                 </h2>
                 <div className="flex gap-5 mt-10">
                   <Button className="px-8 bg-[#016630]">Send Inquiry</Button>
