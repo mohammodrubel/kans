@@ -4,9 +4,12 @@ import { AlignJustify, X } from "lucide-react";
 import React, { useState } from "react";
 import Link from "next/link";
 import Logo from "../Logo";
+import useTranslation from "@/hooks/useTranslation";
+
 
 function MobileMenu() {
   const [openMenu, setOpenMenu] = useState(false);
+  const t = useTranslation(); // Initialize translation function
 
   return (
     <>
@@ -34,16 +37,19 @@ function MobileMenu() {
           <Logo/>
           <nav className="flex flex-col space-y-4">
             <Link href="/" className="text-gray-700 hover:text-black" onClick={() => setOpenMenu(false)}>
-              Home
+              {t("header.home", "Home")} {/* Translated Home */}
+            </Link>
+            <Link href="/category" className="text-gray-700 hover:text-black" onClick={() => setOpenMenu(false)}>
+              {t("header.category", "Category")} {/* Translated Category */}
             </Link>
             <Link href="/products" className="text-gray-700 hover:text-black" onClick={() => setOpenMenu(false)}>
-              products
+              {t("header.products", "Products")} {/* Translated Products */}
             </Link>
             <Link href="/customers" className="text-gray-700 hover:text-black" onClick={() => setOpenMenu(false)}>
-              Customers
+              {t("header.customers", "Customers")} {/* Translated Customers */}
             </Link>
             <Link href="/contact-us" className="text-gray-700 hover:text-black" onClick={() => setOpenMenu(false)}>
-              Contact
+              {t("header.contact", "Contact")} {/* Translated Contact */}
             </Link>
           </nav>
         </div>

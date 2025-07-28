@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import useTranslation from "@/hooks/useTranslation"; // ADD THIS
 
 import Logo from "../Logo";
 import MobileMenu from "./MobileMenu";
@@ -15,13 +16,9 @@ const GoogleTranslate = dynamic(() => import("../GoogleTranslate"), {
 export default function Header() {
   const [showMegaMenu, setShowMegaMenu] = useState(false);
   const [megaMenuHover, setMegaMenuHover] = useState(false);
-
-  const [labels, setLabels] = useState({
-    category: "Category",
-    products: "Products",
-    customers: "Customers",
-    contact: "Contact Us",
-  });
+  
+  // ADD TRANSLATION HOOK
+  const t = useTranslation();
 
   return (
     <header className="container mx-auto px-4 relative z-[9999]">
@@ -38,7 +35,8 @@ export default function Header() {
               className="hover:text-green-600 transition"
               onMouseEnter={() => setShowMegaMenu(true)}
             >
-              {labels.category}
+              {/* USE TRANSLATION FUNCTION */}
+              {t("header.category", "Category")}
             </button>
 
             {showMegaMenu && (
@@ -67,19 +65,23 @@ export default function Header() {
           </div>
 
           <Link href="/products" className="hover:text-green-600 transition">
-            {labels.products}
+            {/* USE TRANSLATION FUNCTION */}
+            {t("navigation.products", "Products")}
           </Link>
           <Link href="/customers" className="hover:text-green-600 transition">
-            {labels.customers}
+            {/* USE TRANSLATION FUNCTION */}
+            {t("navigation.customers", "Customers")}
           </Link>
           <Link href="/contact-us" className="hover:text-green-600 transition">
-            {labels.contact}
+            {/* USE TRANSLATION FUNCTION */}
+            {t("header.contact", "Contact Us")}
           </Link>
         </nav>
 
         {/* Google Translate */}
         <div className="hidden lg:flex items-center gap-4">
-          <GoogleTranslate onLanguageChange={setLabels} />
+          {/* REMOVE onLanguageChange PROP */}
+          <GoogleTranslate />
         </div>
 
         {/* Mobile Menu */}
