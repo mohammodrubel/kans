@@ -2,11 +2,10 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,15 +15,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 // import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-import Logo from "../Logo";
-import MegaMenu from "./MegaMenu";
-import MobileMenu from "./MobileMenu";
-import { CircleUserRound, Heart, Search } from "lucide-react";
 import {
   getFormLocaleStorage,
   removeFromLocaleStorage,
 } from "@/utils/localeStoratge";
+import { CircleUserRound, Heart, Search } from "lucide-react";
+import Logo from "../Logo";
 import SearchModal from "../SearchModal/SearchModal";
+import MegaMenu from "./MegaMenu";
+import MobileMenu from "./MobileMenu";
 
 const GoogleTranslate = dynamic(() => import("../GoogleTranslate"), {
   ssr: false,
@@ -97,9 +96,8 @@ export default function Header() {
           <nav className="hidden lg:flex gap-8 text-sm font-medium">
             <div className="relative">
               <button
-                className={`hover:text-green-600 transition-colors duration-200 ${
-                  showMegaMenu ? "text-green-600 font-semibold" : ""
-                }`}
+                className={`hover:text-green-600 transition-colors duration-200 ${showMegaMenu ? "text-green-600 font-semibold" : ""
+                  }`}
                 onMouseEnter={() => setShowMegaMenu(true)}
               >
                 {labels.category}

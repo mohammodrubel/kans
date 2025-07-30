@@ -10,12 +10,18 @@ import { Button } from "./ui/button"
 import { addFav, getAllFavList } from "@/app/api/wishlist"
 import { toast } from "sonner"
 import AutoCurrencyFormatter from "./AutoCurrencyFormatter/AutoCurrencyFormatter"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export function DetailsModal({ product, isOpen, onClose }) {
   const [selectedImage, setSelectedImage] = useState("")
   const [isInWishlist, setIsInWishlist] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  
+
   const getFromLocalStorage = (key) => {
     if (typeof window !== "undefined") {
       return localStorage.getItem(key)
@@ -91,7 +97,7 @@ export function DetailsModal({ product, isOpen, onClose }) {
       <Dialog open={isOpen} onOpenChange={onClose}>
         <DialogContent className="max-w-6xl min-w-[310px] md:min-w-[800px] max-h-[95vh] overflow-y-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 justify-between gap-5">
-            <div className="bg-gray-100 py-4 relative">
+            <div className=" py-4 relative">
               {product.photo?.length > 0 && (
                 <>
                   <Image
@@ -143,12 +149,52 @@ export function DetailsModal({ product, isOpen, onClose }) {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex gap-3 mt-4">
-            <Button size="lg" className="flex-1 bg-[#016630] hover:bg-[#016630]/90">
-              <ShoppingCart className="w-4 h-4 mr-2" />
-              Call Now
-            </Button>
+          <div className="flex gap-3 justify-center mx-4 mt-4">
+            <TooltipProvider>
+              <div className="flex flex-col sm:flex-row gap-4 px-4 sm:px-0">
+                {/* Azerbaijan */}
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <a href="tel:+994772171111" className="flex-1">
+                      <Button
+                        size="lg"
+                        className="w-full bg-white text-black border shadow-lg hover:bg-gray-100 flex items-center justify-center"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="text-[16px]">🇦🇿</span>
+                          <span className="text-sm font-medium">Call Now</span>
+                        </div>
+                      </Button>
+                    </a>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Azerbaijan</p>
+                  </TooltipContent>
+                </Tooltip>
+
+                {/* UAE */}
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <a href="tel:+971543627166" className="flex-1">
+                      <Button
+                        size="lg"
+                        className="w-full bg-white text-black border shadow-lg hover:bg-gray-100 flex items-center justify-center"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="text-[16px]">🇦🇪</span>
+                          <span className="text-sm font-medium">Call Now</span>
+                        </div>
+                      </Button>
+                    </a>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>United Arab Emirates</p>
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+            </TooltipProvider>
             <Button
+              className="mx-4"
               variant="outline"
               size="lg"
               onClick={toggleFavorite}

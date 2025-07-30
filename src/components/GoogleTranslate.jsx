@@ -2,10 +2,13 @@
 
 import { useState } from "react";
 
+// Updated languages with flags 
 const languages = [
-  { code: "en", name: "English" },
-  { code: "bn", name: "Bengali" },
-  { code: "fr", name: "French" },
+  { code: "en", name: "English", flag: "🇬🇧" },
+  { code: "ru", name: "Russian", flag: "🇷🇺" },
+  { code: "ar", name: "Arabic", flag: "🇸🇦" },
+  { code: "az", name: "Azerbaijani", flag: "🇦🇿" },
+  { code: "tr", name: "Turkish", flag: "🇹🇷" },
 ];
 
 const translations = {
@@ -15,17 +18,29 @@ const translations = {
     customers: "Customers",
     contact: "Contact Us",
   },
-  bn: {
-    category: "বিভাগ",
-    products: "পণ্য",
-    customers: "গ্রাহক",
-    contact: "যোগাযোগ করুন",
+  ru: {
+    category: "Категория",
+    products: "Продукты",
+    customers: "Клиенты",
+    contact: "Связаться с нами",
   },
-  fr: {
-    category: "Catégorie",
-    products: "Produits",
-    customers: "Clients",
-    contact: "Contactez-nous",
+  ar: {
+    category: "الفئة",
+    products: "المنتجات",
+    customers: "العملاء",
+    contact: "اتصل بنا",
+  },
+  az: {
+    category: "Kateqoriya",
+    products: "Məhsullar",
+    customers: "Müştərilər",
+    contact: "Bizimlə əlaqə",
+  },
+  tr: {
+    category: "Kategori",
+    products: "Ürünler",
+    customers: "Müşteriler",
+    contact: "Bize Ulaşın",
   },
 };
 
@@ -48,7 +63,7 @@ export default function GoogleTranslate({ onLanguageChange }) {
     >
       {languages.map((l) => (
         <option key={l.code} value={l.code}>
-          {l.name}
+          {l.flag} {l.name}
         </option>
       ))}
     </select>

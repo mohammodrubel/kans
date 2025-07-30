@@ -13,8 +13,8 @@ function Categories({ data }) {
           <h3 className="font-semibold mb-3 ">Categories</h3>
           <ul className="space-y-2 text-sm">
             {
-              data?.map((item,index)=> <Link  key={item?.id} href={`/products?id=${item?.id}`} >
-                <li className="flex mt-2">
+              data?.map((item,index)=> <Link  key={item?.id} className="" href={`/products?id=${item?.id}`} >
+                <li className="flex mt-4">
                 {item?.photo?.thumbnail
               ? (
                 <Image
@@ -28,7 +28,7 @@ function Categories({ data }) {
               : (
                 <div className="w-5 h-5 rounded-full bg-gray-200" /> 
               )}
-                <div className="mx-2">{item?.name}</div>
+                <div className="mx-2 font-medium">{item?.name}</div>
               </li>
               </Link>)
             }

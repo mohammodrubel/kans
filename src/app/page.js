@@ -20,7 +20,7 @@ export default function Home() {
  
   return (
     <>
-    <ModalForStart/>
+    {/* <ModalForStart/> */}
       <div className="min-h-screen bg-[#f9f9f5]">
       <div className="container mx-auto px-4 py-2">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
