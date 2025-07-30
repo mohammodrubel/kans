@@ -14,6 +14,7 @@ import Team from "@/components/Team/Team"
 import Image from "next/image"
 import banner from '../assets/sale2.png'
 import banner2 from '../assets/choise.jpg'
+import Currency from "@/components/Currency/Currency"
 
 
 export default function Home() {
@@ -21,6 +22,7 @@ export default function Home() {
   return (
     <>
     {/* <ModalForStart/> */}
+    <Currency/>
       <div className="min-h-screen bg-[#f9f9f5]">
       <div className="container mx-auto px-4 py-2">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
