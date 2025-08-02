@@ -212,7 +212,7 @@ export default function Header() {
 
             {/* Mobile Menu Button */}
             <div className="lg:hidden">
-              <MobileMenu />
+              <MobileMenu labels={labels} onLanguageChange={setLabels} />
             </div>
           </div>
         </div>

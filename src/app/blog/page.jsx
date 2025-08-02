@@ -25,7 +25,7 @@ function page() {
 
 
     return (
-        <div className="container grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mx-auto">
+        <div className="container grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 mx-auto">
             {
                 blog?.data?.map((item) => <div className="p-2" key={item?.id}>
                     <Link href={`/blog/${item?.id}`}>

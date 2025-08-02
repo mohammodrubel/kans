@@ -2,19 +2,18 @@
 import BestSallingPartOne from "@/components/BestSallingPartOne"
 import BestSallingPartTwo from "@/components/BestSallingPartTwo"
 import CategoriesWarpar from "@/components/CategoriesWarpar"
+import Currency from "@/components/Currency/Currency"
 import Customar from "@/components/Customar/Customar"
 import { FeaturedProducts } from "@/components/FeaturedProducts"
 import KeyFeatchers from "@/components/KeyFeatchers"
 import MajorTopVendor from "@/components/MajorTopVendor"
-import { ModalForStart } from "@/components/ModalForStart"
 import OnSaleProduct from "@/components/OnSaleProduct"
 import Promotion from "@/components/Promotion"
 import Review from "@/components/Review/Review"
 import Team from "@/components/Team/Team"
 import Image from "next/image"
-import banner from '../assets/sale2.png'
 import banner2 from '../assets/choise.jpg'
-import Currency from "@/components/Currency/Currency"
+import banner from '../assets/sale2.png'
 
 
 export default function Home() {
@@ -88,7 +87,6 @@ export default function Home() {
   )
 }
 
-// Data
 
 
 
