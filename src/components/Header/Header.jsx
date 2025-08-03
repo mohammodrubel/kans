@@ -4,7 +4,6 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -13,15 +12,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
-// import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-import {
-  getFormLocaleStorage,
-  removeFromLocaleStorage,
-} from "@/utils/localeStoratge";
-import { CircleUserRound, Heart, Search } from "lucide-react";
+import { getFormLocaleStorage, removeFromLocaleStorage } from "@/utils/localeStoratge";
+import { Heart, Search, X, CircleUserRound } from "lucide-react";
 import Logo from "../Logo";
-import SearchModal from "../SearchModal/SearchModal";
 import MegaMenu from "./MegaMenu";
 import MobileMenu from "./MobileMenu";
 
@@ -29,6 +22,7 @@ const GoogleTranslate = dynamic(() => import("../GoogleTranslate"), {
   ssr: false,
 });
 
+// Your existing translations
 const translations = {
   en: {
     category: "Category",
@@ -54,12 +48,12 @@ const translations = {
 };
 
 export default function Header() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showMobileSearch, setShowMobileSearch] = useState(false);
   const [showMegaMenu, setShowMegaMenu] = useState(false);
   const [megaMenuHover, setMegaMenuHover] = useState(false);
-  const [labels, setLabels] = useState(translations.en);
   const [token, setToken] = useState(getFormLocaleStorage("accessToken"));
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-
+  const [labels, setLabels] = useState(translations.en);
   const router = useRouter();
 
   const logout = () => {
@@ -83,21 +77,59 @@ export default function Header() {
     };
   }, []);
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/products?search=${searchQuery}`);
+      setSearchQuery("");
+      setShowMobileSearch(false);
+    }
+  };
+
   return (
-    <header className="sticky top-0 bg-white dark:bg-gray-900 shadow-sm z-[9999]">
-      <div className="container mx-auto px-4 py-3">
-        <div className="flex justify-between items-center relative">
+    <header className="sticky top-0 bg-white dark:bg-gray-900 shadow-sm z-[9999] border-b">
+      <div className="container mx-auto px-4">
+        {/* Mobile Search */}
+        {showMobileSearch && (
+          <div className="lg:hidden flex items-center py-3 gap-2">
+            <form onSubmit={handleSearch} className="flex-1 flex gap-2">
+              <input
+                type="text"
+                placeholder={labels.searchPlaceholder}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-green-500"
+                autoFocus
+              />
+              <button
+                type="submit"
+                className="p-2 bg-green-600 text-white rounded-full"
+              >
+                <Search className="h-5 w-5" />
+              </button>
+            </form>
+            <button
+              onClick={() => setShowMobileSearch(false)}
+              className="p-2 text-gray-500 rounded-full hover:bg-gray-100"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </div>
+        )}
+
+        <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="z-10 cursor-pointer hover:opacity-90 transition-opacity">
             <Logo />
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - Using your existing structure */}
           <nav className="hidden lg:flex gap-8 text-sm font-medium">
             <div className="relative">
               <button
-                className={`hover:text-green-600 transition-colors duration-200 ${showMegaMenu ? "text-green-600 font-semibold" : ""
-                  }`}
+                className={`hover:text-green-600 transition-colors duration-200 ${
+                  showMegaMenu ? "text-green-600 font-semibold" : ""
+                }`}
                 onMouseEnter={() => setShowMegaMenu(true)}
               >
                 {labels.category}
@@ -132,25 +164,40 @@ export default function Header() {
             </Link>
           </nav>
 
-          {/* Right Side */}
+          {/* Desktop Search - Integrated into header */}
+          <form 
+            onSubmit={handleSearch}
+            className="hidden lg:flex flex-1 mx-8 max-w-xl"
+          >
+            <div className="relative w-full">
+              <input
+                type="text"
+                placeholder={labels.searchPlaceholder}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-green-500"
+              />
+              <button
+                type="submit"
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 text-gray-500 hover:text-green-600"
+              >
+                <Search className="h-5 w-5" />
+              </button>
+            </div>
+          </form>
+
+          {/* Right Side Icons */}
           <div className="flex items-center gap-4">
-            {/* Search Icon (Desktop only) */}
+            {/* Mobile Search Button */}
             <button
-              onClick={() => setIsSearchOpen(true)}
-              className="hidden lg:block p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              onClick={() => setShowMobileSearch(true)}
+              className="lg:hidden p-2 text-gray-600 dark:text-gray-400 hover:text-green-600 transition-colors"
               aria-label="Search"
             >
-              <Search className="h-5 w-5 text-gray-600 dark:text-gray-400 hover:text-green-600 transition-colors" />
+              <Search className="h-6 w-6" />
             </button>
 
-            {/* Search Modal */}
-            <SearchModal
-              open={isSearchOpen}
-              onClose={() => setIsSearchOpen(false)}
-              placeholder={labels.searchPlaceholder}
-            />
-
-            {/* Google Translate */}
+            {/* GoogleTranslate with your existing implementation */}
             <div className="hidden lg:block">
               <GoogleTranslate onLanguageChange={(newLabels) => setLabels(newLabels)} />
             </div>
@@ -161,10 +208,10 @@ export default function Header() {
               className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors relative group"
               aria-label="Wishlist"
             >
-              <Heart className="h-5 w-5 text-gray-600 dark:text-gray-400 group-hover:text-green-600 transition-colors" />
+              <Heart className="h-6 w-6 text-gray-600 dark:text-gray-400 group-hover:text-green-600 transition-colors" />
             </Link>
 
-            {/* User Dropdown */}
+            {/* User Dropdown - Your existing implementation */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <div className="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer">
@@ -210,7 +257,7 @@ export default function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button - Pass labels and setLabels as props */}
             <div className="lg:hidden">
               <MobileMenu labels={labels} onLanguageChange={setLabels} />
             </div>

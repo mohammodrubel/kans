@@ -1,9 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import { ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
-// Updated languages with flags 
-const languages = [
+export const languages = [
   { code: "en", name: "English", flag: "🇬🇧" },
   { code: "ru", name: "Russian", flag: "🇷🇺" },
   { code: "ar", name: "Arabic", flag: "🇸🇦" },
@@ -44,28 +51,60 @@ const translations = {
   },
 };
 
-export default function GoogleTranslate({ onLanguageChange }) {
-  const [lang, setLang] = useState("en");
+export default function LanguageSwitcher({ onLanguageChange }) {
+  const [currentLang, setCurrentLang] = useState("en");
+  const [isOpen, setIsOpen] = useState(false);
+  
+  const currentLanguage = languages.find(lang => lang.code === currentLang);
 
-  const handleChange = (e) => {
-    const selected = e.target.value;
-    setLang(selected);
+  const handleLanguageChange = (langCode) => {
+    setCurrentLang(langCode);
     if (onLanguageChange) {
-      onLanguageChange(translations[selected]);
+      onLanguageChange(translations[langCode]);
     }
+    setIsOpen(false); // Close the menu after selection
   };
 
   return (
-    <select
-      onChange={handleChange}
-      value={lang}
-      className="border px-3 py-2 rounded-md text-sm cursor-pointer"
-    >
-      {languages.map((l) => (
-        <option key={l.code} value={l.code}>
-          {l.flag} {l.name}
-        </option>
-      ))}
-    </select>
+    <div className="flex items-center gap-6">
+      <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+        <DropdownMenuTrigger asChild>
+          <div 
+            className="relative"
+            onMouseEnter={() => setIsOpen(true)}
+            onMouseLeave={() => setIsOpen(false)}
+          >
+            <Button 
+              variant="ghost" 
+              className="flex items-center gap-2 text-sm hover:bg-gray-100 px-3 py-2 rounded-md transition-colors"
+            >
+              <span className="text-lg">{currentLanguage?.flag}</span> 
+              <span>{currentLanguage?.code.toUpperCase()}</span>
+              <ChevronDown className="w-3 h-3 opacity-70" />
+            </Button>
+          </div>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent 
+          align="end" 
+          className="w-48 rounded-lg shadow-lg border border-gray-100"
+          onMouseEnter={() => setIsOpen(true)}
+          onMouseLeave={() => setIsOpen(false)}
+          sideOffset={5}
+        >
+          {languages.map((language) => (
+            <DropdownMenuItem 
+              key={language.code}
+              className="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 cursor-pointer"
+              onClick={() => handleLanguageChange(language.code)}
+            >
+              <span className="text-xl">{language.flag}</span>
+              <div className="flex flex-col">
+                <span className="font-medium">{language.name}</span>
+              </div>
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   );
 }
