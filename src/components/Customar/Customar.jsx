@@ -9,7 +9,7 @@ import customer6 from '../../assets/customarlogo/img6.png'
 import customer7 from '../../assets/customarlogo/img7.png'
 import customer8 from '../../assets/customarlogo/img8.png'
 import customer9 from '../../assets/customarlogo/img9.png'
-import Link from 'next/link'
+import Marquee from 'react-fast-marquee'
 
 function Customar() {
     const clientLogos = [
@@ -23,45 +23,41 @@ function Customar() {
         { name: "Client 8", logo: customer8 },
         { name: "Client 9", logo: customer9 },
     ]
+
     return (
-        <section className="bg-gradient-to-br from-gray-50 to-gray-100 py-20">   
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    <div>
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
-                            Meet Some of Our Clients
-                        </h1>
-                        <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                            Discover how leading food businesses have transformed their supply chains through our comprehensive
-                            import and distribution network.
-                        </p>
-                        <div className="flex flex-col sm:flex-row gap-4">
-                            <button className="bg-[#016630] hover:bg-[#016630] text-white px-8 py-3 rounded-lg font-medium transition-colors flex items-center justify-center">
-                                Explore Success Stories
-                                <ChevronRightIcon className="ml-2 h-5 w-5" />
-                            </button>
-                            <Link href='/client'>
-                            <button className="border border-gray-300 hover:border-gray-400 text-gray-700 px-8 py-3 rounded-lg font-medium transition-colors">
-                                View All Clients
-                            </button>
-                            </Link>
+        <section className="bg-gradient-to-br from-gray-50 to-gray-100 py-20">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
+                    Meet Some of Our Clients
+                </h1>
+
+                {/* Marquee Left to Right */}
+                <Marquee direction="right" className="flex items-center gap-12 mb-10" speed={40} pauseOnHover>
+                    {clientLogos.map((item, index) => (
+                        <div key={index} className="bg-white p-4 m-4 rounded shadow-md">
+                            <Image
+                                src={item.logo}
+                                width={100}
+                                height={100}
+                                alt={item.name}
+                            />
                         </div>
-                    </div>
-                    <div className="bg-white p-10 rounded-2xl shadow-lg">
-                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
-                            {clientLogos.map((client, index) => (
-                                <div
-                                    key={index}
-                                    className="flex items-center justify-center h-20 opacity-70 hover:opacity-100 transition-opacity"
-                                >
-                                    <Image width={200} height={200} src={client.logo} alt="Image"
-                                        className="max-h-16 max-w-full object-contain"
-                                    />
-                                </div>
-                            ))}
+                    ))}
+                </Marquee>
+
+                {/* Marquee Right to Left */}
+                <Marquee direction="left" className="flex items-center gap-12" speed={40} pauseOnHover>
+                    {clientLogos.map((item, index) => (
+                        <div key={index} className="bg-white p-4 m-4 rounded shadow-md">
+                            <Image
+                                src={item.logo}
+                                width={100}
+                                height={100}
+                                alt={item.name}
+                            />
                         </div>
-                    </div>
-                </div>
+                    ))}
+                </Marquee>
             </div>
         </section>
     )
