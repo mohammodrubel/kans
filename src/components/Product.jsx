@@ -87,7 +87,7 @@ const Product = ({ product }) => {
 
         <div className="flex justify-between items-center my-5">
           <div className="px-2 space-y-2">
-            <h3 className="font-semibold text-lg text-gray-900 line-clamp-2 group-hover:text-[#016630] transition-colors duration-200">
+            <h3 className="font-semibold line-clamp-1 text-lg text-gray-900 group-hover:text-[#016630] transition-colors duration-200">
               {product.name}
             </h3>
             <AutoCurrencyFormatter price={product?.price}/>

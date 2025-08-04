@@ -1,21 +1,18 @@
 "use client";
+import { Button } from "@/components/ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { getFormLocaleStorage, removeFromLocaleStorage } from "@/utils/localeStoratge";
+import { CircleUserRound, Heart, Search, X } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState, useRef } from "react";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { getFormLocaleStorage, removeFromLocaleStorage } from "@/utils/localeStoratge";
-import { Heart, Search, X, CircleUserRound } from "lucide-react";
+import { useEffect, useState } from "react";
 import Logo from "../Logo";
-import MegaMenu from "./MegaMenu";
+import DesktopNavigatoin from "./DesktopNavigatoin";
 import MobileMenu from "./MobileMenu";
+import UserDropDown from "./UserDropDown";
+import Currency from "../Currency/Currency";
+import { LanguageDropdown } from "../HeaderCurrency";
 
 const GoogleTranslate = dynamic(() => import("../GoogleTranslate"), {
   ssr: false,
@@ -77,19 +74,18 @@ const translations = {
 export default function Header() {
   const [searchQuery, setSearchQuery] = useState("");
   const [showMobileSearch, setShowMobileSearch] = useState(false);
-  const [showMegaMenu, setShowMegaMenu] = useState(false);
   const [token, setToken] = useState(null);
-  const [labels, setLabels] = useState(translations.en);
-  const [hoverTimeout, setHoverTimeout] = useState(null);
-  const megaMenuRef = useRef(null);
-  const router = useRouter();
-
+  const router = useRouter()
   // Handle logout
   const logout = () => {
     removeFromLocaleStorage("accessToken");
     setToken(null);
     router.push("/login");
   };
+
+  const [labels, setLabels] = useState(translations.en);
+
+
 
   // Check auth token
   useEffect(() => {
@@ -115,26 +111,8 @@ export default function Header() {
     }
   };
 
-  // Improved hover handling with delay
-  const handleMouseEnter = () => {
-    clearTimeout(hoverTimeout);
-    setShowMegaMenu(true);
-  };
 
-  const handleMouseLeave = () => {
-    setHoverTimeout(setTimeout(() => setShowMegaMenu(false), 200));
-  };
-  // Close mega menu when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (megaMenuRef.current && !megaMenuRef.current.contains(event.target)) {
-        setShowMegaMenu(false);
-      }
-    };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   return (
     <header className="sticky top-0 bg-white dark:bg-gray-900 shadow-sm z-50 border-b">
@@ -174,60 +152,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8 text-sm font-medium">
-            {/* Category with MegaMenu */}
-            <div
-              ref={megaMenuRef}
-              className="relative"
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            >
-              <button
-                className={`flex items-center gap-1 py-2 hover:text-green-600 transition-colors ${showMegaMenu ? "text-green-600 font-semibold" : ""
-                  }`}
-              >
-                {labels.category}
-                <svg
-                  className={`w-4 h-4 transition-transform ${showMegaMenu ? "rotate-180" : ""
-                    }`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </button>
-
-              {showMegaMenu && (
-                <div className="fixed left-0 right-0 top-[64px] bg-white shadow-xl z-[9999] rounded-b-lg overflow-auto max-h-[70vh]">
-                  <MegaMenu />
-                </div>)}
-            </div>
-
-            <Link
-              href="/products"
-              className="py-2 hover:text-green-600 transition-colors"
-            >
-              {labels.products}
-            </Link>
-            <Link
-              href="/customers"
-              className="py-2 hover:text-green-600 transition-colors"
-            >
-              {labels.customers}
-            </Link>
-            <Link
-              href="/contact-us"
-              className="py-2 hover:text-green-600 transition-colors"
-            >
-              {labels.contact}
-            </Link>
-          </nav>
+          <DesktopNavigatoin labels={labels} />
 
           {/* Desktop Search */}
           <form
@@ -269,54 +194,19 @@ export default function Header() {
                 }}
               />
             </div>
+            {/* currency  */}
+            <LanguageDropdown/>
 
             {/* Wishlist */}
             <Link
               href="/wishlist"
               className="p-2 rounded-full hover:bg-gray-100 transition-colors relative group"
             >
-              <Heart className="h-6 w-6 text-gray-600 group-hover:text-green-600" />
+              <Heart className="h-5 w-5 text-gray-600 group-hover:text-green-600" />
             </Link>
 
             {/* User dropdown */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button className="p-1 rounded-full hover:bg-gray-100 transition-colors focus:outline-none">
-                  <CircleUserRound size={30} className="text-gray-500 hover:text-green-600" />
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56 shadow-xl border" align="end">
-                {token ? (
-                  <>
-                    <DropdownMenuItem asChild>
-                      <Link
-                        href="/profile"
-                        className="w-full px-2 py-1.5 rounded-md hover:bg-gray-100 text-gray-700"
-                      >
-                        {labels.profile}
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <div className="px-2 pb-2">
-                      <Button
-                        onClick={logout}
-                        className="bg-red-500 hover:bg-red-600 text-white w-full"
-                      >
-                        {labels.logout}
-                      </Button>
-                    </div>
-                  </>
-                ) : (
-                  <div className="px-2 py-2 space-y-2">
-                    <Link href="/login">
-                      <Button className="bg-green-600 hover:bg-green-700 text-white w-full">
-                        {labels.login}
-                      </Button>
-                    </Link>
-                  </div>
-                )}
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <UserDropDown labels={labels} />
 
             {/* Mobile Menu */}
             <div className="lg:hidden">
@@ -327,8 +217,6 @@ export default function Header() {
                 }}
                 token={token}
                 logout={logout}
-                
-                
               />
             </div>
           </div>
