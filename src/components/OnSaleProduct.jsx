@@ -33,7 +33,6 @@ const OnSaleProduct = () => {
 
         {/* parent grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-          {/* banner (3 columns on large screens) */}
           <div className="lg:col-span-3">
             <h1 className='text-2xl font-medium text-gray-800'>Major Top Vendor</h1>
             <div className="w-full flex-col h-full gap-5 rounded-xl flex items-center justify-center">
@@ -41,11 +40,9 @@ const OnSaleProduct = () => {
               <Image width={600} height={600} className='rounded-2xl' src={banner2} alt='banner' />
             </div>
           </div>
-
-          {/* products (9 columns on large screens) */}
           <div className="lg:col-span-9">
             <h2 className="font-bold text-xl mb-4">On Sale</h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {onSaleProduct?.slice(0, 8).map((product) => (
                 <Product key={product?.id} product={product} />
               ))}

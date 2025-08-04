@@ -183,7 +183,7 @@ export default function Header() {
               onClick={() => setShowMobileSearch(true)}
               className="lg:hidden p-2 text-gray-600 hover:text-green-600 transition-colors"
             >
-              <Search className="h-6 w-6" />
+              <Search className="h-5 w-5" />
             </button>
 
             {/* Google Translate */}

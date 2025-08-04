@@ -13,8 +13,6 @@ export default function Home() {
  
   return (
     <>
-    {/* <ModalForStart/> */}
-    {/* <Currency/> */}
       <div className="min-h-screen bg-[#f9f9f5]">
       <SlickCarousel/>
       <FeaturedProducts/>
