@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -18,40 +17,7 @@ export const languages = [
   { code: "tr", name: "Turkish", flag: "🇹🇷" },
 ];
 
-const translations = {
-  en: {
-    category: "Category",
-    products: "Products",
-    customers: "Customers",
-    contact: "Contact Us",
-  },
-  ru: {
-    category: "Категория",
-    products: "Продукты",
-    customers: "Клиенты",
-    contact: "Связаться с нами",
-  },
-  ar: {
-    category: "الفئة",
-    products: "المنتجات",
-    customers: "العملاء",
-    contact: "اتصل بنا",
-  },
-  az: {
-    category: "Kateqoriya",
-    products: "Məhsullar",
-    customers: "Müştərilər",
-    contact: "Bizimlə əlaqə",
-  },
-  tr: {
-    category: "Kategori",
-    products: "Ürünler",
-    customers: "Müşteriler",
-    contact: "Bize Ulaşın",
-  },
-};
-
-export default function LanguageSwitcher({ onLanguageChange }) {
+export default function GoogleTranslate({ onLanguageChange }) {
   const [currentLang, setCurrentLang] = useState("en");
   const [isOpen, setIsOpen] = useState(false);
   
@@ -60,9 +26,9 @@ export default function LanguageSwitcher({ onLanguageChange }) {
   const handleLanguageChange = (langCode) => {
     setCurrentLang(langCode);
     if (onLanguageChange) {
-      onLanguageChange(translations[langCode]);
+      onLanguageChange(langCode);
     }
-    setIsOpen(false); // Close the menu after selection
+    setIsOpen(false);
   };
 
   return (
