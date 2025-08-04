@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import banner from '../assets/banner3.jpg';
 import Product from "./Product";
+import CategoriesWarpar from "./CategoriesWarpar";
 
 export function FeaturedProducts() {
     const [productData, setProductData] = useState([]);
@@ -38,17 +39,18 @@ export function FeaturedProducts() {
     }, []);
 
     return (
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 py-10">
             <div className="grid grid-cols-1 md:grid-cols-12 items-center justify-center gap-4">
                 {/* Left side: 3 columns */}
                 <div className="md:col-span-3 md:h-[500px] p-4 rounded relative">
-                    <Image
+                    {/* <Image
                         fill
                         src={banner}
                         alt="banner"
                         className="object-cover rounded"
                         priority
-                    />
+                    /> */}
+                    <CategoriesWarpar/>
                 </div>
 
                 {/* Right side: 9 columns */}

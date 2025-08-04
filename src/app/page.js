@@ -1,7 +1,7 @@
 
 import Customar from "@/components/Customar/Customar"
 import { FeaturedProducts } from "@/components/FeaturedProducts"
-import KeyFeatchers from "@/components/KeyFeatchers"
+import OnSaleProduct from "@/components/OnSaleProduct"
 import Promotion from "@/components/Promotion"
 import Review from "@/components/Review/Review"
 import SlickCarousel from "@/components/SlickCarousel"
@@ -18,9 +18,10 @@ export default function Home() {
       <div className="min-h-screen bg-[#f9f9f5]">
       <SlickCarousel/>
       <FeaturedProducts/>
+      <OnSaleProduct/>
       <Customar/>
       <Review/>
-      <KeyFeatchers/>
+      {/* <KeyFeatchers/> */}
       <Promotion/>
       <Team/>
     </div>
