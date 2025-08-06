@@ -34,7 +34,7 @@ const OnSaleProduct = () => {
         {/* parent grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
           <div className="lg:col-span-3">
-            <h1 className='text-2xl font-medium text-gray-800'>Major Top Vendor</h1>
+            {/* <h1 className='text-2xl font-medium text-gray-800'>Major Top Vendor</h1> */}
             <div className="w-full flex-col h-full gap-5 rounded-xl flex items-center justify-center">
               <Image width={600} height={600} className='rounded-2xl' src={banner1} alt='banner' />
               <Image width={600} height={600} className='rounded-2xl' src={banner2} alt='banner' />

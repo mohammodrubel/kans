@@ -47,6 +47,8 @@ const SlickCarousel = () => {
     infinite: hasMultiple,
     slidesToShow: 1,
     slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
     centerMode: hasMultiple,
     centerPadding: hasMultiple ? "20%" : "0",
     speed: 500,
