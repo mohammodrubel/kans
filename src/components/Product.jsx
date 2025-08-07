@@ -1,16 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import { addFav, getAllFavList } from "@/app/api/wishlist";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { getFormLocaleStorage } from "@/utils/localeStoratge";
 import { Heart } from "lucide-react";
 import Image from "next/image";
-import { DetailsModal } from "./DetailsModal";
-// import { addFav, getAllFavList } from "@/app/api/wishlist";
-import { getFormLocaleStorage } from "@/utils/localeStoratge";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { addFav, getAllFavList } from "@/app/api/wishlist";
 import AutoCurrencyFormatter from "./AutoCurrencyFormatter/AutoCurrencyFormatter";
+import { DetailsModal } from "./DetailsModal";
 
 const Product = ({ product }) => {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
@@ -39,14 +38,14 @@ const Product = ({ product }) => {
     fetchWishlist();
   }, [token, product.id]);
 
-  const toggleFavorite = async () => {
+  const toggleFavorite = async (e) => {
+    e.stopPropagation(); // Prevent event from bubbling up to the card
     try {
       if (!token) return toast.error("Please login first.");
 
       const res = await addFav({ product_id: product.id }, token);
       if (res?.status) {
         toast.success(res.message || (isInWishlist ? "Removed from wishlist" : "Added to wishlist"));
-        console.log(res)
         setIsInWishlist(prev => !prev);
       } else {
         toast.error("Failed to update wishlist.");
@@ -59,14 +58,16 @@ const Product = ({ product }) => {
   return (
     <Card className="group p-3 border-0 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 bg-white max-w-sm">
       <CardContent className="p-0">
-        <div className="relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg">
+        <div
+          className="relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg cursor-pointer"
+          onClick={() => setIsDetailsOpen(true)}
+        >
           <Button
             size="icon"
             variant="ghost"
             onClick={toggleFavorite}
-            className={`absolute top-3 right-3 z-10 bg-white/80 hover:bg-white ${
-              isInWishlist ? "text-red-500" : "hover:text-red-500"
-            } opacity-100 transition-opacity duration-200`}
+            className={`absolute top-3 right-3 z-10 bg-white/80 hover:bg-white ${isInWishlist ? "text-red-500" : "hover:text-red-500"
+              } opacity-100 transition-opacity duration-200`}
           >
             <Heart
               className="h-4 w-4 cursor-pointer"
@@ -85,22 +86,16 @@ const Product = ({ product }) => {
           </div>
         </div>
 
-        <div className="flex justify-between items-center my-5">
-          <div className="px-2 space-y-2">
+        <div
+          className=" cursor-pointer"
+          onClick={() => setIsDetailsOpen(true)}
+        >
+          <div className="px-2">
             <h3 className="font-semibold line-clamp-1 text-lg text-gray-900 group-hover:text-[#016630] transition-colors duration-200">
               {product.name}
             </h3>
-            <AutoCurrencyFormatter price={product?.price}/>
-            {/* <p className="text-gray-500 font-medium">{product?.price}</p> */}
+            <AutoCurrencyFormatter price={product?.price} />
           </div>
-          <Button
-            variant="outline"
-            size="sm"
-            className="px-3 hover:bg-gray-50"
-            onClick={() => setIsDetailsOpen(true)}
-          >
-            Details
-          </Button>
         </div>
       </CardContent>
 

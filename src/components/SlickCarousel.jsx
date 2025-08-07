@@ -61,7 +61,7 @@ const SlickCarousel = () => {
         breakpoint: 768,
         settings: {
           slidesToShow: 1,
-          centerPadding: hasMultiple ? "10%" : "0",
+          centerPadding: hasMultiple ? "2%" : "0",
         },
       },
       {
@@ -92,23 +92,22 @@ const SlickCarousel = () => {
   }
 
   return (
-    <div className="container mx-auto relative">
-      <Slider {...settings}>
-        {data.map((item) => (
-          <div key={item.id}>
-            <div className="h-[400px] overflow-hidden rounded-xl mx-1">
-              <Image
-                src={item?.photo?.original_url}
-                alt={item?.title || ''}
-                width={800}
-                height={400}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-        ))}
-      </Slider>
-    </div>
+   <div className="container mx-auto">
+  <Slider {...settings}>
+    {data.map((item) => (
+      <div key={item.id} className="w-full">
+        <Image
+          src={item?.photo?.original_url}
+          alt={item?.title || ''}
+          width={1920}
+          height={1080}
+          className="w-full h-auto"
+          sizes="100vw"
+        />
+      </div>
+    ))}
+  </Slider>
+</div>
   );
 };
 

@@ -7,7 +7,7 @@ import Link from "next/link";
 function Categories({ data }) {
   return (
     <Card>
-      <CardContent className="p-4">
+      <CardContent>
         <h3 className="font-semibold mb-3">Categories</h3>
         <ul className="space-y-2 text-sm">
           {data?.map((item) => (

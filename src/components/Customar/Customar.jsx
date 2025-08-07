@@ -1,5 +1,5 @@
-import { ChevronRightIcon } from 'lucide-react'
 import Image from 'next/image'
+import Marquee from 'react-fast-marquee'
 import customer1 from '../../assets/customarlogo/img1.png'
 import customer2 from '../../assets/customarlogo/img2.png'
 import customer3 from '../../assets/customarlogo/img3.png'
@@ -9,7 +9,6 @@ import customer6 from '../../assets/customarlogo/img6.png'
 import customer7 from '../../assets/customarlogo/img7.png'
 import customer8 from '../../assets/customarlogo/img8.png'
 import customer9 from '../../assets/customarlogo/img9.png'
-import Marquee from 'react-fast-marquee'
 
 function Customar() {
     const clientLogos = [
@@ -26,7 +25,7 @@ function Customar() {
 
     return (
         <section className="bg-gradient-to-br from-gray-50 to-gray-100 py-20">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="container mx-auto  sm:px-6 lg:px-8">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
                     Meet Some of Our Clients
                 </h1>
