@@ -12,7 +12,7 @@ function Customar() {
         const fetchCustomers = async () => {
             try {
                 const res = await getAllCustomers()
-                setData(res?.data)
+                setData(res?.data || [])
             } catch (error) {
                 console.error("Error fetching customers:", error)
             }
@@ -28,16 +28,25 @@ function Customar() {
                 </h1>
 
                 {/* Marquee Left to Right */}
-                <Marquee direction="right" className="flex items-center gap-12 mb-10" speed={40} pauseOnHover>
+                <Marquee
+                    direction="right"
+                    className="flex items-center gap-12 mb-10"
+                    speed={40}
+                    pauseOnHover
+                    autoFill
+                >
                     {data.map((customer) => (
-                        <div key={customer.id} className="bg-white p-4 m-4 rounded shadow-md">
+                        <div
+                            key={customer.id}
+                            className="bg-white p-4 m-4 rounded shadow-md"
+                        >
                             {customer?.photo?.url && (
                                 <Image
                                     src={customer.photo.url}
                                     width={100}
                                     height={100}
                                     alt={customer.first_name || "Customer"}
-                                    unoptimized // because it's an external image
+                                    unoptimized // external image
                                 />
                             )}
                         </div>
@@ -45,9 +54,18 @@ function Customar() {
                 </Marquee>
 
                 {/* Marquee Right to Left */}
-                <Marquee direction="left" className="flex items-center gap-12" speed={40} pauseOnHover>
+                <Marquee
+                    direction="left"
+                    className="flex items-center gap-12"
+                    speed={40}
+                    pauseOnHover
+                    autoFill
+                >
                     {data.map((customer) => (
-                        <div key={customer.id} className="bg-white p-4 m-4 rounded shadow-md">
+                        <div
+                            key={customer.id}
+                            className="bg-white p-4 m-4 rounded shadow-md"
+                        >
                             {customer?.photo?.url && (
                                 <Image
                                     src={customer.photo.url}
