@@ -1,23 +1,33 @@
-// src/app/api/category/index.js or /lib/server/category.js
 "use server"
 
 export const getProduct = async (args = []) => {
-  const queryString = new URLSearchParams(
-    args.reduce((acc, { name, value }) => {
-      if (value) acc[name] = value;
-      return acc;
-    }, {})
-  ).toString();
+  const queryParams = args.reduce((acc, { name, value }) => {
+    if (value) acc[name] = value;
+    return acc;
+  }, {});
 
   try {
+    const queryString = new URLSearchParams(queryParams).toString();
     const res = await fetch(`https://egg.dordham.com/api/v1/products/?${queryString}`, {
-      cache: 'store',
+      cache: 'no-cache',
     });
-
-    return await res.json();
+    
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+    const data = await res.json();
+    return {
+      success: true,
+      data: data.data || [], // Ensure we return the actual product array
+      pagination: data.pagination || null // Include pagination if available
+    };
   } catch (error) {
     console.error("Error fetching products:", error);
-    return null;
+    return {
+      success: false,
+      error: error.message,
+      data: []
+    };
   }
 };
 
