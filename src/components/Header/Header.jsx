@@ -1,18 +1,15 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { getFormLocaleStorage, removeFromLocaleStorage } from "@/utils/localeStoratge";
-import { CircleUserRound, Heart, Search, X } from "lucide-react";
+import { Heart, Search, X } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { LanguageDropdown } from "../HeaderCurrency";
 import Logo from "../Logo";
 import DesktopNavigatoin from "./DesktopNavigatoin";
 import MobileMenu from "./MobileMenu";
 import UserDropDown from "./UserDropDown";
-import Currency from "../Currency/Currency";
-import { LanguageDropdown } from "../HeaderCurrency";
 
 const GoogleTranslate = dynamic(() => import("../GoogleTranslate"), {
   ssr: false,
@@ -195,7 +192,7 @@ export default function Header() {
               />
             </div>
             {/* currency  */}
-            <LanguageDropdown/>
+            <LanguageDropdown />
 
             {/* Wishlist */}
             <Link

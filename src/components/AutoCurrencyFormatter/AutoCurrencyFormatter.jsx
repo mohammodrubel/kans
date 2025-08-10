@@ -2,16 +2,16 @@
 import React, { useEffect, useState } from "react";
 
 const localeCurrencyMap = {
-  "en-US": { currency: "USD", locale: "en-US", prefix: "USD: " },  // $
-  "ru-RU": { currency: "RUB", locale: "ru-RU", prefix: "RUB: " },  // ₽
-  "ar-SA": { currency: "SAR", locale: "ar-SA", prefix: "SAR: " },  // ﷼
-  "az-AZ": { currency: "AZN", locale: "az-AZ", prefix: "AZN: " },  // ₼
-  "tr-TR": { currency: "TRY", locale: "tr-TR", prefix: "TRY: " },  // ₺
-  "es-ES": { currency: "EUR", locale: "es-ES", prefix: "EUR: " },  // €
-  "fr-FR": { currency: "EUR", locale: "fr-FR", prefix: "EUR: " },  // €
-  "de-DE": { currency: "EUR", locale: "de-DE", prefix: "EUR: " },  // €
-  "ja-JP": { currency: "JPY", locale: "ja-JP", prefix: "JPY: " },  // ¥
-  "zh-CN": { currency: "CNY", locale: "zh-CN", prefix: "CNY: " }   // ¥
+  "en-US": { currency: "USD", locale: "en-US", prefix: "USD: " },
+  "ru-RU": { currency: "RUB", locale: "ru-RU", prefix: "RUB: " },
+  "ar-SA": { currency: "SAR", locale: "ar-SA", prefix: "SAR: " },
+  "az-AZ": { currency: "AZN", locale: "az-AZ", prefix: "AZN: " },
+  "tr-TR": { currency: "TRY", locale: "tr-TR", prefix: "TRY: " },
+  "es-ES": { currency: "EUR", locale: "es-ES", prefix: "EUR: " },
+  "fr-FR": { currency: "EUR", locale: "fr-FR", prefix: "EUR: " },
+  "de-DE": { currency: "EUR", locale: "de-DE", prefix: "EUR: " },
+  "ja-JP": { currency: "JPY", locale: "ja-JP", prefix: "JPY: " },
+  "zh-CN": { currency: "CNY", locale: "zh-CN", prefix: "CNY: " }
 };
 
 const mockRates = {
@@ -25,25 +25,25 @@ const mockRates = {
   TRY: 10.0
 };
 
-const AutoCurrencyFormatter = ({ price }) => {
-  const [displayText, setDisplayText] = useState("");
+const AutoCurrencyFormatter = ({ price, discount }) => {
+  const [prefix, setPrefix] = useState("");
+  const [normalPrice, setNormalPrice] = useState("");
+  const [discountPrice, setDiscountPrice] = useState("");
 
   useEffect(() => {
-    const handleCurrencyChange = () => {
+    const formatPrice = (priceValue) => {
       const storedLocale = localStorage.getItem("selected_locale") || "az-AZ";
       const currencyData = localeCurrencyMap[storedLocale] || localeCurrencyMap["en-US"];
-      
-      const rate = mockRates[currencyData.currency] ?? 1;
-      const convertedPrice = price * rate;
 
-      // Format with currency symbol but exclude it from the formatted string
+      const rate = mockRates[currencyData.currency] ?? 1;
+      const convertedPrice = priceValue * rate;
+
       const formatter = new Intl.NumberFormat(currencyData.locale, {
         style: "currency",
         currency: currencyData.currency,
-        currencyDisplay: "narrowSymbol", // Only shows the symbol (€, $, ¥)
+        currencyDisplay: "narrowSymbol"
       });
 
-      // Extract the symbol and formatted number
       const parts = formatter.formatToParts(convertedPrice);
       const numericValue = parts
         .filter(part => part.type !== "currency")
@@ -51,23 +51,57 @@ const AutoCurrencyFormatter = ({ price }) => {
         .join("")
         .trim();
 
-      // Combine prefix + symbol + value (e.g., "EUR: €7.02")
       const currencySymbol = parts.find(part => part.type === "currency")?.value || "";
-      setDisplayText(`${currencyData.prefix}${currencySymbol}${numericValue}`);
+
+      return { prefix: currencyData.prefix, value: `${currencySymbol}${numericValue}` };
     };
 
-    handleCurrencyChange();
+    if (price) {
+      const { prefix, value } = formatPrice(price);
+      setPrefix(prefix);
+      setNormalPrice(value);
+    }
+    if (discount) {
+      const { value } = formatPrice(discount);
+      setDiscountPrice(value);
+    }
 
-    window.addEventListener("currencyChange", handleCurrencyChange);
-    window.addEventListener("storage", handleCurrencyChange);
+    const handleChange = () => {
+      if (price) {
+        const { prefix, value } = formatPrice(price);
+        setPrefix(prefix);
+        setNormalPrice(value);
+      }
+      if (discount) {
+        const { value } = formatPrice(discount);
+        setDiscountPrice(value);
+      }
+    };
+
+    window.addEventListener("currencyChange", handleChange);
+    window.addEventListener("storage", handleChange);
 
     return () => {
-      window.removeEventListener("currencyChange", handleCurrencyChange);
-      window.removeEventListener("storage", handleCurrencyChange);
+      window.removeEventListener("currencyChange", handleChange);
+      window.removeEventListener("storage", handleChange);
     };
-  }, [price]);
+  }, [price, discount]);
 
-  return <>{displayText}</>;
+  if (!price) return null;
+
+  return (
+    <div className="price-container font-bold">
+      {discount ? (
+        <>
+          <span>{prefix}</span>
+          <del className="original-price line-through mx-1 text-gray-600">{normalPrice}</del>
+          <span className="discount-price">{discountPrice}</span>
+        </>
+      ) : (
+        <span className="normal-price">{`${prefix}${normalPrice}`}</span>
+      )}
+    </div>
+  );
 };
 
 export default AutoCurrencyFormatter;

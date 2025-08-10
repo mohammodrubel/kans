@@ -94,7 +94,7 @@ const Product = ({ product }) => {
             <h3 className="font-semibold line-clamp-1 text-lg text-gray-900 group-hover:text-[#016630] transition-colors duration-200">
               {product.name}
             </h3>
-            <AutoCurrencyFormatter price={product?.price} />
+            <AutoCurrencyFormatter price={product?.price}  discount={product.discount_price} /> 
           </div>
         </div>
       </CardContent>

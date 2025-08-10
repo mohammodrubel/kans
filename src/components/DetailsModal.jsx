@@ -206,25 +206,18 @@ export function DetailsModal({ product, isOpen, onClose }) {
               
               <div className="flex items-center gap-3">
                 <h2 className="text-2xl font-bold text-green-500">
-                  <AutoCurrencyFormatter price={product?.price} />
+                   <AutoCurrencyFormatter price={product?.price}  discount={product.discount_price} /> 
                 </h2>
-                {product.originalPrice && (
+                {/* {product.originalPrice && (
                   <span className="text-sm text-gray-400 line-through">
                     <AutoCurrencyFormatter price={product.originalPrice} />
                   </span>
-                )}
+                )} */}
               </div>
               
               {renderDynamicContent()}
               
-              <div className="flex flex-col sm:flex-row gap-3 mt-6">
-                <Button className="flex-1 bg-[#016630] hover:bg-[#015a2a] h-12">
-                  Add to Cart
-                </Button>
-                <Button variant="outline" className="flex-1 h-12">
-                  Quick Buy
-                </Button>
-              </div>
+              
             </div>
           </div>
 

@@ -11,7 +11,7 @@ export const getOnSaleProduct = async () => {
     }
 
     const data = await res.json() 
-    console.log(data)
+    console.log(data) 
     return data
   } catch (error) {
     console.error("Error fetching categories:", error)
