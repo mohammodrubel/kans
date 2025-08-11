@@ -92,11 +92,13 @@ const AutoCurrencyFormatter = ({ price, discount }) => {
   return (
     <div className="price-container font-bold">
       {discount ? (
-        <>
+        <div className="flex items-center gap-2">
           <span>{prefix}</span>
-          <del className="original-price line-through mx-1 text-gray-600">{normalPrice}</del>
+          <div className="flex flex-col">
+            <del className="original-price line-through mx-1 text-gray-600">{normalPrice}</del>
           <span className="discount-price">{discountPrice}</span>
-        </>
+          </div>
+        </div>
       ) : (
         <span className="normal-price">{`${prefix}${normalPrice}`}</span>
       )}
