@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import "./slick.css";
+import Link from "next/link";
 
 const NextArrow = ({ onClick }) => (
   <button
@@ -39,7 +40,7 @@ const SlickCarousel = () => {
     };
     fetchData();
   }, []);
-
+console.log(data,'data')
   const hasMultiple = data.length > 1;
 
   const settings = {
@@ -99,6 +100,7 @@ const SlickCarousel = () => {
       <Slider {...settings}>
         {data.map((item) => (
           <div key={item.id} className="px-2"> {/* Add horizontal padding */}
+            <Link href={`${item?.url}`}>
             <div 
               className={`h-[${slideHeight}] overflow-hidden rounded-xl`}
               style={{ height: slideHeight }} // Ensure exact height
@@ -111,6 +113,7 @@ const SlickCarousel = () => {
                 className="w-full h-full object-cover"
               />
             </div>
+            </Link>
           </div>
         ))}
       </Slider>

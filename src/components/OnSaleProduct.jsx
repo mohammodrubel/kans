@@ -31,7 +31,7 @@ const OnSaleProduct = () => {
     fetchOnSaleProduct()
   }, [])
 
-  console.log(bannerPhoto)
+
   useEffect(() => {
     const BannerPhotoFetch = async () => {
       try {

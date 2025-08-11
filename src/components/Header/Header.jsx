@@ -1,6 +1,6 @@
 "use client";
 import { getFormLocaleStorage, removeFromLocaleStorage } from "@/utils/localeStoratge";
-import { Heart, Search, X } from "lucide-react";
+import { ChevronLeft, Heart, Search, X } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -72,7 +72,8 @@ export default function Header() {
   const [searchQuery, setSearchQuery] = useState("");
   const [showMobileSearch, setShowMobileSearch] = useState(false);
   const [token, setToken] = useState(null);
-  const router = useRouter()
+  const router = useRouter();
+  
   // Handle logout
   const logout = () => {
     removeFromLocaleStorage("accessToken");
@@ -81,8 +82,6 @@ export default function Header() {
   };
 
   const [labels, setLabels] = useState(translations.en);
-
-
 
   // Check auth token
   useEffect(() => {
@@ -108,44 +107,48 @@ export default function Header() {
     }
   };
 
-
-
-
   return (
     <header className="sticky top-0 bg-white dark:bg-gray-900 shadow-sm z-50 border-b">
-      <div className="container mx-auto px-4">
-        {/* Mobile Search */}
-        {showMobileSearch && (
-          <div className="lg:hidden flex items-center py-3 gap-2">
-            <form onSubmit={handleSearch} className="flex-1 flex gap-2">
-              <input
-                type="text"
-                placeholder={labels.searchPlaceholder}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-green-500"
-                autoFocus
-              />
-              <button
-                type="submit"
-                className="p-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors"
-              >
-                <Search className="h-5 w-5" />
-              </button>
-            </form>
+      {/* Mobile Search Overlay */}
+      {showMobileSearch && (
+        <div className="lg:hidden fixed inset-0 bg-white z-50 p-4">
+          <div className="flex items-center gap-2 mb-4">
             <button
               onClick={() => setShowMobileSearch(false)}
-              className="p-2 text-gray-500 rounded-full hover:bg-gray-100 transition-colors"
+              className="p-2 rounded-full hover:bg-gray-100"
+              aria-label="Close search"
             >
-              <X className="h-5 w-5" />
+              <ChevronLeft className="h-6 w-6 text-gray-600" />
             </button>
+            <h2 className="text-lg font-medium">Search</h2>
           </div>
-        )}
+          
+          <form onSubmit={handleSearch} className="relative">
+            <input
+              type="text"
+              placeholder={labels.searchPlaceholder}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-4 pr-12 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              autoFocus
+              aria-label="Search input"
+            />
+            <button
+              type="submit"
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 text-gray-500 hover:text-green-600"
+              aria-label="Search"
+            >
+              <Search className="h-5 w-5" />
+            </button>
+          </form>
+        </div>
+      )}
 
-        <div className="flex items-center justify-between h-16 relative">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-16 md:h-20 relative">
           {/* Logo */}
           <Link href="/" className="z-10 cursor-pointer hover:opacity-90">
-            <Logo />
+            <Logo className="h-8 md:h-10" />
           </Link>
 
           {/* Desktop Navigation */}
@@ -154,7 +157,7 @@ export default function Header() {
           {/* Desktop Search */}
           <form
             onSubmit={handleSearch}
-            className="hidden lg:flex flex-1 mx-8 max-w-xl"
+            className="hidden lg:flex flex-1 mx-4 xl:mx-8 max-w-xl"
           >
             <div className="relative w-full">
               <input
@@ -174,11 +177,12 @@ export default function Header() {
           </form>
 
           {/* Right Side Icons */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 md:gap-4">
             {/* Mobile Search Button */}
             <button
               onClick={() => setShowMobileSearch(true)}
               className="lg:hidden p-2 text-gray-600 hover:text-green-600 transition-colors"
+              aria-label="Search"
             >
               <Search className="h-5 w-5" />
             </button>
@@ -191,13 +195,15 @@ export default function Header() {
                 }}
               />
             </div>
-            {/* currency  */}
+            
+            {/* Currency */}
             <LanguageDropdown />
 
             {/* Wishlist */}
             <Link
               href="/wishlist"
               className="p-2 rounded-full hover:bg-gray-100 transition-colors relative group"
+              aria-label="Wishlist"
             >
               <Heart className="h-5 w-5 text-gray-600 group-hover:text-green-600" />
             </Link>
