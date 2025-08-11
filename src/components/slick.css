@@ -7,6 +7,15 @@
 }
 
 .slick-slide:not(.slick-center) {
-  transform: scale(0.9);
-  opacity: 0.8;
+  transform: scale(1); /* Keep same height & size */
+  opacity: 0.8; /* Optional: keep dim effect without shrinking */
+}
+
+.slick-slide > div {
+  height: 400px; /* same height for all */
+}
+
+.slick-slide img {
+  height: 100%;
+  object-fit: cover;
 }

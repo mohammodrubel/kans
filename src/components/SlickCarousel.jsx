@@ -60,29 +60,32 @@ const SlickCarousel = () => {
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 1,
-          centerPadding: hasMultiple ? "2%" : "0",
+          centerMode: true,
+          centerPadding: hasMultiple ? "10%" : "0",
         },
       },
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1,
+          centerMode: false,
           centerPadding: "0",
         },
       },
     ],
   };
 
+  // Fixed height for all slides
+  const slideHeight = "400px";
+
   if (data.length === 1) {
     const one = data[0];
     return (
       <div className="container mx-auto">
-        <div className="h-[400px] overflow-hidden rounded-xl">
+        <div className={`h-[${slideHeight}] overflow-hidden rounded-xl`}>
           <Image
             src={one?.photo?.original_url}
             alt={one?.title || ''}
-            width={800}
+            width={1200}
             height={400}
             className="w-full h-full object-cover"
           />
@@ -92,22 +95,26 @@ const SlickCarousel = () => {
   }
 
   return (
-   <div className="container mx-auto">
-  <Slider {...settings}>
-    {data.map((item) => (
-      <div key={item.id} className="w-full">
-        <Image
-          src={item?.photo?.original_url}
-          alt={item?.title || ''}
-          width={1920}
-          height={1080}
-          className="w-full h-auto"
-          sizes="100vw"
-        />
-      </div>
-    ))}
-  </Slider>
-</div>
+    <div className="container mt-3 mx-auto">
+      <Slider {...settings}>
+        {data.map((item) => (
+          <div key={item.id} className="px-2"> {/* Add horizontal padding */}
+            <div 
+              className={`h-[${slideHeight}] overflow-hidden rounded-xl`}
+              style={{ height: slideHeight }} // Ensure exact height
+            >
+              <Image
+                src={item?.photo?.original_url}
+                alt={item?.title || ''}
+                width={1200}
+                height={400}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        ))}
+      </Slider>
+    </div>
   );
 };
 

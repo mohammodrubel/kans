@@ -9,16 +9,16 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const countries = [
-  { name: "English", locale: "en-US", flag: "🇺🇸", currency: "USD" },
-  { name: "Русский", locale: "ru-RU", flag: "🇷🇺", currency: "RUB" },
-  { name: "العربية", locale: "ar-SA", flag: "🇸🇦", currency: "SAR" },
-  { name: "Azərbaycanca", locale: "az-AZ", flag: "🇦🇿", currency: "AZN" },
-  { name: "Türkçe", locale: "tr-TR", flag: "🇹🇷", currency: "TRY" },
-  { name: "Español", locale: "es-ES", flag: "🇪🇸", currency: "EUR" },
-  { name: "Français", locale: "fr-FR", flag: "🇫🇷", currency: "EUR" },
-  { name: "Deutsch", locale: "de-DE", flag: "🇩🇪", currency: "EUR" },
-  { name: "日本語", locale: "ja-JP", flag: "🇯🇵", currency: "JPY" },
-  { name: "中文", locale: "zh-CN", flag: "🇨🇳", currency: "CNY" },
+  { name: "English", locale: "en-US", flag: "https://flagcdn.com/w20/us.png", currency: "USD" },
+  { name: "Русский", locale: "ru-RU", flag: "https://flagcdn.com/w20/ru.png", currency: "RUB" },
+  { name: "العربية", locale: "ar-SA", flag: "https://flagcdn.com/w20/sa.png", currency: "SAR" },
+  { name: "Azərbaycanca", locale: "az-AZ", flag: "https://flagcdn.com/w20/az.png", currency: "AZN" },
+  { name: "Türkçe", locale: "tr-TR", flag: "https://flagcdn.com/w20/tr.png", currency: "TRY" },
+  { name: "Español", locale: "es-ES", flag: "https://flagcdn.com/w20/es.png", currency: "EUR" },
+  { name: "Français", locale: "fr-FR", flag: "https://flagcdn.com/w20/fr.png", currency: "EUR" },
+  { name: "Deutsch", locale: "de-DE", flag: "https://flagcdn.com/w20/de.png", currency: "EUR" },
+  { name: "日本語", locale: "ja-JP", flag: "https://flagcdn.com/w20/jp.png", currency: "JPY" },
+  { name: "中文", locale: "zh-CN", flag: "https://flagcdn.com/w20/cn.png", currency: "CNY" },
 ];
 
 export function LanguageDropdown() {
@@ -44,7 +44,6 @@ export function LanguageDropdown() {
         <Button variant="ghost" size="sm" className="h-8 px-2">
           <div className="flex items-center space-x-1">
             <Globe className="h-4 w-4" />
-            {/* <span>{selectedLocale.locale}</span> */}
           </div>
         </Button>
       </DropdownMenuTrigger>
@@ -56,7 +55,11 @@ export function LanguageDropdown() {
             className="cursor-pointer"
           >
             <div className="flex items-center space-x-2">
-              <span>{country.flag}</span>
+              <img 
+                src={country.flag} 
+                alt={country.name} 
+                className="w-5 h-3.5 object-cover"
+              />
               <span>{country.locale}</span>
             </div>
           </DropdownMenuItem>
