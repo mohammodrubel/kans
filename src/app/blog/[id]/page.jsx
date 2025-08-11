@@ -57,7 +57,6 @@ function BlogPage() {
     // Filter out the current blog and limit to 4 recent blogs
     const filteredBlogs = allBlogs
         ?.filter(item => item.id !== blog?.id)
-        ?.slice(0, 4)
 
     if (blogLoading) {
         return <div className="min-h-screen flex items-center justify-center">Loading...</div>
@@ -175,35 +174,6 @@ function BlogPage() {
                             )}
                         </div>
 
-                        {/* Categories */}
-                        <div className="bg-white rounded-lg shadow-sm p-6">
-                            <h2 className="text-xl font-bold text-gray-900 mb-4">Categories</h2>
-                            <div className="space-y-2">
-                                {['Nutrition', 'Health', 'Fruits', 'Wellness'].map((category) => (
-                                    <div key={category} className="flex justify-between items-center hover:bg-gray-50 p-2 rounded transition">
-                                        <span className="text-gray-700">{category}</span>
-                                        <span className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">
-                                            {Math.floor(Math.random() * 10) + 1}
-                                        </span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Tags */}
-                        <div className="bg-white rounded-lg shadow-sm p-6">
-                            <h2 className="text-xl font-bold text-gray-900 mb-4">Tags</h2>
-                            <div className="flex flex-wrap gap-2">
-                                {['apple', 'health', 'nutrition', 'diet', 'fruits', 'wellness', 'vitamins'].map((tag) => (
-                                    <span 
-                                        key={tag} 
-                                        className="inline-block bg-gray-100 text-gray-700 text-sm px-3 py-1 rounded-full hover:bg-gray-200 transition"
-                                    >
-                                        #{tag}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
                     </div>
                 </div>
             </main>

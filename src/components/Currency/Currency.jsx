@@ -3,17 +3,32 @@ import { useEffect, useState } from 'react';
 
 function Currency() {
   const countries = [
-    { name: "English", locale: "en-US", flag: "🇺🇸", currency: "USD" },
-    { name: "Русский", locale: "ru-RU", flag: "🇷🇺", currency: "RUB" },      // Russian
-    { name: "العربية", locale: "ar-SA", flag: "🇸🇦", currency: "SAR" },      // Arabic
-    { name: "Azərbaycanca", locale: "az-AZ", flag: "🇦🇿", currency: "AZN" }, // Azerbaijani
-    { name: "Türkçe", locale: "tr-TR", flag: "🇹🇷", currency: "TRY" },       // Turkish
-    { name: "Español", locale: "es-ES", flag: "🇪🇸", currency: "EUR" },
-    { name: "Français", locale: "fr-FR", flag: "🇫🇷", currency: "EUR" },
-    { name: "Deutsch", locale: "de-DE", flag: "🇩🇪", currency: "EUR" },
-    { name: "日本語", locale: "ja-JP", flag: "🇯🇵", currency: "JPY" },
-    { name: "中文", locale: "zh-CN", flag: "🇨🇳", currency: "CNY" },
+    { name: "English", locale: "en-US", currency: "USD" },
+    { name: "Русский", locale: "ru-RU", currency: "RUB" },      // Russian
+    { name: "العربية", locale: "ar-SA", currency: "SAR" },      // Arabic
+    { name: "Azərbaycanca", locale: "az-AZ", currency: "AZN" }, // Azerbaijani
+    { name: "Türkçe", locale: "tr-TR", currency: "TRY" },       // Turkish
+    { name: "Español", locale: "es-ES", currency: "EUR" },
+    { name: "Français", locale: "fr-FR", currency: "EUR" },
+    { name: "Deutsch", locale: "de-DE", currency: "EUR" },
+    { name: "日本語", locale: "ja-JP", currency: "JPY" },
+    { name: "中文", locale: "zh-CN", currency: "CNY" },
   ];
+
+  // Map of locale to flag image URLs
+  const flagImageUrls = {
+    "en-US": "https://flagcdn.com/w20/us.png",
+    "ru-RU": "https://flagcdn.com/w20/ru.png",
+    "ar-SA": "https://flagcdn.com/w20/sa.png",
+    "az-AZ": "https://flagcdn.com/w20/az.png",
+    "tr-TR": "https://flagcdn.com/w20/tr.png",
+    "es-ES": "https://flagcdn.com/w20/es.png",
+    "fr-FR": "https://flagcdn.com/w20/fr.png",
+    "de-DE": "https://flagcdn.com/w20/de.png",
+    "ja-JP": "https://flagcdn.com/w20/jp.png",
+    "zh-CN": "https://flagcdn.com/w20/cn.png"
+  };
+
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [selectedLocale, setSelectedLocale] = useState(countries[0]);
 
@@ -34,7 +49,6 @@ function Currency() {
 
     setIsModalOpen(false);
   };
-
 
   return (
     <>
@@ -57,12 +71,17 @@ function Currency() {
                 <button
                   key={country.locale}
                   onClick={() => handleChange(country)}
-                  className={`flex items-center p-3 border rounded-lg hover:border-black transition ${selectedLocale.locale === country.locale
+                  className={`flex items-center p-3 border rounded-lg hover:border-black transition ${
+                    selectedLocale.locale === country.locale
                       ? "border-black"
                       : "border-gray-200"
-                    }`}
+                  }`}
                 >
-                  <span className="text-xl mr-3">{country.flag}</span>
+                  <img 
+                    src={flagImageUrls[country.locale]} 
+                    alt={`${country.name} flag`} 
+                    className="w-6 h-4 object-cover mr-3"
+                  />
                   <div className="text-left">
                     <div className="font-medium">{country.name}</div>
                     <div className="text-sm text-gray-500">{country.currency}</div>
@@ -77,4 +96,4 @@ function Currency() {
   )
 }
 
-export default Currency
+export default Currency;
