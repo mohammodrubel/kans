@@ -10,11 +10,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export const languages = [
-  { code: "en", name: "English", flag: "🇬🇧" },
-  { code: "ru", name: "Russian", flag: "🇷🇺" },
-  { code: "ar", name: "Arabic", flag: "🇸🇦" },
-  { code: "az", name: "Azerbaijani", flag: "🇦🇿" },
-  { code: "tr", name: "Turkish", flag: "🇹🇷" },
+  { code: "en", name: "English", flag: "https://flagcdn.com/w40/gb.png" },
+  { code: "ru", name: "Russian", flag: "https://flagcdn.com/w40/ru.png" },
+  { code: "ar", name: "Arabic", flag: "https://flagcdn.com/w40/sa.png" },
+  { code: "az", name: "Azerbaijani", flag: "https://flagcdn.com/w40/az.png" },
+  { code: "tr", name: "Turkish", flag: "https://flagcdn.com/w40/tr.png" },
 ];
 
 export default function GoogleTranslate({ onLanguageChange }) {
@@ -44,7 +44,11 @@ export default function GoogleTranslate({ onLanguageChange }) {
               variant="ghost" 
               className="flex items-center gap-2 text-sm hover:bg-gray-100 px-3 py-2 rounded-md transition-colors"
             >
-              <span className="text-lg">{currentLanguage?.flag}</span> 
+              <img 
+                src={currentLanguage?.flag} 
+                alt={currentLanguage?.name} 
+                className="w-5 h-4 object-cover"
+              />
               <span>{currentLanguage?.code.toUpperCase()}</span>
               <ChevronDown className="w-3 h-3 opacity-70" />
             </Button>
@@ -63,7 +67,11 @@ export default function GoogleTranslate({ onLanguageChange }) {
               className="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 cursor-pointer"
               onClick={() => handleLanguageChange(language.code)}
             >
-              <span className="text-xl">{language.flag}</span>
+              <img 
+                src={language.flag} 
+                alt={language.name} 
+                className="w-6 h-4 object-cover"
+              />
               <div className="flex flex-col">
                 <span className="font-medium">{language.name}</span>
               </div>
