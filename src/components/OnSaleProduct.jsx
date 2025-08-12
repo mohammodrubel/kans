@@ -13,7 +13,6 @@ const OnSaleProduct = () => {
             try {
                 const res = await getOnSaleProduct()
                 const data = await res
-                console.log(res)
                 setOnSaleProduct(data?.data || [])
                 setOnSaleProductLoading(false)
             } catch (error) {

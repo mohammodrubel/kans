@@ -1,4 +1,5 @@
-import Header from "@/components/Header/Header";
+// import Header from "@/components/Header/Header";
+import Header from "@/components/Header/Header"
 import 'flag-icons/css/flag-icons.min.css';
 import "./globals.css";
 import { Footer } from "@/components/Footer";
