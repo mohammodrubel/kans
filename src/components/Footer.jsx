@@ -1,288 +1,188 @@
 "use client"
-import { useEffect, useState } from "react";
+import {
+  Facebook,
+  Send,
+  Instagram,
+  MessageCircle,
+  Mail,
+  Phone,
+  ArrowUpRight,
+  Info,
+  CreditCard,
+  RotateCcw,
+  UserCheck,
+  FileText,
+  Shield,
+  HelpCircle,
+  Store,
+} from "lucide-react"
+import { Button } from "@/components/ui/button"
+import Image from "next/image";
 import Logo from "./Logo";
-import { Globe } from "lucide-react";
 
-const countries = [
-  { name: "English", locale: "en-US", flag: "🇺🇸", currency: "USD" },
-  { name: "Русский", locale: "ru-RU", flag: "🇷🇺", currency: "RUB" },      // Russian
-  { name: "العربية", locale: "ar-SA", flag: "🇸🇦", currency: "SAR" },      // Arabic
-  { name: "Azərbaycanca", locale: "az-AZ", flag: "🇦🇿", currency: "AZN" }, // Azerbaijani
-  { name: "Türkçe", locale: "tr-TR", flag: "🇹🇷", currency: "TRY" },       // Turkish
-  { name: "Español", locale: "es-ES", flag: "🇪🇸", currency: "EUR" },
-  { name: "Français", locale: "fr-FR", flag: "🇫🇷", currency: "EUR" },
-  { name: "Deutsch", locale: "de-DE", flag: "🇩🇪", currency: "EUR" },
-  { name: "日本語", locale: "ja-JP", flag: "🇯🇵", currency: "JPY" },
-  { name: "中文", locale: "zh-CN", flag: "🇨🇳", currency: "CNY" },
-];
-export const Footer = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedLocale, setSelectedLocale] = useState(countries[0]);
-
-  useEffect(() => {
-    const savedLocale = localStorage.getItem("selected_locale");
-    if (savedLocale) {
-      const matched = countries.find((c) => c.locale === savedLocale);
-      if (matched) setSelectedLocale(matched);
-    }
-  }, []);
-
-  const handleChange = (country) => {
-    setSelectedLocale(country);
-    localStorage.setItem("selected_locale", country.locale);
-
-    // Trigger currency update event for other components
-    window.dispatchEvent(new Event("currencyChange"));
-
-    setIsModalOpen(false);
-  };
-
-
+export function Footer() {
   return (
-    <div className="px-4 pt-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
-      <div className="grid gap-16 row-gap-10 mb-8 lg:grid-cols-6">
-        <div className="md:max-w-md lg:col-span-2">
-          <a
-            href="/"
-            aria-label="Go home"
-            title="Company"
-            className="inline-flex items-center"
-          >
-            <Logo />
-          </a>
-          <div className="mt-4 lg:max-w-sm">
-            <p className="text-sm text-gray-800">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam.
-            </p>
-            <p className="mt-4 text-sm text-gray-800">
-              Eaque ipsa quae ab illo inventore veritatis et quasi architecto
-              beatae vitae dicta sunt explicabo.
-            </p>
+    <footer className="bg-white border-t border-slate-200">
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Logo and Social Media */}
+          <div className="space-y-6">
+            <div className="flex items-center space-x-2">
+              <div className="text-2xl font-bold text-pink-500 flex items-center">
+                <Logo/>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <p className="text-sm text-slate-600">© 2021-2025 WEE HUB GENERAL TRADING LLC</p>
+              <p className="text-sm text-slate-500">All rights reserved</p>
+            </div>
+
+            <div className="space-y-3">
+              <p className="text-sm font-medium text-slate-700">Stay in the loop with WEE news and offers</p>
+              <div className="flex space-x-3">
+                <Button size="sm" variant="outline" className="p-2 bg-transparent">
+                  <Facebook className="w-4 h-4 text-blue-600" />
+                </Button>
+                <Button size="sm" variant="outline" className="p-2 bg-transparent">
+                  <Send className="w-4 h-4 text-blue-500" />
+                </Button>
+                <Button size="sm" variant="outline" className="p-2 bg-transparent">
+                  <Instagram className="w-4 h-4 text-pink-600" />
+                </Button>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="grid grid-cols-2 gap-5 row-gap-8 lg:col-span-4 md:grid-cols-4">
-          <div>
-            <p className="font-semibold tracking-wide text-gray-800">
-              Category
-            </p>
-            <ul className="mt-2 space-y-2">
+
+          {/* About Section */}
+          <div className="space-y-4">
+            <h3 className="font-semibold text-slate-800 flex items-center">
+              <Info className="w-4 h-4 mr-2" />
+              About
+            </h3>
+            <ul className="space-y-3">
               <li>
-                <a
-                  href="/"
-                  className="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
-                >
-                  News
+                <a href="#" className="text-sm text-slate-600 hover:text-slate-800 transition-colors">
+                  About us
                 </a>
               </li>
               <li>
-                <a
-                  href="/"
-                  className="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
-                >
-                  World
+                <a href="#" className="text-sm text-slate-600 hover:text-slate-800 transition-colors flex items-center">
+                  <FileText className="w-3 h-3 mr-2" />
+                  Terms of Use
                 </a>
               </li>
               <li>
-                <a
-                  href="/"
-                  className="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
-                >
-                  Games
+                <a href="#" className="text-sm text-slate-600 hover:text-slate-800 transition-colors flex items-center">
+                  <Shield className="w-3 h-3 mr-2" />
+                  Privacy Policy
                 </a>
               </li>
               <li>
-                <a
-                  href="/"
-                  className="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
-                >
-                  References
+                <a href="#" className="text-sm text-slate-600 hover:text-slate-800 transition-colors">
+                  Terms & Conditions
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-sm text-slate-600 hover:text-slate-800 transition-colors flex items-center">
+                  <HelpCircle className="w-3 h-3 mr-2" />
+                  Help & Support
                 </a>
               </li>
             </ul>
           </div>
-          <div>
-            <p className="font-semibold tracking-wide text-gray-800">
-              Business
-            </p>
-            <ul className="mt-2 space-y-2">
+
+          {/* Customer Section */}
+          <div className="space-y-4">
+            <h3 className="font-semibold text-slate-800">Customer</h3>
+            <ul className="space-y-3">
               <li>
-                <a
-                  href="/"
-                  className="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
-                >
-                  Web
+                <a href="#" className="text-sm text-slate-600 hover:text-slate-800 transition-colors flex items-center">
+                  <Phone className="w-3 h-3 mr-2" />
+                  Delivery Information
                 </a>
               </li>
               <li>
-                <a
-                  href="/"
-                  className="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
-                >
-                  eCommerce
+                <a href="#" className="text-sm text-slate-600 hover:text-slate-800 transition-colors flex items-center">
+                  <CreditCard className="w-3 h-3 mr-2" />
+                  Payment Method
                 </a>
               </li>
               <li>
-                <a
-                  href="/"
-                  className="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
-                >
-                  Business
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/"
-                  className="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
-                >
-                  Entertainment
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/"
-                  className="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
-                >
-                  Portfolio
+                <a href="#" className="text-sm text-slate-600 hover:text-slate-800 transition-colors flex items-center">
+                  <RotateCcw className="w-3 h-3 mr-2" />
+                  Return Policy
                 </a>
               </li>
             </ul>
           </div>
-          <div>
-            <p className="font-semibold tracking-wide text-gray-800">Apples</p>
-            <ul className="mt-2 space-y-2">
-              <li>
+
+          {/* Seller Section & Contact */}
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <h3 className="font-semibold text-slate-800 flex items-center">
+                <Store className="w-4 h-4 mr-2" />
+                Seller
+              </h3>
+              <ul className="space-y-3">
+                <li>
+                  <a
+                    href="#"
+                    className="text-sm text-slate-600 hover:text-slate-800 transition-colors flex items-center"
+                  >
+                    <UserCheck className="w-3 h-3 mr-2" />
+                    Log in as Seller
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-sm text-slate-600 hover:text-slate-800 transition-colors">
+                    Seller Agreement
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-sm text-slate-600 hover:text-slate-800 transition-colors">
+                    Start selling on WEE
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Contact Information */}
+            <div className="space-y-4">
+              <div className="space-y-2">
                 <a
-                  href="/"
-                  className="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
+                  href="mailto:help@wee.ae"
+                  className="flex items-center text-sm font-medium text-slate-800 hover:text-pink-600 transition-colors"
                 >
-                  Media
+                  <Mail className="w-4 h-4 mr-2" />
+                  help@wee.ae
                 </a>
-              </li>
-              <li>
+                <p className="text-xs text-slate-500 ml-6">customer service</p>
+              </div>
+
+              <div className="space-y-2">
                 <a
-                  href="/"
-                  className="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
+                  href="mailto:mp@wee.ae"
+                  className="flex items-center text-sm font-medium text-slate-800 hover:text-pink-600 transition-colors"
                 >
-                  Brochure
+                  <Mail className="w-4 h-4 mr-2" />
+                  mp@wee.ae
                 </a>
-              </li>
-              <li>
-                <a
-                  href="/"
-                  className="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
-                >
-                  Nonprofit
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/"
-                  className="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
-                >
-                  Educational
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/"
-                  className="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
-                >
-                  Projects
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <p className="font-semibold tracking-wide text-gray-800">Cherry</p>
-            <ul className="mt-2 space-y-2">
-              <li>
-                <a
-                  href="/"
-                  className="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
-                >
-                  Infopreneur
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/"
-                  className="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
-                >
-                  Personal
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/"
-                  className="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
-                >
-                  Wiki
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/"
-                  className="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
-                >
-                  Forum
-                </a>
-              </li>
-            </ul>
+                <p className="text-xs text-slate-500 ml-6">partner support</p>
+              </div>
+
+              <Button
+                variant="outline"
+                size="sm"
+                className="w-full justify-start text-green-600 border-green-200 hover:bg-green-50 bg-transparent"
+              >
+                <MessageCircle className="w-4 h-4 mr-2" />
+                Get in touch via WhatsApp
+              </Button>
+            </div>
           </div>
         </div>
       </div>
-      <footer className="flex flex-col justify-between pt-5 pb-10 border-t sm:flex-row">
-        <p className="text-sm text-gray-600">
-          © {new Date().getFullYear()} Lorem Inc. All rights reserved.
-        </p>
-        <div className="flex items-center mt-4 space-x-4 sm:mt-0">
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="flex items-center space-x-1 text-sm text-gray-600 hover:text-black"
-          >
-            <Globe className="h-4 w-4" />
-            <span>{selectedLocale.name}</span>
-          </button>
-        </div>
-      </footer>
-
-      {/* Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center px-4">
-          <div className="bg-white rounded-xl p-6 max-w-xl w-full shadow-lg">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold">Select Language / Currency</h2>
-              <button
-                onClick={() => setIsModalOpen(false)}
-                className="text-gray-500 hover:text-red-500"
-              >
-                ✕
-              </button>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {countries.map((country) => (
-                <button
-                  key={country.locale}
-                  onClick={() => handleChange(country)}
-                  className={`flex items-center p-3 border rounded-lg hover:border-black transition ${
-                    selectedLocale.locale === country.locale
-                      ? "border-black"
-                      : "border-gray-200"
-                  }`}
-                >
-                  <span className="text-xl mr-3">{country.flag}</span>
-                  <div className="text-left">
-                    <div className="font-medium">{country.name}</div>
-                    <div className="text-sm text-gray-500">{country.currency}</div>
-                  </div>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
+    </footer>
+  )
+}

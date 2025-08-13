@@ -252,14 +252,7 @@ export function DetailsModal({
               fill={isInWishlist ? "currentColor" : "none"}
             />
           </Button>
-          <Button 
-            variant="outline" 
-            size="lg" 
-            aria-label="Share product"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Share2 className="w-4 h-4" />
-          </Button>
+          
         </div>
 
         {/* Shipping Info */}
