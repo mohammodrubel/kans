@@ -50,20 +50,19 @@ const OnSaleProduct = () => {
   }
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto px-2 sm:px-4">
       <div className="mb-2 p-3 bg-white rounded-2xl">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-          
-          {/* Banner Column */}
-          <div className="lg:col-span-2">
-            <div className="flex flex-col gap-5 items-center">
+          {/* Banner Column - Hidden on mobile, shown on md+ */}
+          <div className=" md:col-span-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-1 mx-auto gap-4 h-full">
               {bannerPhoto.map((item) => (
-                <div key={item.id} className="relative group w-full">
+                <div key={item.id} className="relative group w-full h-full">
                   <Link href={item?.url || '#'} passHref>
                     <Image
                       width={500}
                       height={600}
-                      className="rounded-2xl object-cover w-full h-full"
+                      className="rounded-2xl object-cover w-full h-full max-h-[300px]"
                       src={item?.media?.[0]?.original_url || '/placeholder-image.jpg'}
                       alt={item?.name || 'Banner image'}
                       onError={(e) => {
@@ -77,16 +76,15 @@ const OnSaleProduct = () => {
             </div>
           </div>
 
-          {/* Products Column */}
-          <div className="lg:col-span-10">
-            <h2 className="font-bold text-xl mb-4">On Sale</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          {/* Products Column - Full width on mobile, 10 cols on md+ */}
+          <div className="col-span-1 md:col-span-10">
+            <h2 className="font-bold text-lg sm:text-xl mb-3 sm:mb-4 px-2 sm:px-0">On Sale</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-3 md:gap-4">
               {onSaleProduct.slice(0, 8).map((product) => (
                 <Product key={product.id} product={product} />
               ))}
             </div>
           </div>
-
         </div>
       </div>
     </div>

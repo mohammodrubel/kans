@@ -90,7 +90,7 @@ const AutoCurrencyFormatter = ({ price, discount }) => {
   if (!price) return null;
 
   return (
-    <div className="price-container font-bold">
+    <div className="price-container text-[12px] sm:font-bold sm:text-[14px]  md:text-[16px]">
       {discount ? (
         <div className="flex items-center gap-2">
           <span>{prefix}</span>
