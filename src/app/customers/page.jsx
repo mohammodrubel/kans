@@ -1,6 +1,5 @@
 "use client"
 import Image from 'next/image'
-import avatar from '../../assets/avatar.png'
 import customer1 from '../../assets/customarlogo/img1.png'
 import customer2 from '../../assets/customarlogo/img2.png'
 import customer3 from '../../assets/customarlogo/img3.png'
@@ -10,19 +9,12 @@ import customer6 from '../../assets/customarlogo/img6.png'
 import customer7 from '../../assets/customarlogo/img7.png'
 import customer8 from '../../assets/customarlogo/img8.png'
 import customer9 from '../../assets/customarlogo/img9.png'
-import img1 from '../../assets/img1.jpg'
-import img2 from '../../assets/img2.jpg'
-import img3 from '../../assets/img3.jpg'
-import img4 from '../../assets/img4.jpg'
-import img5 from '../../assets/img5.jpg'
-import img6 from '../../assets/img6.jpg'
 import testimonialimg from '../../assets/testimonial.jpg'
 
-import { ChevronRightIcon, StarIcon, UserIcon } from "lucide-react"
-import { useEffect, useState } from "react"
-import { getAllBlog } from '../api/blog'
-import { getProductSuccessStory } from '../api/successStory'
+import { ChevronRightIcon, StarIcon } from "lucide-react"
 import Link from 'next/link'
+import { useEffect, useState } from "react"
+import { getProductSuccessStory } from '../api/successStory'
 
 function page() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -89,7 +81,7 @@ function page() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
-                Meet Some of Our Clients
+                Meet Some of Our Clientss
               </h1>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
                 Discover how leading food businesses have transformed their supply chains through our comprehensive
@@ -101,9 +93,9 @@ function page() {
                   <ChevronRightIcon className="ml-2 h-5 w-5" />
                 </button>
                 <Link href='/client'>
-                <button className="border border-gray-300 hover:border-gray-400 text-gray-700 px-8 py-3 rounded-lg font-medium transition-colors">
-                  View All Clients
-                </button>
+                  <button className="border border-gray-300 hover:border-gray-400 text-gray-700 px-8 py-3 rounded-lg font-medium transition-colors">
+                    View All Clients
+                  </button>
                 </Link>
               </div>
             </div>

@@ -1,31 +1,25 @@
 "use client";
-
-import { AlignJustify, X } from "lucide-react";
-import React, { useState } from "react";
+import { useState } from "react";
+import { CircleUserRound, Heart, Menu, Search, X } from "lucide-react";
 import Link from "next/link";
 import Logo from "../Logo";
 import useTranslation from "@/hooks/useTranslation";
 
-
 function MobileMenu() {
   const [openMenu, setOpenMenu] = useState(false);
-  const t = useTranslation(); // Initialize translation function
+  const t = useTranslation();
 
   return (
-    <>
-      {/* Toggle Button */}
-      <div className="lg:hidden p-4 z-50">
-        {openMenu ? (
-          <X className="w-6 h-6" onClick={() => setOpenMenu(false)} />
-        ) : (
-          <AlignJustify className="w-6 h-6" onClick={() => setOpenMenu(true)} />
-        )}
+    <div className="lg:hidden relative z-[100]">
+      {/* Top button */}
+      <div className="flex items-end gap-4 relative z-[100]">
+        <button
+          onClick={() => setOpenMenu(!openMenu)}
+          className="p-2 text-gray-600 hover:text-green-600"
+        >
+          {openMenu ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        </button>
       </div>
-
-      {/* Mobile Menu Overlay */}
-      {openMenu && (
-        <div className="fixed inset-0 z-40 bg-black/50" onClick={() => setOpenMenu(false)}></div>
-      )}
 
       {/* Mobile Menu Panel */}
       <div
@@ -34,27 +28,47 @@ function MobileMenu() {
         }`}
       >
         <div className="p-6 space-y-4">
-          <Logo/>
+          <Logo />
           <nav className="flex flex-col space-y-4">
-            <Link href="/" className="text-gray-700 hover:text-black" onClick={() => setOpenMenu(false)}>
-              {t("header.home", "Home")} {/* Translated Home */}
+            <Link
+              href="/"
+              className="text-gray-700 hover:text-black"
+              onClick={() => setOpenMenu(false)}
+            >
+              {t("header.home", "Home")}
             </Link>
-            <Link href="/category" className="text-gray-700 hover:text-black" onClick={() => setOpenMenu(false)}>
-              {t("header.category", "Category")} {/* Translated Category */}
+            <Link
+              href="/category"
+              className="text-gray-700 hover:text-black"
+              onClick={() => setOpenMenu(false)}
+            >
+              {t("header.category", "Category")}
             </Link>
-            <Link href="/products" className="text-gray-700 hover:text-black" onClick={() => setOpenMenu(false)}>
-              {t("header.products", "Products")} {/* Translated Products */}
+            <Link
+              href="/products"
+              className="text-gray-700 hover:text-black"
+              onClick={() => setOpenMenu(false)}
+            >
+              {t("header.products", "Products")}
             </Link>
-            <Link href="/customers" className="text-gray-700 hover:text-black" onClick={() => setOpenMenu(false)}>
-              {t("header.customers", "Customers")} {/* Translated Customers */}
+            <Link
+              href="/customers"
+              className="text-gray-700 hover:text-black"
+              onClick={() => setOpenMenu(false)}
+            >
+              {t("header.customers", "Customers")}
             </Link>
-            <Link href="/contact-us" className="text-gray-700 hover:text-black" onClick={() => setOpenMenu(false)}>
-              {t("header.contact", "Contact")} {/* Translated Contact */}
+            <Link
+              href="/contact-us"
+              className="text-gray-700 hover:text-black"
+              onClick={() => setOpenMenu(false)}
+            >
+              {t("header.contact", "Contact")}
             </Link>
           </nav>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

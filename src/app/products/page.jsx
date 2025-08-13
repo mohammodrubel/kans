@@ -7,6 +7,7 @@ import ProductHeader from '@/components/ProductHeader'
 import ProductSidebar from '@/components/ProductSidebar'
 import { getProductCategory } from '../api/category'
 import { getProduct } from '../api/product'
+// import { getProduct } from '../api/product'
 
 function Page() {
   const searchParams = useSearchParams()
@@ -19,7 +20,7 @@ function Page() {
   const [selectCategory, setSelectCategory] = useState('')
   const [categoryData, setCategoryData] = useState(null)
   const [categoryLoading, setCategoryLoading] = useState(true)
-  const [productData, setProductData] = useState(null)
+  const [productData, setProductData] = useState([])
   const [loadingProduct, setLoadingProduct] = useState(true)
   const [page, setPage] = useState(1)
   const [limit, setLimit] = useState(8)
@@ -62,22 +63,23 @@ function Page() {
       }
     }
 
-    const fetchProduct = async () => {
-      try {
-        const data = await getProduct(metaData)
-        setProductData(data)
-      } catch (error) {
-        console.error(error)
-      } finally {
-        setLoadingProduct(false)
-      }
-    }
+   const fetchProduct = async () => {
+  try {
+    const data = await getProduct(metaData);
+    console.log(data?.data, 'frontend');
+    setProductData(data?.data || []); 
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setLoadingProduct(false);
+  }
+}
 
     fetchCategory()
     fetchProduct()
   }, [search, selectCategory, id, page, limit])
 
-  const products = productData?.data || []
+  const products = productData || []
 
   return (
     <div className="container mx-auto px-5">

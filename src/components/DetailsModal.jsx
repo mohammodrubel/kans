@@ -10,12 +10,28 @@ import { Button } from "./ui/button"
 import { addFav, getAllFavList } from "@/app/api/wishlist"
 import { toast } from "sonner"
 import AutoCurrencyFormatter from "./AutoCurrencyFormatter/AutoCurrencyFormatter"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+import ReactMarkdown from 'react-markdown'
+
+function SafeHTMLRenderer({ html, className = "" }) {
+  return (
+    <div 
+      className={`prose prose-sm max-w-none ${className}`}
+      dangerouslySetInnerHTML={{ __html: html }} 
+    />
+  )
+}
 
 export function DetailsModal({ product, isOpen, onClose }) {
   const [selectedImage, setSelectedImage] = useState("")
   const [isInWishlist, setIsInWishlist] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  
+
   const getFromLocalStorage = (key) => {
     if (typeof window !== "undefined") {
       return localStorage.getItem(key)
@@ -79,19 +95,76 @@ export function DetailsModal({ product, isOpen, onClose }) {
 
   if (!product) return null
 
-  const defaultDescription = `
-    Survived not only five centuries, but also the leap into electronic typesetting,
-    remaining essentially unchanged. It was popularised in the 1960s with the release
-    of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
-    publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-  `
+  const formatDescription = (description) => {
+    if (!description) {
+      return `
+        <p>This product has no description yet. Here's some default information:</p>
+        <ul>
+          <li>High-quality materials</li>
+          <li>Manufacturer warranty included</li>
+          <li>Free shipping available</li>
+        </ul>
+      `
+    }
+
+    // Basic formatting transformations
+    return description
+      .replace(/\n\n/g, '</p><p>')
+      .replace(/\*(.*?)\*/g, '<strong>$1</strong>')
+      .replace(/_(.*?)_/g, '<em>$1</em>')
+      .replace(/^- (.*?)(?=\n|$)/gm, '<li>$1</li>')
+      .replace(/<li>.*?<\/li>/gs, match => `<ul>${match}</ul>`)
+  }
+
+  const renderDynamicContent = () => {
+    // If you have structured metadata from your API
+    if (product.metadata?.sections) {
+      return (
+        <div className="mt-6 space-y-6">
+          {product.metadata.sections.map((section, index) => (
+            <div key={index} className="border-b pb-4 last:border-b-0">
+              <h3 className="font-semibold text-lg text-gray-800 mb-2">
+                {section.title}
+              </h3>
+              {section.isMarkdown ? (
+                <ReactMarkdown className="prose prose-sm max-w-none text-gray-600">
+                  {section.content}
+                </ReactMarkdown>
+              ) : (
+                <SafeHTMLRenderer 
+                  html={formatDescription(section.content)}
+                  className="text-gray-600"
+                />
+              )}
+            </div>
+          ))}
+        </div>
+      )
+    }
+
+    // Fallback to regular description
+    return (
+      <div className="mt-4">
+        {product.isMarkdown ? (
+          <ReactMarkdown className="prose prose-sm max-w-none text-gray-600">
+            {product.description}
+          </ReactMarkdown>
+        ) : (
+          <SafeHTMLRenderer 
+            html={formatDescription(product.description)}
+            className="text-gray-600"
+          />
+        )}
+      </div>
+    )
+  }
 
   return (
     <div className="mx-5">
       <Dialog open={isOpen} onOpenChange={onClose}>
         <DialogContent className="max-w-6xl min-w-[310px] md:min-w-[800px] max-h-[95vh] overflow-y-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 justify-between gap-5">
-            <div className="bg-gray-100 py-4 relative">
+            <div className="py-4 relative">
               {product.photo?.length > 0 && (
                 <>
                   <Image
@@ -126,29 +199,73 @@ export function DetailsModal({ product, isOpen, onClose }) {
                 </>
               )}
             </div>
-            <div className="">
-              <div>
-                <DialogTitle className="text-2xl font-bold py-2">
-                  {product.name}
-                </DialogTitle>
-                <p>{product.description || defaultDescription}</p>
-                <h2 className="mt-4 text-2xl font-bold text-green-500">
-                  <AutoCurrencyFormatter price={product?.price} />
+            <div className="space-y-4">
+              <DialogTitle className="text-2xl font-bold">
+                {product.name}
+              </DialogTitle>
+              
+              <div className="flex items-center gap-3">
+                <h2 className="text-2xl font-bold text-green-500">
+                   <AutoCurrencyFormatter price={product?.price}  discount={product.discount_price} /> 
                 </h2>
-                <div className="flex gap-5 mt-10">
-                  <Button className="px-8 bg-[#016630]">Send Inquiry</Button>
-                </div>
+                {/* {product.originalPrice && (
+                  <span className="text-sm text-gray-400 line-through">
+                    <AutoCurrencyFormatter price={product.originalPrice} />
+                  </span>
+                )} */}
               </div>
+              
+              {renderDynamicContent()}
+              
+              
             </div>
           </div>
 
           {/* Action Buttons */}
-          <div className="flex gap-3 mt-4">
-            <Button size="lg" className="flex-1 bg-[#016630] hover:bg-[#016630]/90">
-              <ShoppingCart className="w-4 h-4 mr-2" />
-              Call Now
-            </Button>
+          <div className="flex gap-3 justify-center mx-4 mt-4">
+            <TooltipProvider>
+              <div className="flex flex-col sm:flex-row gap-4 px-4 sm:px-0">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <a href="tel:+994772171111" className="flex-1">
+                      <Button
+                        size="lg"
+                        className="w-full bg-white text-black border shadow-lg hover:bg-gray-100 flex items-center justify-center"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="text-[16px]">🇦🇿</span>
+                          <span className="text-sm font-medium">Call Now</span>
+                        </div>
+                      </Button>
+                    </a>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Azerbaijan</p>
+                  </TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <a href="tel:+971543627166" className="flex-1">
+                      <Button
+                        size="lg"
+                        className="w-full bg-white text-black border shadow-lg hover:bg-gray-100 flex items-center justify-center"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="text-[16px]">🇦🇪</span>
+                          <span className="text-sm font-medium">Call Now</span>
+                        </div>
+                      </Button>
+                    </a>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>United Arab Emirates</p>
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+            </TooltipProvider>
             <Button
+              className="mx-4"
               variant="outline"
               size="lg"
               onClick={toggleFavorite}

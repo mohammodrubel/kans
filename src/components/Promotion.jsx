@@ -1,61 +1,100 @@
-import React from 'react'
+"use client"
+import React, { useEffect, useState } from 'react'
 import { Button } from './ui/button'
 import Image from 'next/image'
-import tea from '../assets/tea.png'
-import teaa from '../assets/teaa.png'
+import { VendorAPi } from '@/app/api/vendor/vendorApi'
+import Link from 'next/link'
+import { Skeleton } from './ui/skeleton' 
 
 function Promotion() {
-    return (
-        <div className='container mx-auto'>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-gradient-to-r from-green-600 to-teal-500 rounded-lg p-6 text-white">
-                    <div className='flex justify-between items-center'>
-                        <div>
-                            <h3 className="text-2xl font-bold mb-1">Green Tea</h3>
-                            <h4 className="text-2xl font-bold mb-3">Longing</h4>
-                            <p className="text-sm mb-4 opacity-90">
-                                Cleaner's which enjoy health benefits
-                                <br />
-                                is bookloo1 und pastam honix
-                            </p>
-                            <Button variant="secondary" size="sm" className="bg-white text-green-800 hover:bg-gray-100">
-                                SHOP NOW
-                            </Button>
-                        </div>
-                        <div>
-                            <Image src={tea} width={500} height={500} alt='tea' />
-                        </div>
-                    </div>
-                </div>
-                <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-6">
-                    <div className='grid grid-cols-2   items-center justify-between'>
+    const [vendorImages, setVendorImages] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(null)
 
-                        <div>
-                            <h3 className="text-2xl md:text-4xl xl:text-6xl font-bold text-green-800 mb-1">On Trending</h3>
-                            <h4 className="text-2xl md:text-4xl xl:text-6xl font-bold text-green-800 mb-3">Coconut Milk</h4>
-                            <p className="text-sm text-green-700 mb-4">
-                                Enjoy a cream, for short
-                                <br />
-                                and mild
-                            </p>
-                            <Button variant="secondary" size="sm" className="bg-white text-green-800 hover:bg-gray-100">
-                                SHOP NOW
-                            </Button>
-                        </div>
-                        <div>
-                            <Image
-                                src={teaa}
-                                alt="Coconut Milk"
-                                width={800}
-                                height={800}
-                                className="h-auto w-auto"
-                            />
-                        </div>
+    useEffect(() => {
+        const fetchVendor = async () => {
+            try {
+                setLoading(true)
+                const res = await VendorAPi()
+                setVendorImages(res?.data || [])
+            } catch (err) {
+                console.error("Error fetching vendor:", err)
+                setError('Failed to load promotions')
+            } finally {
+                setLoading(false)
+            }
+        }
+        fetchVendor()
+    }, [])
 
-                    </div>
+    if (loading) {
+        return (
+            <div className="container mx-auto px-4 py-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {[...Array(2)].map((_, i) => (
+                        <Skeleton key={i} className="w-full h-64 rounded-lg" />
+                    ))}
                 </div>
             </div>
-        </div>
+        )
+    }
+
+    if (error) {
+        return (
+            <div className="container mx-auto px-4 py-8 text-center">
+                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                    {error}
+                </div>
+                <Button 
+                    variant="outline" 
+                    className="mt-4"
+                    onClick={() => window.location.reload()}
+                >
+                    Retry
+                </Button>
+            </div>
+        )
+    }
+
+    if (!vendorImages.length) {
+        return (
+            <div className="container mx-auto px-4 py-8 text-center">
+                <p className="text-gray-500">No promotions available at the moment</p>
+            </div>
+        )
+    }
+
+    return (
+        <section className="container mx-auto px-4 py-12">
+            <h2 className="text-3xl font-bold text-center mb-8">Special Promotions</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {vendorImages.map((item) => (
+                    <Link 
+                        href={item?.url || '#'} 
+                        key={item.id}
+                        className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+                    >
+                        <div className="aspect-w-16 aspect-h-9 w-full h-64 md:h-80 relative">
+                            <Image
+                                src={item?.media[0]?.original_url || '/placeholder.jpg'}
+                                alt={item?.title || 'Promotion image'}
+                                fill
+                                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                sizes="(max-width: 768px) 100vw, 50vw"
+                                priority={false}
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                                {item?.title && (
+                                    <h3 className="text-white text-xl font-semibold">
+                                        {item.title}
+                                    </h3>
+                                )}
+                            </div>
+                        </div>
+                    </Link>
+                ))}
+            </div>
+        </section>
     )
 }
 
