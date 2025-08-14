@@ -45,8 +45,8 @@ export function DetailsModal({
   const formatDescription = (description) => {
     if (!description) {
       return `
-        <p>This product has no description yet. Here's some default information:</p>
-        <ul>
+        <p class="text-gray-600 mb-3">This product has no description yet. Here's some default information:</p>
+        <ul class="list-disc pl-5 space-y-1 text-gray-600">
           <li>High-quality materials</li>
           <li>Manufacturer warranty included</li>
           <li>Free shipping available</li>
@@ -54,13 +54,17 @@ export function DetailsModal({
       `
     }
 
-    // Basic formatting transformations
+    // Enhanced formatting transformations with Tailwind classes only
     return description
-      .replace(/\n\n/g, '</p><p>')
-      .replace(/\*(.*?)\*/g, '<strong>$1</strong>')
-      .replace(/_(.*?)_/g, '<em>$1</em>')
-      .replace(/^- (.*?)(?=\n|$)/gm, '<li>$1</li>')
-      .replace(/<li>.*?<\/li>/gs, match => `<ul>${match}</ul>`)
+      .replace(/\n\n+/g, '</p><p class="my-3 text-gray-600">')
+      .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em class="italic">$1</em>')
+      .replace(/_(.*?)_/g, '<u class="underline">$1</u>')
+      .replace(/^- (.*?)(?=\n|$)/gm, '<li class="text-gray-600 my-1">$1</li>')
+      .replace(/<li class=".*?">.*?<\/li>/gs, match => `<ul class="list-disc pl-5 space-y-1 my-2">${match}</ul>`)
+      .replace(/^# (.*$)/gm, '<h3 class="text-xl font-bold mt-4 mb-2">$1</h3>')
+      .replace(/^## (.*$)/gm, '<h4 class="text-lg font-semibold mt-3 mb-1.5">$1</h4>')
+      .replace(/`([^`]+)`/g, '<code class="bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono">$1</code>')
   }
 
   const renderDynamicContent = () => {
@@ -104,6 +108,7 @@ export function DetailsModal({
     )
   }
 
+  // Rest of your original component remains exactly the same...
   if (!product) return null
 
   return (
@@ -112,6 +117,7 @@ export function DetailsModal({
         className="max-w-6xl min-w-[310px] md:min-w-[800px] max-h-[95vh] overflow-y-auto"
         onPointerDownOutside={(e) => e.preventDefault()}
       >
+        {/* Your existing JSX remains unchanged */}
         {/* Close Button */}
         <DialogClose asChild>
           <button
@@ -127,6 +133,7 @@ export function DetailsModal({
         </DialogClose>
 
         <div className="grid grid-cols-1 md:grid-cols-2 justify-between gap-5">
+          {/* Image Gallery - unchanged */}
           <div className="py-4 relative">
             {product.photo?.length > 0 && (
               <>
@@ -165,6 +172,8 @@ export function DetailsModal({
               </>
             )}
           </div>
+
+          {/* Product Details - unchanged */}
           <div className="space-y-4">
             <DialogTitle className="text-2xl font-bold">
               {product.name}
@@ -185,7 +194,7 @@ export function DetailsModal({
           </div>
         </div>
 
-        {/* Action Buttons */}
+        {/* Action Buttons - unchanged */}
         <div className="flex gap-3 justify-center mx-4 mt-4">
           <TooltipProvider>
             <div className="flex flex-col sm:flex-row gap-4 px-4 sm:px-0">
@@ -252,10 +261,9 @@ export function DetailsModal({
               fill={isInWishlist ? "currentColor" : "none"}
             />
           </Button>
-          
         </div>
 
-        {/* Shipping Info */}
+        {/* Shipping Info - unchanged */}
         <div className="grid grid-cols-3 gap-4 text-center mt-6">
           <div className="flex flex-col items-center gap-2">
             <Truck className="w-6 h-6 text-primary" />

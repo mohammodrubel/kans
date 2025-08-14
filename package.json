@@ -35,6 +35,7 @@
     "react-markdown": "^10.1.0",
     "react-slick": "^0.30.3",
     "react-spinners": "^0.17.0",
+    "remark-gfm": "^4.0.1",
     "shadcn": "^2.6.4",
     "slick-carousel": "^1.8.1",
     "sonner": "^2.0.6",
