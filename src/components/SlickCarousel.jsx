@@ -82,7 +82,7 @@ console.log(data,'data')
     const one = data[0];
     return (
       <div className="container mx-auto">
-        <div className={`h-[${slideHeight}] overflow-hidden rounded-xl`}>
+        <div className={` overflow-hidden rounded-xl`}>
           <Image
             src={one?.photo?.original_url}
             alt={one?.title || ''}
@@ -102,15 +102,15 @@ console.log(data,'data')
           <div key={item.id} className="px-2"> {/* Add horizontal padding */}
             <Link href={`${item?.url}`}>
             <div 
-              className={`h-[${slideHeight}] overflow-hidden rounded-xl`}
-              style={{ height: slideHeight }} // Ensure exact height
+              className={` relative w-full  overflow-hidden rounded-xl`}
+              style={{ width:'100%'}} // Ensure exact height
             >
               <Image
                 src={item?.photo?.original_url}
                 alt={item?.title || ''}
                 width={1200}
                 height={400}
-                className="w-full h-full object-cover"
+                className="w-full  !object-contain "
               />
             </div>
             </Link>

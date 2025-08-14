@@ -11,9 +11,6 @@
   opacity: 0.8; /* Optional: keep dim effect without shrinking */
 }
 
-.slick-slide > div {
-  height: 400px; /* same height for all */
-}
 
 .slick-slide img {
   height: 100%;

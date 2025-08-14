@@ -137,7 +137,7 @@ export function DetailsModal({
           <div className="py-4 relative">
             {product.photo?.length > 0 && (
               <>
-                <Image
+                 <Image
                   className="rounded-2xl text-center mx-auto"
                   width={300}
                   height={300}
