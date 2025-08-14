@@ -5,7 +5,7 @@ export const getProductCategory = async () => {
   try {
     const res = await fetch("https://egg.dordham.com/api/v1/product-categories", {
     });
-
+// console.log(res,"hello");
     if (!res.ok) {
       throw new Error(`Failed to fetch categories: ${res.status}`);
     }

@@ -1,207 +1,230 @@
 "use client";
-
+import { getFormLocaleStorage, removeFromLocaleStorage } from "@/utils/localeStoratge";
+import { ChevronLeft, Heart, Search, X } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-
-// import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { useEffect, useState } from "react";
+import { LanguageDropdown } from "../HeaderCurrency";
 import Logo from "../Logo";
-import MegaMenu from "./MegaMenu";
+import DesktopNavigatoin from "./DesktopNavigatoin";
 import MobileMenu from "./MobileMenu";
-import { CircleUserRound, Heart, Search } from "lucide-react";
-import {
-  getFormLocaleStorage,
-  removeFromLocaleStorage,
-} from "@/utils/localeStoratge";
-import SearchModal from "../SearchModal/SearchModal";
+import UserDropDown from "./UserDropDown";
 import useTranslation from "@/hooks/useTranslation";
 
 const GoogleTranslate = dynamic(() => import("../GoogleTranslate"), {
   ssr: false,
 });
 
+const translations = {
+  en: {
+    category: "Category",
+    products: "Products",
+    customers: "Customers",
+    contact: "Contact Us",
+    searchPlaceholder: "Search products...",
+    profile: "Profile",
+    logout: "Logout",
+    login: "Login"
+  },
+  ru: {
+    category: "Категория",
+    products: "Продукты",
+    customers: "Клиенты",
+    contact: "Связаться с нами",
+    searchPlaceholder: "Поиск продуктов...",
+    profile: "Профиль",
+    logout: "Выйти",
+    login: "Войти"
+  },
+  ar: {
+    category: "فئة",
+    products: "منتجات",
+    customers: "العملاء",
+    contact: "اتصل بنا",
+    searchPlaceholder: "ابحث عن المنتجات...",
+    profile: "الملف الشخصي",
+    logout: "تسجيل خروج",
+    login: "تسجيل الدخول"
+  },
+  az: {
+    category: "Kateqoriya",
+    products: "Məhsullar",
+    customers: "Müştərilər",
+    contact: "Bizimlə əlaqə",
+    searchPlaceholder: "Məhsul axtar...",
+    profile: "Profil",
+    logout: "Çıxış",
+    login: "Daxil ol"
+  },
+  tr: {
+    category: "Kategori",
+    products: "Ürünler",
+    customers: "Müşteriler",
+    contact: "Bize Ulaşın",
+    searchPlaceholder: "Ürün ara...",
+    profile: "Profil",
+    logout: "Çıkış Yap",
+    login: "Giriş Yap"
+  },
+};
 
 export default function Header() {
-  const [showMegaMenu, setShowMegaMenu] = useState(false);
-  const [megaMenuHover, setMegaMenuHover] = useState(false);
-  // const [labels, setLabels] = useState(translations.en);
-  const [token, setToken] = useState(getFormLocaleStorage("accessToken"));
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showMobileSearch, setShowMobileSearch] = useState(false);
+  const [token, setToken] = useState(null);
   const router = useRouter();
- const t = useTranslation();
+  const t = useTranslation();
+  // Handle logout
   const logout = () => {
     removeFromLocaleStorage("accessToken");
     setToken(null);
     router.push("/login");
   };
+ 
+  const [labels, setLabels] = useState(translations.en);
 
+  // Check auth token
   useEffect(() => {
-    const checkToken = () => {
-      const storedToken = getFormLocaleStorage("accessToken");
-      setToken(storedToken);
+    const storedToken = getFormLocaleStorage("accessToken");
+    setToken(storedToken);
+
+    const handleStorageChange = () => {
+      const newToken = getFormLocaleStorage("accessToken");
+      setToken(newToken);
     };
 
-    window.addEventListener("storage", checkToken);
-    const interval = setInterval(checkToken, 1000);
-
-    return () => {
-      window.removeEventListener("storage", checkToken);
-      clearInterval(interval);
-    };
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
+  // Handle search
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/products?search=${searchQuery}`);
+      setSearchQuery("");
+      setShowMobileSearch(false);
+    }
+  };
+
   return (
-    <header className="sticky top-0 bg-white dark:bg-gray-900 shadow-sm z-[9999]">
-      <div className="container mx-auto px-4 py-3">
-        <div className="flex justify-between items-center relative">
+    <header className="sticky top-0 bg-white dark:bg-gray-900 shadow-sm z-50 border-b">
+      {/* Mobile Search Overlay */}
+      {showMobileSearch && (
+        <div className="lg:hidden fixed inset-0 bg-white z-50 p-4">
+          <div className="flex items-center gap-2 mb-4">
+            <button
+              onClick={() => setShowMobileSearch(false)}
+              className="p-2 rounded-full hover:bg-gray-100"
+              aria-label="Close search"
+            >
+              <ChevronLeft className="h-6 w-6 text-gray-600" />
+            </button>
+            <h2 className="text-lg font-medium">Search</h2>
+          </div>
+          
+          <form onSubmit={handleSearch} className="relative">
+            <input
+              type="text"
+              // placeholder={labels.searchPlaceholder}
+              placeholder={t("navigation.search", "Search products...")}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-4 pr-12 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              autoFocus
+              aria-label="Search input"
+            />
+            <button
+              type="submit"
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 text-gray-500 hover:text-green-600"
+              aria-label="Search"
+            >
+              <Search className="h-5 w-5" />
+            </button>
+          </form>
+        </div>
+      )}
+
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-16 md:h-20 relative">
           {/* Logo */}
-          <Link href="/" className="z-10 cursor-pointer hover:opacity-90 transition-opacity">
-            <Logo />
+          <Link href="/" className="z-10 cursor-pointer hover:opacity-90">
+            <Logo className="h-8 md:h-10" />
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex gap-8 text-sm font-medium">
-            <div className="relative">
+          <DesktopNavigatoin  />
+
+          {/* Desktop Search */}
+          <form
+            onSubmit={handleSearch}
+            className="hidden lg:flex flex-1 mx-4 xl:mx-8 max-w-xl"
+          >
+            <div className="relative w-full">
+              <input
+                type="text"
+                // placeholder={labels.searchPlaceholder}
+                 placeholder={t("navigation.search", "Search products...")}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-green-500"
+              />
               <button
-                className={`hover:text-green-600 transition-colors duration-200 ${
-                  showMegaMenu ? "text-green-600 font-semibold" : ""
-                }`}
-                onMouseEnter={() => setShowMegaMenu(true)}
+                type="submit"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-green-600 transition-colors"
               >
-                {/* {labels.category} */}
-                {t("navigation.Category", "Category")}
+                <Search className="h-5 w-5" />
               </button>
-
-              {showMegaMenu && (
-                <div
-                  className="fixed left-0 right-0 flex justify-center z-[9999]"
-                  onMouseEnter={() => setMegaMenuHover(true)}
-                  onMouseLeave={() => {
-                    setMegaMenuHover(false);
-                    setShowMegaMenu(false);
-                  }}
-                >
-                  <div className="absolute top-full mt-2 w-screen max-w-[1200px] px-4">
-                    <div onMouseLeave={() => setShowMegaMenu(false)}>
-                      <MegaMenu />
-                    </div>
-                  </div>
-                </div>
-              )}
             </div>
+          </form>
 
-          
-             <Link href="/products" className="hover:text-green-600 transition">
-            {/* USE TRANSLATION FUNCTION */}
-            {t("navigation.products", "Products")}
-          </Link>
-          <Link href="/customers" className="hover:text-green-600 transition">
-            {/* USE TRANSLATION FUNCTION */}
-            {t("navigation.customers", "Customers")}
-          </Link>
-          <Link href="/contact-us" className="hover:text-green-600 transition">
-            {/* USE TRANSLATION FUNCTION */}
-            {t("group.contact", "Contact Us")}
-          </Link>
-          </nav>
-
-          {/* Right Side */}
-          <div className="flex items-center gap-4">
-            {/* Search Icon (Desktop only) */}
+          {/* Right Side Icons */}
+          <div className="flex items-center gap-2 md:gap-4">
+            {/* Mobile Search Button */}
             <button
-              onClick={() => setIsSearchOpen(true)}
-              className="hidden lg:block p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              onClick={() => setShowMobileSearch(true)}
+              className="lg:hidden p-2 text-gray-600 hover:text-green-600 transition-colors"
               aria-label="Search"
             >
-              <Search className="h-5 w-5 text-gray-600 dark:text-gray-400 hover:text-green-600 transition-colors" />
+              <Search className="h-5 w-5" />
             </button>
 
-            {/* Search Modal */}
-            <SearchModal
-              open={isSearchOpen}
-              onClose={() => setIsSearchOpen(false)}
-              // placeholder={labels. }
-            />
-
             {/* Google Translate */}
-            {/* <div className="hidden lg:block">
-              <GoogleTranslate onLanguageChange={(newLabels) => setLabels(newLabels)} />
-            </div> */}
-             <div className="hidden lg:flex items-center gap-4">
-          {/* REMOVE onLanguageChange PROP */}
-          <GoogleTranslate />
-        </div>
+            <div className="hidden lg:block">
+              {/* <GoogleTranslate
+                onLanguageChange={(langCode) => {
+                  setLabels(translations[langCode] || translations.en);
+                }}
+              /> */}
+               <GoogleTranslate />
+            </div>
+            
+            {/* Currency */}
+            <LanguageDropdown />
 
             {/* Wishlist */}
             <Link
               href="/wishlist"
-              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors relative group"
+              className="p-2 rounded-full hover:bg-gray-100 transition-colors relative group"
               aria-label="Wishlist"
             >
-              <Heart className="h-5 w-5 text-gray-600 dark:text-gray-400 group-hover:text-green-600 transition-colors" />
+              <Heart className="h-5 w-5 text-gray-600 group-hover:text-green-600" />
             </Link>
 
-            {/* User Dropdown */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <div className="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer">
-                  <CircleUserRound
-                    size={30}
-                    className="text-gray-500 dark:text-gray-400 hover:text-green-600 transition-colors"
-                  />
-                </div>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                className="w-56 shadow-xl border border-gray-200 dark:border-gray-700 dark:bg-gray-800"
-                align="end"
-              >
-                {token ? (
-                  <>
-                    <DropdownMenuItem asChild>
-                      <Link
-                        href="/profile"
-                        className="w-full px-2 py-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                      >
-                        Profile
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator className="bg-gray-100 dark:bg-gray-700 my-1" />
-                    <div className="px-2 pb-2">
-                      <Button
-                        onClick={logout}
-                        className="bg-red-500 hover:bg-red-600 text-white w-full active:scale-95 transition-transform"
-                      >
-                        Logout
-                      </Button>
-                    </div>
-                  </>
-                ) : (
-                  <div className="px-2 py-2 mt-4 space-y-2">
-                    <Link href="/login">
-                      <Button className="bg-green-600 hover:bg-green-700 text-white w-full active:scale-95 transition-transform">
-                        Login
-                      </Button>
-                    </Link>
-                  </div>
-                )}
-              </DropdownMenuContent>
-            </DropdownMenu>
+            {/* User dropdown */}
+            <UserDropDown labels={labels} />
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu */}
             <div className="lg:hidden">
-              <MobileMenu />
+              <MobileMenu
+                labels={labels}
+                onLanguageChange={(langCode) => {
+                  setLabels(translations[langCode] || translations.en);
+                }}
+                token={token}
+                logout={logout}
+              />
             </div>
           </div>
         </div>
