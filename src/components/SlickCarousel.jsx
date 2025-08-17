@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import "./slick.css";
 import Link from "next/link";
+import { Skeleton } from "@/components/ui/skeleton"; // ✅ ShadCN Skeleton
 
 const NextArrow = ({ onClick }) => (
   <button
@@ -27,6 +28,7 @@ const PrevArrow = ({ onClick }) => (
 
 const SlickCarousel = () => {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,11 +38,14 @@ const SlickCarousel = () => {
         setData(json?.data || []);
       } catch (e) {
         console.error(e);
+      } finally {
+        setLoading(false);
       }
     };
     fetchData();
   }, []);
-console.log(data,'data')
+
+  console.log(data, "data");
   const hasMultiple = data.length > 1;
 
   const settings = {
@@ -78,14 +83,25 @@ console.log(data,'data')
   // Fixed height for all slides
   const slideHeight = "400px";
 
+  if (loading) {
+    return (
+      <div className="container mx-auto mt-3">
+        <Skeleton
+          className="w-full rounded-xl"
+          style={{ height: slideHeight }}
+        />
+      </div>
+    );
+  }
+
   if (data.length === 1) {
     const one = data[0];
     return (
       <div className="container mx-auto">
-        <div className={` overflow-hidden rounded-xl`}>
+        <div className={`overflow-hidden rounded-xl`}>
           <Image
             src={one?.photo?.original_url}
-            alt={one?.title || ''}
+            alt={one?.title || ""}
             width={1200}
             height={400}
             className="w-full h-full object-cover"
@@ -99,20 +115,20 @@ console.log(data,'data')
     <div className="container mt-3 mx-auto">
       <Slider {...settings}>
         {data.map((item) => (
-          <div key={item.id} className="px-2"> {/* Add horizontal padding */}
+          <div key={item.id} className="px-2">
             <Link href={`${item?.url}`}>
-            <div 
-              className={` relative w-full  overflow-hidden rounded-xl`}
-              style={{ width:'100%'}} // Ensure exact height
-            >
-              <Image
-                src={item?.photo?.original_url}
-                alt={item?.title || ''}
-                width={1200}
-                height={400}
-                className="w-full  !object-contain "
-              />
-            </div>
+              <div
+                className={`relative w-full overflow-hidden rounded-xl`}
+                style={{ width: "100%" }}
+              >
+                <Image
+                  src={item?.photo?.original_url}
+                  alt={item?.title || ""}
+                  width={1200}
+                  height={400}
+                  className="w-full !object-contain"
+                />
+              </div>
             </Link>
           </div>
         ))}
