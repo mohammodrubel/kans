@@ -8,7 +8,7 @@ const languages = [
   { code: "en", name: "English" },
   { code: "ru", name: "Russian" },
   { code: "ar", name: "Arabic" },
-  { code: "az", name: "Azarbazan" },
+  { code: "az", name: "Azerbaijani" },
   { code: "tr", name: "Turkish" },
   
 ];

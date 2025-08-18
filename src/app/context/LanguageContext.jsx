@@ -15,35 +15,38 @@ export function LanguageProvider({ children }) {
   const translationCache = useRef({});
 
   useEffect(() => {
+    // Load saved language from localStorage
+    const savedLang = localStorage.getItem("language");
+    if (savedLang) {
+      setCurrentLang(savedLang);
+    }
+  }, []);
+
+  useEffect(() => {
     const controller = new AbortController();
 
     const fetchTranslations = async (lang) => {
       setIsLoading(true);
-      
+
       try {
-        // Check cache first
         if (translationCache.current[lang]) {
           setTranslations(translationCache.current[lang]);
           setIsLoading(false);
           return;
         }
 
-        // Fetch from API
-        const res = await fetch(
-          `https://egg.dordham.com/api/v1/lang/${lang}`,
-          { signal: controller.signal }
-        );
-        
-        // Verify JSON response
+        const res = await fetch(`https://egg.dordham.com/api/v1/lang/${lang}`, {
+          signal: controller.signal,
+        });
+
         const contentType = res.headers.get("content-type");
         if (!contentType || !contentType.includes("application/json")) {
           throw new Error("API returned non-JSON response");
         }
-        
+
         const data = await res.json();
-        
+
         if (data.success && data.translations) {
-          // Cache and set translations
           translationCache.current[lang] = data.translations;
           setTranslations(data.translations);
         }
@@ -56,22 +59,27 @@ export function LanguageProvider({ children }) {
       }
     };
 
-    fetchTranslations(currentLang);
+    if (currentLang) {
+      fetchTranslations(currentLang);
+    }
 
     return () => controller.abort();
   }, [currentLang]);
 
   const changeLanguage = (lang) => {
     setCurrentLang(lang);
+    localStorage.setItem("language", lang); // Save selected language
   };
 
   return (
-    <LanguageContext.Provider value={{
-      currentLang,
-      translations,
-      isLoading,
-      changeLanguage
-    }}>
+    <LanguageContext.Provider
+      value={{
+        currentLang,
+        translations,
+        isLoading,
+        changeLanguage,
+      }}
+    >
       {children}
     </LanguageContext.Provider>
   );

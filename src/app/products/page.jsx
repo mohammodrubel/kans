@@ -7,6 +7,7 @@ import ProductHeader from '@/components/ProductHeader'
 import ProductSidebar from '@/components/ProductSidebar'
 import { getProductCategory } from '../api/category'
 import { getProduct } from '../api/product'
+import { useLanguage } from '../context/LanguageContext'
 // import { getProduct } from '../api/product'
 
 function Page() {
@@ -80,9 +81,9 @@ function Page() {
   }, [search, selectCategory, id, page, limit])
 
   const products = productData || []
-
+ const { currentLang } = useLanguage();
   return (
-    <div className="container mx-auto px-5">
+    <div className="container mx-auto px-5" dir={currentLang === "ar" ? "rtl" : "ltr"}>
       <ProductHeader
         search={search}
         setSearch={setSearch}          // Pass both state and setter down
