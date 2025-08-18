@@ -11,6 +11,7 @@ import DesktopNavigatoin from "./DesktopNavigatoin";
 import MobileMenu from "./MobileMenu";
 import UserDropDown from "./UserDropDown";
 import useTranslation from "@/hooks/useTranslation";
+import { useLanguage } from "@/app/context/LanguageContext";
 
 const GoogleTranslate = dynamic(() => import("../GoogleTranslate"), {
   ssr: false,
@@ -83,7 +84,7 @@ export default function Header() {
   };
  
   const [labels, setLabels] = useState(translations.en);
-
+ const { currentLang } = useLanguage(); // ✅ Context থেকে আনো
   // Check auth token
   useEffect(() => {
     const storedToken = getFormLocaleStorage("accessToken");
@@ -109,7 +110,7 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 bg-white dark:bg-gray-900 shadow-sm z-50 border-b">
+    <header dir={currentLang === "ar" ? "rtl" : "ltr"} className="sticky top-0 bg-white dark:bg-gray-900 shadow-sm z-50 border-b">
       {/* Mobile Search Overlay */}
       {showMobileSearch && (
         <div className="lg:hidden fixed inset-0 bg-white z-50 p-4">

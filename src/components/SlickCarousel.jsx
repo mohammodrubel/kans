@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import "./slick.css";
 import Link from "next/link";
+import { useLanguage } from "@/app/context/LanguageContext";
 
 const NextArrow = ({ onClick }) => (
   <button
@@ -95,8 +96,9 @@ console.log(data,'data')
     );
   }
 
+  const { currentLang } = useLanguage();
   return (
-    <div className="container mt-3 mx-auto">
+    <div className="container mt-3 mx-auto" dir={currentLang === "ar" ? "rtl" : "ltr"}>
       <Slider {...settings}>
         {data.map((item) => (
           <div key={item.id} className="px-2"> {/* Add horizontal padding */}
