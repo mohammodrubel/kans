@@ -1,16 +1,21 @@
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import MegaMenu from './MegaMenu';
-
+import dynamic from "next/dynamic";
+import useTranslation from '@/hooks/useTranslation';
+const GoogleTranslate = dynamic(() => import("../GoogleTranslate"), {
+  ssr: false,
+});
 function DesktopNavigatoin({ labels }) {
     const megaMenuRef = useRef(null);
+  
     const [hoverTimeout, setHoverTimeout] = useState(null);
     const [showMegaMenu, setShowMegaMenu] = useState(false);
     const handleMouseEnter = () => {
         clearTimeout(hoverTimeout);
         setShowMegaMenu(true);
     };
-
+  const t = useTranslation();
     const handleMouseLeave = () => {
         setHoverTimeout(setTimeout(() => setShowMegaMenu(false), 200));
     };
@@ -38,7 +43,8 @@ function DesktopNavigatoin({ labels }) {
                     className={`flex items-center gap-1 py-2 hover:text-green-600 transition-colors ${showMegaMenu ? "text-green-600 font-semibold" : ""
                         }`}
                 >
-                    {labels.category}
+                    {/* {labels.category} */}
+                    {t("navigation.Category", "Category")}
                     <svg
                         className={`w-4 h-4 transition-transform ${showMegaMenu ? "rotate-180" : ""
                             }`}
@@ -65,19 +71,22 @@ function DesktopNavigatoin({ labels }) {
                 href="/products"
                 className="py-2 hover:text-green-600 transition-colors"
             >
-                {labels.products}
+                {/* {labels.products} */}
+                {t("navigation.products", "Products")}
             </Link>
             <Link
                 href="/customers"
                 className="py-2 hover:text-green-600 transition-colors"
             >
-                {labels.customers}
+                {/* {labels.customers} */}
+                {t("navigation.customers", "Customers")}
             </Link>
             <Link
                 href="/contact-us"
                 className="py-2 hover:text-green-600 transition-colors"
             >
-                {labels.contact}
+                {/* {labels.contact} */}
+                {t("group.contact", "Contact Us")} 
             </Link>
         </nav>
     )

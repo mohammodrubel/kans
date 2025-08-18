@@ -10,6 +10,8 @@ import Logo from "../Logo";
 import DesktopNavigatoin from "./DesktopNavigatoin";
 import MobileMenu from "./MobileMenu";
 import UserDropDown from "./UserDropDown";
+import useTranslation from "@/hooks/useTranslation";
+import { useLanguage } from "@/app/context/LanguageContext";
 
 const GoogleTranslate = dynamic(() => import("../GoogleTranslate"), {
   ssr: false,
@@ -73,16 +75,16 @@ export default function Header() {
   const [showMobileSearch, setShowMobileSearch] = useState(false);
   const [token, setToken] = useState(null);
   const router = useRouter();
-  
+  const t = useTranslation();
   // Handle logout
   const logout = () => {
     removeFromLocaleStorage("accessToken");
     setToken(null);
     router.push("/login");
   };
-
+ 
   const [labels, setLabels] = useState(translations.en);
-
+ const { currentLang } = useLanguage(); // ✅ Context থেকে আনো
   // Check auth token
   useEffect(() => {
     const storedToken = getFormLocaleStorage("accessToken");
@@ -108,7 +110,7 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 bg-white dark:bg-gray-900 shadow-sm z-50 border-b">
+    <header dir={currentLang === "ar" ? "rtl" : "ltr"} className="sticky top-0 bg-white dark:bg-gray-900 shadow-sm z-50 border-b">
       {/* Mobile Search Overlay */}
       {showMobileSearch && (
         <div className="lg:hidden fixed inset-0 bg-white z-50 p-4">
@@ -126,7 +128,8 @@ export default function Header() {
           <form onSubmit={handleSearch} className="relative">
             <input
               type="text"
-              placeholder={labels.searchPlaceholder}
+              // placeholder={labels.searchPlaceholder}
+              placeholder={t("navigation.search", "Search products...")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-4 pr-12 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
@@ -152,7 +155,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <DesktopNavigatoin labels={labels} />
+          <DesktopNavigatoin  />
 
           {/* Desktop Search */}
           <form
@@ -162,7 +165,8 @@ export default function Header() {
             <div className="relative w-full">
               <input
                 type="text"
-                placeholder={labels.searchPlaceholder}
+                // placeholder={labels.searchPlaceholder}
+                 placeholder={t("navigation.search", "Search products...")}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-green-500"
@@ -189,11 +193,12 @@ export default function Header() {
 
             {/* Google Translate */}
             <div className="hidden lg:block">
-              <GoogleTranslate
+              {/* <GoogleTranslate
                 onLanguageChange={(langCode) => {
                   setLabels(translations[langCode] || translations.en);
                 }}
-              />
+              /> */}
+               <GoogleTranslate />
             </div>
             
             {/* Currency */}

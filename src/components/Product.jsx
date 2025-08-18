@@ -11,11 +11,29 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import AutoCurrencyFormatter from "./AutoCurrencyFormatter/AutoCurrencyFormatter";
 import { DetailsModal } from "./DetailsModal";
+import { useLanguage } from "@/app/context/LanguageContext";
 
 const Product = ({ product }) => {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const [isInWishlist, setIsInWishlist] = useState(false);
   const token = getFormLocaleStorage("accessToken");
+  const { currentLang } = useLanguage();
+
+  // ✅ Multi-language product name handler
+  const getItemName = (item) => {
+    switch (currentLang) {
+      case "ru":
+        return item.name_ru || item.name;
+      case "ar":
+        return item.name_ar || item.name;
+      case "az":
+        return item.name_az || item.name;
+      case "tr":
+        return item.name_tr || item.name;
+      default:
+        return item.name;
+    }
+  };
 
   useEffect(() => {
     const fetchWishlist = async () => {
@@ -27,7 +45,8 @@ const Product = ({ product }) => {
             : Array.isArray(response)
             ? response
             : [];
-          setIsInWishlist(data.some(item => item.product_id === product.id));
+
+          setIsInWishlist(data.some((item) => item.product_id === product.id));
         }
       } catch (error) {
         console.error("Error fetching wishlist:", error);
@@ -39,14 +58,17 @@ const Product = ({ product }) => {
   }, [token, product.id]);
 
   const toggleFavorite = async (e) => {
-    e.stopPropagation();
+    e.stopPropagation(); // stop opening modal
     try {
       if (!token) return toast.error("Please login first.");
 
       const res = await addFav({ product_id: product.id }, token);
       if (res?.status) {
-        toast.success(res.message || (isInWishlist ? "Removed from wishlist" : "Added to wishlist"));
-        setIsInWishlist(prev => !prev);
+        toast.success(
+          res.message ||
+            (isInWishlist ? "Removed from wishlist" : "Added to wishlist")
+        );
+        setIsInWishlist((prev) => !prev);
       } else {
         toast.error("Failed to update wishlist.");
       }
@@ -56,77 +78,85 @@ const Product = ({ product }) => {
   };
 
   return (
-    <>
-      <Card
-        key={product.id}
-        className="group !shadow-none !border-none py-0 relative overflow-hidden duration-300 h-full flex flex-col bg-white"
-        onClick={() => setIsDetailsOpen(true)}
-      >
-        <div className="relative">
-          {product.discount > 0 && (
-            <Badge className="absolute top-2 left-2 z-10 bg-purple-500 hover:bg-purple-500 text-white font-medium px-2 py-1 text-xs sm:top-3 sm:left-3">
-              -{product.discount}%
-            </Badge>
-          )}
+    <Card
+      key={product.id}
+      className="group relative overflow-hidden py-0 border-0 shadow-sm hover:shadow-md transition-shadow h-full cursor-pointer"
+      onClick={() => setIsDetailsOpen(true)}
+    >
+      <div className="relative">
+        {/* Discount Badge */}
+        {product.discount > 0 && (
+          <Badge className="absolute top-3 left-3 z-10 bg-purple-500 hover:bg-purple-500 text-white font-medium px-2 text-xs">
+            -{product.discount}%
+          </Badge>
+        )}
 
-          <Button
-            size="icon"
-            variant="ghost"
-            onClick={toggleFavorite}
-            className={`absolute top-2 right-2 z-10 bg-white/80 hover:bg-white rounded-full p-1.5 sm:p-2 transition-colors duration-200 ${
-              isInWishlist ? "text-red-500" : "text-gray-400 hover:text-red-500"
-            }`}
-          >
-            <Heart
-              className="h-3 w-3 sm:h-4 sm:w-4 cursor-pointer"
-              fill={isInWishlist ? "currentColor" : "none"}
-            />
-          </Button>
+        {/* Wishlist Button */}
+        <Button
+          size="icon"
+          variant="ghost"
+          onClick={toggleFavorite}
+          className={`absolute top-3 right-3 z-10 bg-white/80 hover:bg-white ${
+            isInWishlist ? "text-red-500" : "hover:text-red-500"
+          } opacity-100 transition-opacity duration-200`}
+        >
+          <Heart
+            className="h-4 w-4 cursor-pointer"
+            fill={isInWishlist ? "currentColor" : "none"}
+          />
+        </Button>
 
-          <div className="aspect-square overflow-hidden bg-gray-50">
-            <Image
-              src={product.photo?.[0]?.original_url || "/placeholder.svg"}
-              alt={product.name}
-              width={200}
-              height={200}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              priority={false}
-            />
-          </div>
+        {/* Product Image */}
+        <div className="aspect-square overflow-hidden bg-gray-50">
+          <Image
+            src={product.photo?.[0]?.original_url || "/placeholder.svg"}
+            alt={getItemName(product)} // ✅ use translated name
+            width={220}
+            height={220}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          />
         </div>
+      </div>
 
-        <CardContent className="!py-0 sm:p-3 flex flex-col gap-1">
-          <h3 className="font-medium text-gray-900 line-clamp-1 leading-tight text-sm sm:text-base">
-            {product.name}
-          </h3>
-          
-          <div className="flex flex-col">
-            <div className="font-semibold text-base sm:text-lg text-gray-900">
-              <AutoCurrencyFormatter price={product.discounted_price || product.price} />
-            </div>
+      <CardContent className="px-3 py-0 flex flex-col justify-between h-[80px]">
+        {/* Product Title */}
+        <h3 className="text-sm font-medium text-gray-900 mb-3 line-clamp-1 leading-tight">
+          {getItemName(product)} {/* ✅ Translated name */}
+        </h3>
 
-            {product.discount > 0 && (
-              <div className="flex items-center gap-1 text-xs sm:text-sm">
-                <span className="text-gray-400 line-through">
-                  <AutoCurrencyFormatter price={product.price} />
-                </span>
-                <span className="text-green-600 font-medium">
-                  Save {(Number(product.price) - Number(product.discounted_price)).toFixed(2)}
-                </span>
-              </div>
-            )}
+        {/* Pricing */}
+        <div className="mt-auto">
+          <div className="flex items-baseline gap-2">
+            <span className="text-xl font-bold text-gray-900">
+              <AutoCurrencyFormatter
+                price={product.discounted_price || product.price}
+              />
+            </span>
           </div>
-        </CardContent>
-      </Card>
 
+          {product.discount > 0 && (
+            <div className="flex items-center gap-2 text-sm">
+              <span className="text-gray-400 line-through">
+                <AutoCurrencyFormatter price={product.price} />
+              </span>
+              <span className="text-green-600 font-medium">
+                Save{" "}
+                {(
+                  Number(product.price) - Number(product.discounted_price)
+                ).toFixed(2)}
+              </span>
+            </div>
+          )}
+        </div>
+      </CardContent>
+
+      {/* Details Modal */}
       <DetailsModal
         product={product}
-        open={isDetailsOpen}
-        onOpenChange={setIsDetailsOpen}
-        isInWishlist={isInWishlist}
-        onToggleFavorite={toggleFavorite}
+        isOpen={isDetailsOpen}
+        onClose={() => setIsDetailsOpen(false)}
       />
-    </>
+    </Card>
   );
 };
 

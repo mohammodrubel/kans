@@ -1,13 +1,23 @@
 "use client";
 import { megaMenuAPi } from "@/app/api/menu";
+import useTranslation from "@/hooks/useTranslation";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useLanguage } from "@/app/context/LanguageContext";
+
+const GoogleTranslate = dynamic(() => import("../GoogleTranslate"), {
+  ssr: false,
+});
 
 export default function MegaMenu() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const t = useTranslation();
+
+  const { currentLang } = useLanguage(); // LanguageContext থেকে language নিলাম
 
   useEffect(() => {
     const fetchMenu = async () => {
@@ -35,6 +45,36 @@ export default function MegaMenu() {
       </div>
     );
 
+  const getItemName = (item) => {
+    switch (currentLang) {
+      case "ru":
+        return item.name_ru || item.name;
+      case "ar":
+        return item.name_ar || item.name;
+      case "az":
+        return item.name_az || item.name;
+      case "tr":
+        return item.name_tr || item.name;
+      default:
+        return item.name;
+    }
+  };
+
+  const getItemDescription = (item) => {
+    switch (currentLang) {
+      case "ru":
+        return item.description_ru || item.description;
+      case "ar":
+        return item.description_ar || item.description;
+      case "az":
+        return item.description_az || item.description;
+      case "tr":
+        return item.description_tr || item.description;
+      default:
+        return item.description;
+    }
+  };
+
   return (
     <div className="max-w-7xl mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
@@ -47,7 +87,7 @@ export default function MegaMenu() {
               {item.photo?.original_url && (
                 <div className="flex-shrink-0">
                   <Image
-                    alt={item.name ? `${item.name} category` : "Category image"}
+                    alt={getItemName(item) + " category"}
                     src={item.photo.original_url}
                     width={48}
                     height={48}
@@ -57,11 +97,11 @@ export default function MegaMenu() {
               )}
               <div>
                 <span className="font-medium text-gray-800 dark:text-gray-200 group-hover:text-green-600">
-                  {item.name}
+                  {t(`Category.${getItemName(item)}`, getItemName(item))}
                 </span>
                 {item.description && (
                   <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 line-clamp-2">
-                    {item.description}
+                    {t(`Category.${item.id}.desc`, getItemDescription(item))}
                   </p>
                 )}
               </div>

@@ -3,7 +3,8 @@ import Header from "@/components/Header/Header"
 import 'flag-icons/css/flag-icons.min.css';
 import "./globals.css";
 import { Footer } from "@/components/Footer";
-import { Toaster } from "sonner";
+import { LanguageProvider } from "./context/LanguageContext";
+
 
 export const metadata = {
   title: "Create Next App",
@@ -14,10 +15,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body suppressHydrationWarning={true}>
-        <Header />
-        {children}
-        <Footer/>
-        <Toaster richColors position="top-right" />
+        {/* WRAP EVERYTHING WITH LANGUAGE PROVIDER */}
+        <LanguageProvider>
+          <Header />
+          {children}
+          <Footer/>
+        </LanguageProvider>
       </body>
     </html>
   );

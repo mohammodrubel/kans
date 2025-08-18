@@ -10,17 +10,18 @@ import {
 import Autoplay from "embla-carousel-autoplay";
 import { useEffect, useMemo, useState } from "react";
 import Product from "./Product";
-import { Skeleton } from "@/components/ui/skeleton";
+import { useLanguage } from "@/app/context/LanguageContext";
 
 export function FeaturedProducts() {
   const [productData, setProductData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const plugin = useMemo(
-    () => Autoplay({ delay: 2000, stopOnInteraction: true }),
-    []
-  );
+  const { currentLang, translations } = useLanguage(); // ✅ Context থেকে আনো
+  const plugin = useMemo(() => Autoplay({ delay: 2000, stopOnInteraction: true }), []);
+
+  // Helper function: translation বা fallback
+  const t = (key) => translations[key] || key;
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -45,23 +46,47 @@ export function FeaturedProducts() {
     fetchProducts();
   }, []);
 
+  // ✅ Localized Name
+  const getItemName = (item) => {
+    switch (currentLang) {
+      case "ru":
+        return item.name_ru || item.name;
+      case "ar":
+        return item.name_ar || item.name;
+      case "az":
+        return item.name_az || item.name;
+      case "tr":
+        return item.name_tr || item.name;
+      default:
+        return item.name;
+    }
+  };
+
+  // ✅ Localized Description
+  const getItemDescription = (item) => {
+    switch (currentLang) {
+      case "ru":
+        return item.description_ru || item.description;
+      case "ar":
+        return item.description_ar || item.description;
+      case "az":
+        return item.description_az || item.description;
+      case "tr":
+        return item.description_tr || item.description;
+      default:
+        return item.description;
+    }
+  };
+
   return (
-    <div className="container mx-auto py-10">
+    <div className="container mx-auto py-10" dir={currentLang === "ar" ? "rtl" : "ltr"}>
       <div className="w-full">
         <h2 className="text-2xl font-bold text-gray-700 mb-4">
-          Featured Products
+          {t("Featured Products")}
         </h2>
 
         {isLoading ? (
-          <div className="flex gap-4">
-            {[...Array(5)].map((_, i) => (
-              <div key={i} className="flex flex-col gap-2 w-40">
-                <Skeleton className="h-40 w-full rounded-lg" />
-                <Skeleton className="h-4 w-3/4" />
-                <Skeleton className="h-4 w-1/2" />
-              </div>
-            ))}
-          </div>
+          <div>Loading products...</div>
         ) : error ? (
           <div className="text-red-500">{error}</div>
         ) : productData.length === 0 ? (
@@ -79,7 +104,13 @@ export function FeaturedProducts() {
                   key={item.id}
                   className="mt-2 mb-2 basis-1/2 md:basis-1/3 xl:basis-1/5 2xl:basis-1/7"
                 >
-                  <Product product={item} />
+                  <Product
+                    product={{
+                      ...item,
+                      name: getItemName(item),
+                      description: getItemDescription(item),
+                    }}
+                  />
                 </CarouselItem>
               ))}
             </CarouselContent>

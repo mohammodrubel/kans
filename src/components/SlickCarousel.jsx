@@ -6,7 +6,8 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import "./slick.css";
 import Link from "next/link";
-import { Skeleton } from "@/components/ui/skeleton"; // ✅ ShadCN Skeleton
+import { useLanguage } from "@/app/context/LanguageContext";
+import { Skeleton } from "./ui/skeleton";
 
 const NextArrow = ({ onClick }) => (
   <button
@@ -111,8 +112,9 @@ const SlickCarousel = () => {
     );
   }
 
+  const { currentLang } = useLanguage();
   return (
-    <div className="container mt-3 mx-auto">
+    <div className="container mt-3 mx-auto" dir={currentLang === "ar" ? "rtl" : "ltr"}>
       <Slider {...settings}>
         {data.map((item) => (
           <div key={item.id} className="px-2">

@@ -11,6 +11,8 @@ import {
   SelectValue,
 } from "./ui/select";
 import ResponsiveProductSidebar from "./ResponsiveProductSidebar";
+import useTranslation from "@/hooks/useTranslation";
+import { useLanguage } from "@/app/context/LanguageContext";
 
 function ProductHeader({ search, setSearch, categoryData ,setSelectCategory}) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -20,9 +22,10 @@ function ProductHeader({ search, setSearch, categoryData ,setSelectCategory}) {
     setSortValue(value);
     onSortChange?.(value);
   };
-
+ const t = useTranslation();
+  const { currentLang } = useLanguage(); 
   return (
-    <div className="relative">
+    <div className="relative" dir={currentLang === "ar" ? "rtl" : "ltr"}>
       <div className="p-5 border rounded-2xl flex items-center gap-5">
         {/* Mobile Menu Button */}
         <button
@@ -38,7 +41,8 @@ function ProductHeader({ search, setSearch, categoryData ,setSelectCategory}) {
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           <Input
             type="text"
-            placeholder="Search products..."
+            // placeholder="Search products..."
+            placeholder={t("navigation.search", "Search products...")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="pl-10 text-[#016630] caret-[#016630] focus:outline-none focus:ring-2 focus:ring-[#016630] focus:border-[#016630] focus:shadow-md focus:shadow-[#016630]/30"
