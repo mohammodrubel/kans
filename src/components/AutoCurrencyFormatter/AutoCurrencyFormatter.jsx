@@ -49,7 +49,7 @@ const AutoCurrencyFormatter = ({ price, discount }) => {
   const fetchExchangeRates = async () => {
     try {
       const response = await fetch(
-        "https://v6.exchangerate-api.com/v6/fde1c82e9340652b282a2ac2/latest/USD"
+        "https://v6.exchangerate-api.com/v6/b42b2c439a3720cb61c21cff/latest/USD"
       );
       const data = await response.json();
       if (data.conversion_rates) {
