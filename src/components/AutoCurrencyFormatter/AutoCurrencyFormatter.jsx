@@ -7,17 +7,10 @@ const BASE_CURRENCY = "AZN"; // Your database price is in AZN
 const localeCurrencyMap = {
   "en-US": { currency: "USD", locale: "en-US", symbol: "$" },
   "ru-RU": { currency: "RUB", locale: "ru-RU", symbol: "₽" },
-  "ar-SA": { currency: "SAR", locale: "ar-SA", symbol: "﷼" },
   "az-AZ": { currency: "AZN", locale: "az-AZ", symbol: "₼" },
   "tr-TR": { currency: "TRY", locale: "tr-TR", symbol: "₺" },
   "es-ES": { currency: "EUR", locale: "es-ES", symbol: "€" },
-  "fr-FR": { currency: "EUR", locale: "fr-FR", symbol: "€" },
-  "de-DE": { currency: "EUR", locale: "de-DE", symbol: "€" },
-  "ja-JP": { currency: "JPY", locale: "ja-JP", symbol: "¥" },
-  "zh-CN": { currency: "CNY", locale: "zh-CN", symbol: "¥" },
-  "tg-TJ": { currency: "TJS", locale: "tg-TJ", symbol: "ЅМ" },
 };
-
 const AutoCurrencyFormatter = ({ price, discount }) => {
   const [formattedPrice, setFormattedPrice] = useState({
     normal: "",

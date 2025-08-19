@@ -74,13 +74,12 @@ function DesktopNavigatoin({ labels }) {
                 {/* {labels.products} */}
                 {t("navigation.products", "Products")}
             </Link>
-            <Link
+            {/* <Link
                 href="/customers"
                 className="py-2 hover:text-green-600 transition-colors"
             >
-                {/* {labels.customers} */}
                 {t("navigation.customers", "Customers")}
-            </Link>
+            </Link> */}
             <Link
                 href="/contact-us"
                 className="py-2 hover:text-green-600 transition-colors"

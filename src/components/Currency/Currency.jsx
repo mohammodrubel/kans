@@ -4,29 +4,26 @@ import { useEffect, useState } from 'react';
 function Currency() {
   const countries = [
     { name: "English", locale: "en-US", currency: "USD" },
-    { name: "Русский", locale: "ru-RU", currency: "RUB" },      // Russian
-    { name: "العربية", locale: "ar-SA", currency: "SAR" },      // Arabic
-    { name: "Azərbaycanca", locale: "az-AZ", currency: "AZN" }, // Azerbaijani
-    { name: "Türkçe", locale: "tr-TR", currency: "TRY" },       // Turkish
+    { name: "Русский", locale: "ru-RU", currency: "RUB" },   
+    { name: "Azərbaycanca", locale: "az-AZ", currency: "AZN" },
+    { name: "Türkçe", locale: "tr-TR", currency: "TRY" },    
     { name: "Español", locale: "es-ES", currency: "EUR" },
-    { name: "Français", locale: "fr-FR", currency: "EUR" },
-    { name: "Deutsch", locale: "de-DE", currency: "EUR" },
-    { name: "日本語", locale: "ja-JP", currency: "JPY" },
-    { name: "中文", locale: "zh-CN", currency: "CNY" },
   ];
+  const localeCurrencyMap = {
+    "en-US": { currency: "USD", locale: "en-US", symbol: "$" },
+    "ru-RU": { currency: "RUB", locale: "ru-RU", symbol: "₽" },
+    "az-AZ": { currency: "AZN", locale: "az-AZ", symbol: "₼" },
+    "tr-TR": { currency: "TRY", locale: "tr-TR", symbol: "₺" },
+    "es-ES": { currency: "EUR", locale: "es-ES", symbol: "€" },
+  };
 
   // Map of locale to flag image URLs
   const flagImageUrls = {
     "en-US": "https://flagcdn.com/w20/us.png",
     "ru-RU": "https://flagcdn.com/w20/ru.png",
-    "ar-SA": "https://flagcdn.com/w20/sa.png",
     "az-AZ": "https://flagcdn.com/w20/az.png",
     "tr-TR": "https://flagcdn.com/w20/tr.png",
     "es-ES": "https://flagcdn.com/w20/es.png",
-    "fr-FR": "https://flagcdn.com/w20/fr.png",
-    "de-DE": "https://flagcdn.com/w20/de.png",
-    "ja-JP": "https://flagcdn.com/w20/jp.png",
-    "zh-CN": "https://flagcdn.com/w20/cn.png"
   };
 
   const [isModalOpen, setIsModalOpen] = useState(true);

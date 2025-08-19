@@ -113,7 +113,7 @@ export function DetailsModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent 
+      <DialogContent
         className="max-w-6xl min-w-[310px] md:min-w-[800px] max-h-[95vh] overflow-y-auto"
         onPointerDownOutside={(e) => e.preventDefault()}
       >
@@ -122,9 +122,9 @@ export function DetailsModal({
         <DialogClose asChild>
           <button
             className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none"
-            onClick={(e) => { 
-              e.stopPropagation()
-              onOpenChange(false)
+            onClick={(e) => {
+              e.stopPropagation();
+              onOpenChange(false);
             }}
           >
             <X className="h-4 w-4" />
@@ -137,7 +137,7 @@ export function DetailsModal({
           <div className="py-4 relative">
             {product.photo?.length > 0 && (
               <>
-                 <Image
+                <Image
                   className="rounded-2xl text-center mx-auto"
                   width={300}
                   height={300}
@@ -153,8 +153,8 @@ export function DetailsModal({
                     <button
                       key={index}
                       onClick={(e) => {
-                        e.stopPropagation()
-                        setSelectedImage(item.original_url)
+                        e.stopPropagation();
+                        setSelectedImage(item.original_url);
                       }}
                       className="mt-2 focus:outline-none"
                       aria-label={`View product image ${index + 1}`}
@@ -178,10 +178,12 @@ export function DetailsModal({
             <DialogTitle className="text-2xl font-bold">
               {product.name}
             </DialogTitle>
-            
+
             <div className="flex items-center gap-3">
               <h2 className="text-2xl font-bold text-green-500">
-                <AutoCurrencyFormatter price={product.discounted_price || product.price} />
+                <AutoCurrencyFormatter
+                  price={product.discounted_price || product.price}
+                />
               </h2>
               {product.discount > 0 && (
                 <span className="text-sm text-gray-400 line-through">
@@ -189,7 +191,7 @@ export function DetailsModal({
                 </span>
               )}
             </div>
-            
+
             {renderDynamicContent()}
           </div>
         </div>
@@ -200,8 +202,8 @@ export function DetailsModal({
             <div className="flex flex-col sm:flex-row gap-4 px-4 sm:px-0">
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <a 
-                    href="tel:+994772171111" 
+                  <a
+                    href="tel:+994772171111"
                     className="flex-1"
                     onClick={(e) => e.stopPropagation()}
                   >
@@ -210,7 +212,12 @@ export function DetailsModal({
                       className="w-full bg-white text-black border shadow-lg hover:bg-gray-100 flex items-center justify-center"
                     >
                       <div className="flex items-center gap-2">
-                        <span className="text-[16px]">🇦🇿</span>
+                        <Image
+                          src="https://hatscripts.github.io/circle-flags/flags/az.svg"
+                          alt="Azerbaijan Flag"
+                          width={25}
+                          height={25}
+                        />
                         <span className="text-sm font-medium">Call Now</span>
                       </div>
                     </Button>
@@ -223,8 +230,8 @@ export function DetailsModal({
 
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <a 
-                    href="tel:+971543627166" 
+                  <a
+                    href="tel:+971543627166"
                     className="flex-1"
                     onClick={(e) => e.stopPropagation()}
                   >
@@ -233,7 +240,12 @@ export function DetailsModal({
                       className="w-full bg-white text-black border shadow-lg hover:bg-gray-100 flex items-center justify-center"
                     >
                       <div className="flex items-center gap-2">
-                        <span className="text-[16px]">🇦🇪</span>
+                        <Image
+                          src="https://hatscripts.github.io/circle-flags/flags/ae.svg"
+                          alt="UAE Flag"
+                          width={25}
+                          height={25}
+                        />
                         <span className="text-sm font-medium">Call Now</span>
                       </div>
                     </Button>
@@ -254,7 +266,9 @@ export function DetailsModal({
               onToggleFavorite(e);
             }}
             disabled={isLoading}
-            aria-label={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
+            aria-label={
+              isInWishlist ? "Remove from wishlist" : "Add to wishlist"
+            }
           >
             <Heart
               className="h-4 w-4"
@@ -283,11 +297,13 @@ export function DetailsModal({
             <RotateCcw className="w-6 h-6 text-primary" />
             <div>
               <p className="font-semibold text-sm">30-Day Returns</p>
-              <p className="text-xs text-muted-foreground">No questions asked</p>
+              <p className="text-xs text-muted-foreground">
+                No questions asked
+              </p>
             </div>
           </div>
         </div>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

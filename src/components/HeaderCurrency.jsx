@@ -11,14 +11,22 @@ import {
 const countries = [
   { name: "English", locale: "en-US", flag: "https://flagcdn.com/w20/us.png", currency: "USD" },
   { name: "Русский", locale: "ru-RU", flag: "https://flagcdn.com/w20/ru.png", currency: "RUB" },
-  { name: "العربية", locale: "ar-SA", flag: "https://flagcdn.com/w20/sa.png", currency: "SAR" },
+  // { name: "العربية", locale: "ar-SA", flag: "https://flagcdn.com/w20/sa.png", currency: "SAR" },
   { name: "Azərbaycanca", locale: "az-AZ", flag: "https://flagcdn.com/w20/az.png", currency: "AZN" },
   { name: "Türkçe", locale: "tr-TR", flag: "https://flagcdn.com/w20/tr.png", currency: "TRY" },
-  { name: "Español", locale: "es-ES", flag: "https://flagcdn.com/w20/es.png", currency: "EUR" },
-  { name: "Français", locale: "fr-FR", flag: "https://flagcdn.com/w20/fr.png", currency: "EUR" },
-  { name: "Deutsch", locale: "de-DE", flag: "https://flagcdn.com/w20/de.png", currency: "EUR" },
-  { name: "日本語", locale: "ja-JP", flag: "https://flagcdn.com/w20/jp.png", currency: "JPY" },
-  { name: "中文", locale: "zh-CN", flag: "https://flagcdn.com/w20/cn.png", currency: "CNY" },
+  // { name: "Español", locale: "es-ES", flag: "https://flagcdn.com/w20/es.png", currency: "EUR" },
+  // { name: "Français", locale: "fr-FR", flag: "https://flagcdn.com/w20/fr.png", currency: "EUR" },
+  // { name: "Deutsch", locale: "de-DE", flag: "https://flagcdn.com/w20/de.png", currency: "EUR" },
+  // { name: "日本語", locale: "ja-JP", flag: "https://flagcdn.com/w20/jp.png", currency: "JPY" },
+  // { name: "中文", locale: "zh-CN", flag: "https://flagcdn.com/w20/cn.png", currency: "CNY" },
+];
+
+[
+  { name: "English", locale: "en-US", currency: "USD" },
+  { name: "Русский", locale: "ru-RU", currency: "RUB" },
+  { name: "Azərbaycanca", locale: "az-AZ", currency: "AZN" },
+  { name: "Türkçe", locale: "tr-TR", currency: "TRY" },
+  // { name: "Español", locale: "es-ES", currency: "EUR" },
 ];
 
 export function LanguageDropdown() {
