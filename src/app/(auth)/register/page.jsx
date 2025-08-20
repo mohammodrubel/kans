@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { toast } from "sonner";
+import { toast, Toaster } from "sonner";
 
 export default function RegisterForm() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
@@ -95,6 +95,7 @@ export default function RegisterForm() {
           <Link className="text-blue-500 font-semibold" href="/login">Login</Link>
         </p>
       </Card>
+      <Toaster reachColor position="top-right"/>
     </div>
   );
 }

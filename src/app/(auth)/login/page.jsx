@@ -8,7 +8,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import Link from "next/link";
 import { loginUser } from "@/action/api/login";
 import { storageUserInfo } from "@/action/auth.service";
-import { toast } from "sonner";
+import { toast, Toaster } from "sonner";
 import { useRouter } from "next/navigation";
 
 export default function Login() {
@@ -80,6 +80,7 @@ export default function Login() {
           </Link>
         </b>
       </Card>
+      <Toaster reachColor position="top-right" />
     </div>
   );
 }
