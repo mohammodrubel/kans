@@ -182,12 +182,12 @@ export function DetailsModal({
             <div className="flex items-center gap-3">
               <h2 className="text-2xl font-bold text-green-500">
                 <AutoCurrencyFormatter
-                  price={product.discounted_price || product.price}
+                  price={product.discounted_price || product.converted_price}
                 />
               </h2>
               {product.discount > 0 && (
                 <span className="text-sm text-gray-400 line-through">
-                  <AutoCurrencyFormatter price={product.price} />
+                  <AutoCurrencyFormatter price={product.converted_price} />
                 </span>
               )}
             </div>

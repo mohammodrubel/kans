@@ -1,121 +1,69 @@
+
+
+
 "use client";
-import React, { useEffect, useState, useCallback } from "react";
-import PropTypes from "prop-types";
 
-const BASE_CURRENCY = "AZN"; // Your database price is in AZN
+import { useEffect, useState } from "react";
 
-const localeCurrencyMap = {
-  "en-US": { currency: "USD", locale: "en-US", symbol: "$" },
-  "ru-RU": { currency: "RUB", locale: "ru-RU", symbol: "₽" },
-  "az-AZ": { currency: "AZN", locale: "az-AZ", symbol: "₼" },
-  "tr-TR": { currency: "TRY", locale: "tr-TR", symbol: "₺" },
-  "es-ES": { currency: "EUR", locale: "es-ES", symbol: "€" },
-};
-const AutoCurrencyFormatter = ({ price, discount }) => {
-  const [formattedPrice, setFormattedPrice] = useState({
-    normal: "",
-    discount: "",
-    symbol: "",
-  });
+const countries = [
+  { name: "English", locale: "en-US", currency: "USD" },
+  { name: "Русский", locale: "ru-RU", currency: "RUB" },
+  { name: "العربية", locale: "ar-SA", currency: "AED" },
+  { name: "Azərbaycanca", locale: "az-AZ", currency: "AZN" },
+  { name: "Türkçe", locale: "tr-TR", currency: "TRY" },
+];
 
-  const [exchangeRates, setExchangeRates] = useState({});
-  const [currentLocale, setCurrentLocale] = useState(
-    typeof window !== "undefined"
-      ? localStorage.getItem("selected_locale") || "az-AZ"
-      : "az-AZ"
-  );
+export default function AutoCurrencyFormatter({ price }) {
+  const [currency, setCurrency] = useState("USD");
 
-  // Poll for locale changes every second
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const newLocale = localStorage.getItem("selected_locale") || "az-AZ";
-      setCurrentLocale((prevLocale) =>
-        prevLocale !== newLocale ? newLocale : prevLocale
-      );
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const getCurrencyData = () =>
-    localeCurrencyMap[currentLocale] || localeCurrencyMap["en-US"];
-
-  const fetchExchangeRates = async () => {
-    try {
-      const response = await fetch(
-        "https://v6.exchangerate-api.com/v6/b42b2c439a3720cb61c21cff/latest/USD"
-      );
-      const data = await response.json();
-      if (data.conversion_rates) {
-        setExchangeRates(data.conversion_rates); // ✅ Fix: use conversion_rates
-      }
-    } catch (err) {
-      console.error("Exchange rate fetch failed", err);
-    }
+  const updateCurrency = () => {
+    const savedLocale = localStorage.getItem("selected_locale");
+    const matched = countries.find((c) => c.locale === savedLocale);
+    setCurrency(matched?.currency || "USD");
   };
 
   useEffect(() => {
-    fetchExchangeRates();
+    updateCurrency();
+    window.addEventListener("currencyChange", updateCurrency);
+    return () => window.removeEventListener("currencyChange", updateCurrency);
   }, []);
 
-  const formatPrice = useCallback(
-    (amountAZN) => {
-      const { currency, locale, symbol } = getCurrencyData();
+  if (!price) return null;
 
-      // Get USD→Target and USD→AZN rates from the API
-      const usdToTarget = exchangeRates[currency] || 1;
-      const usdToAzn = exchangeRates[BASE_CURRENCY] || 1;
-
-      // Convert from AZN → Target currency
-      const converted = (amountAZN / usdToAzn) * usdToTarget;
-
-      const formatted = new Intl.NumberFormat(locale, {
-        style: "decimal",
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      }).format(converted);
-
-      return { symbol, value: formatted };
-    },
-    [exchangeRates, currentLocale]
-  );
-
-  useEffect(() => {
-    if (!price || Object.keys(exchangeRates).length === 0) return;
-
-    const normal = formatPrice(price);
-    const discountVal = discount ? formatPrice(discount) : null;
-
-    setFormattedPrice({
-      normal: normal.value,
-      discount: discountVal?.value || "",
-      symbol: normal.symbol,
-    });
-  }, [price, discount, exchangeRates, currentLocale, formatPrice]);
+  let value = 0;
+  if (typeof price === "number" || typeof price === "string") {
+    value = Number(price);
+  } else if (typeof price === "object") {
+    if (currency === "USD") value = Number(price.USD || 0);
+    else if (price.converted) value = Number(price.converted[currency] || 0);
+    else value = Number(price[currency] || 0);
+  }
 
   return (
-    <div className="price-container font-bold">
-      {discount ? (
-        <div className="flex items-center gap-2">
-          <span>{formattedPrice.symbol}</span>
-          <div className="flex flex-col">
-            <del className="original-price line-through mx-1 text-gray-600">
-              {formattedPrice.normal}
-            </del>
-            <span className="discount-price">{formattedPrice.discount}</span>
-          </div>
-        </div>
-      ) : (
-        <span className="normal-price">
-          {formattedPrice.symbol} {formattedPrice.normal}
-        </span>
-      )}
-    </div>
+    <span>
+      {new Intl.NumberFormat(undefined, {
+        style: "currency",
+        currency: currency,
+      }).format(value)}
+    </span>
   );
-};
+}
 
-AutoCurrencyFormatter.propTypes = {
-  price: PropTypes.number.isRequired, // Stored in AZN
-  discount: PropTypes.number,
-};
+// ✅ Helper function to get numeric price for calculations
+export function getPriceInCurrency(price) {
+  const savedLocale = localStorage.getItem("selected_locale") || "en-US";
+  const matched = countries.find((c) => c.locale === savedLocale);
+  const currency = matched?.currency || "USD";
 
-export default AutoCurrencyFormatter;
+  if (!price) return 0;
+
+  if (typeof price === "number" || typeof price === "string") return Number(price);
+  if (typeof price === "object") {
+    if (currency === "USD") return Number(price.USD || 0);
+    else if (price.converted) return Number(price.converted[currency] || 0);
+    else return Number(price[currency] || 0);
+  }
+  return 0;
+}
+
+
