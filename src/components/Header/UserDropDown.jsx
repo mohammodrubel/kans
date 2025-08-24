@@ -130,4 +130,4 @@ const UserDropDown  = () => {
 };
 
 // Render the demo
-export default HeaderDemo;
+export default UserDropDown;

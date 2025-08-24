@@ -11,7 +11,6 @@ import DesktopNavigatoin from "./DesktopNavigatoin";
 import MobileMenu from "./MobileMenu";
 import useTranslation from "@/hooks/useTranslation";
 import { useLanguage } from "@/app/context/LanguageContext";
-import UserDropDown from "./UserDropDown";
 
 const GoogleTranslate = dynamic(() => import("../GoogleTranslate"), {
   ssr: false,
@@ -217,7 +216,7 @@ export default function Header() {
             </Link>
 
             {/* User dropdown */}
-            <UserDropDown labels={labels} />
+            {/* <UserDropDown labels={labels} /> */}
 
             {/* Mobile Menu */}
             <div className="lg:hidden">
