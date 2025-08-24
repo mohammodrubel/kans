@@ -320,7 +320,7 @@ function BlogPage() {
           {/* 8-column main content */}
           <div className="lg:col-span-8">
             <article className="bg-white rounded-lg shadow-sm overflow-hidden">
-              {/* Hero Image */}
+              {/* Hero Image*/}
               {blog?.media?.[0]?.original_url && (
                 <div className="relative h-64 md:h-80 lg:h-96">
                   <Image
