@@ -20,11 +20,17 @@ import { Button } from "@/components/ui/button"
 import Image from "next/image";
 import Logo from "./Logo";
 import useTranslation from "@/hooks/useTranslation";
+import { useLanguage } from "@/app/context/LanguageContext";
 
 export function Footer() {
   const t=useTranslation();
+  const { currentLang } = useLanguage()
+  
   return (
-    <footer className="bg-white border-t border-slate-200">
+    <footer
+  className="bg-white border-t border-slate-200"
+  dir={currentLang === 'ar' ? 'rtl' : 'ltr'}
+>
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Logo and Social Media */}
