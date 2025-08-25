@@ -106,6 +106,7 @@ const t= useTranslation();
                         "/placeholder-image.jpg"
                       }
                       // alt={getItemName(item)}
+                      
                        alt={item?.name || 'Banner image'}
                       onError={(e) => {
                         e.currentTarget.src = "/placeholder-image.jpg";
