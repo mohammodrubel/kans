@@ -9,6 +9,7 @@ import { LanguageDropdown } from "../HeaderCurrency";
 import Logo from "../Logo";
 import DesktopNavigatoin from "./DesktopNavigatoin";
 import MobileMenu from "./MobileMenu";
+import UserDropDown from "./UserDropDown";
 import useTranslation from "@/hooks/useTranslation";
 import { useLanguage } from "@/app/context/LanguageContext";
 
@@ -83,7 +84,7 @@ export default function Header() {
   };
  
   const [labels, setLabels] = useState(translations.en);
- const { currentLang } = useLanguage(); 
+ const { currentLang } = useLanguage(); // ✅ Context থেকে আনো
   // Check auth token
   useEffect(() => {
     const storedToken = getFormLocaleStorage("accessToken");
@@ -109,10 +110,7 @@ export default function Header() {
   };
 
   return (
-    <header
-      dir={currentLang === "ar" ? "rtl" : "ltr"}
-      className="sticky top-0 bg-white dark:bg-gray-900 shadow-sm z-50 border-b"
-    >
+    <header dir={currentLang === "ar" ? "rtl" : "ltr"} className="sticky top-0 bg-white dark:bg-gray-900 shadow-sm z-50 border-b">
       {/* Mobile Search Overlay */}
       {showMobileSearch && (
         <div className="lg:hidden fixed inset-0 bg-white z-50 p-4">
@@ -126,7 +124,7 @@ export default function Header() {
             </button>
             <h2 className="text-lg font-medium">Search</h2>
           </div>
-
+          
           <form onSubmit={handleSearch} className="relative">
             <input
               type="text"
@@ -157,7 +155,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <DesktopNavigatoin />
+          <DesktopNavigatoin  />
 
           {/* Desktop Search */}
           <form
@@ -168,7 +166,7 @@ export default function Header() {
               <input
                 type="text"
                 // placeholder={labels.searchPlaceholder}
-                placeholder={t("navigation.search", "Search products...")}
+                 placeholder={t("navigation.search", "Search products...")}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-green-500"
@@ -200,9 +198,9 @@ export default function Header() {
                   setLabels(translations[langCode] || translations.en);
                 }}
               /> */}
-              <GoogleTranslate />
+               <GoogleTranslate />
             </div>
-
+            
             {/* Currency */}
             <LanguageDropdown />
 
@@ -216,7 +214,7 @@ export default function Header() {
             </Link>
 
             {/* User dropdown */}
-            {/* <UserDropDown labels={labels} /> */}
+            <UserDropDown labels={labels} />
 
             {/* Mobile Menu */}
             <div className="lg:hidden">
