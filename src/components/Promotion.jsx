@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { VendorAPi } from '@/app/api/vendor/vendorApi'
 import Link from 'next/link'
 import { Skeleton } from './ui/skeleton' 
+import useTranslation from '@/hooks/useTranslation'
 
 function Promotion() {
     const [vendorImages, setVendorImages] = useState([])
@@ -26,7 +27,7 @@ function Promotion() {
         }
         fetchVendor()
     }, [])
-
+const t = useTranslation();
     if (loading) {
         return (
             <div className="container mx-auto px-4 py-8">
@@ -66,7 +67,7 @@ function Promotion() {
 
     return (
         <section className="container mx-auto px-4 py-12">
-            <h2 className="text-3xl font-bold text-center mb-8">Special Promotions</h2>
+            <h2 className="text-3xl font-bold text-center mb-8"> {t("navigation.special", "Special Promotions")} </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {vendorImages.map((item) => (
                     <Link 

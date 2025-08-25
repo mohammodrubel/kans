@@ -11,6 +11,7 @@ import Autoplay from "embla-carousel-autoplay";
 import { useEffect, useMemo, useState } from "react";
 import Product from "./Product";
 import { useLanguage } from "@/app/context/LanguageContext";
+import useTranslation from "@/hooks/useTranslation";
 
 export function FeaturedProducts() {
   const [productData, setProductData] = useState([]);
@@ -21,7 +22,7 @@ export function FeaturedProducts() {
   const plugin = useMemo(() => Autoplay({ delay: 2000, stopOnInteraction: true }), []);
 
   // Helper function: translation বা fallback
-  const t = (key) => translations[key] || key;
+  const t = useTranslation();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -82,7 +83,7 @@ export function FeaturedProducts() {
     <div className="container mx-auto py-10" dir={currentLang === "ar" ? "rtl" : "ltr"}>
       <div className="w-full">
         <h2 className="text-2xl font-bold text-gray-700 mb-4">
-          {t("Featured Products")}
+         {t("navigation.Featured", "Featured Products")}
         </h2>
 
         {isLoading ? (

@@ -12,6 +12,7 @@ import { Users } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import useTranslation from "@/hooks/useTranslation";
 
 function Team() {
   const [team, setTeam] = useState([]);
@@ -31,19 +32,19 @@ function Team() {
     };
     fetchTeam();
   }, []);
-
+const t = useTranslation();
   return (
     <div className="container mx-auto my-16">
       <div className="text-center my-10">
         <div className="flex items-center justify-center mb-6">
           <Users className="h-12 w-12 text-[#016630] mr-4" />
           <h1 className="text-4xl text-[#016630] md:text-6xl font-bold">
-            Meet Our Team
+            {t("navigation.meet", "Meet Our Team")}
           </h1>
         </div>
         <p className="text-xl md:text-2xl font-medium max-w-3xl mx-auto leading-relaxed">
-          The dedicated professionals behind BestFoodImporters, bringing you
-          quality and excellence in every import
+          {t("navigation.dis","The dedicated professionals behind BestFoodImporters, bringing you quality and excellence in every import")}
+          
         </p>
       </div>
 
