@@ -86,7 +86,7 @@ function Page() {
     <div className="container mx-auto px-5" dir={currentLang === "ar" ? "rtl" : "ltr"}>
       <ProductHeader
         search={search}
-        setSearch={setSearch}          // Pass both state and setter down
+        setSearch={setSearch}  
         categoryData={categoryData}
         setSelectCategory={setSelectCategory}
       />

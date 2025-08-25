@@ -26,21 +26,21 @@ function SafeHTMLRenderer({ html, className = "" }) {
   )
 }
 
-export function DetailsModal({ 
-  product, 
-  open, 
+export function DetailsModal({
+  product,
+  open,
   onOpenChange,
   isInWishlist,
-  onToggleFavorite
+  onToggleFavorite,
 }) {
-  const [selectedImage, setSelectedImage] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
+  const [selectedImage, setSelectedImage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (product?.photo?.length > 0) {
-      setSelectedImage(product.photo[0].original_url)
+      setSelectedImage(product.photo[0].original_url);
     }
-  }, [product])
+  }, [product]);
 
   const formatDescription = (description) => {
     if (!description) {
@@ -51,7 +51,7 @@ export function DetailsModal({
           <li>Manufacturer warranty included</li>
           <li>Free shipping available</li>
         </ul>
-      `
+      `;
     }
 
     // Enhanced formatting transformations with Tailwind classes only
@@ -61,11 +61,20 @@ export function DetailsModal({
       .replace(/\*(.*?)\*/g, '<em class="italic">$1</em>')
       .replace(/_(.*?)_/g, '<u class="underline">$1</u>')
       .replace(/^- (.*?)(?=\n|$)/gm, '<li class="text-gray-600 my-1">$1</li>')
-      .replace(/<li class=".*?">.*?<\/li>/gs, match => `<ul class="list-disc pl-5 space-y-1 my-2">${match}</ul>`)
+      .replace(
+        /<li class=".*?">.*?<\/li>/gs,
+        (match) => `<ul class="list-disc pl-5 space-y-1 my-2">${match}</ul>`
+      )
       .replace(/^# (.*$)/gm, '<h3 class="text-xl font-bold mt-4 mb-2">$1</h3>')
-      .replace(/^## (.*$)/gm, '<h4 class="text-lg font-semibold mt-3 mb-1.5">$1</h4>')
-      .replace(/`([^`]+)`/g, '<code class="bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono">$1</code>')
-  }
+      .replace(
+        /^## (.*$)/gm,
+        '<h4 class="text-lg font-semibold mt-3 mb-1.5">$1</h4>'
+      )
+      .replace(
+        /`([^`]+)`/g,
+        '<code class="bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono">$1</code>'
+      );
+  };
 
   const renderDynamicContent = () => {
     if (product.metadata?.sections) {
@@ -81,7 +90,7 @@ export function DetailsModal({
                   {section.content}
                 </ReactMarkdown>
               ) : (
-                <SafeHTMLRenderer 
+                <SafeHTMLRenderer
                   html={formatDescription(section.content)}
                   className="text-gray-600"
                 />
@@ -89,7 +98,7 @@ export function DetailsModal({
             </div>
           ))}
         </div>
-      )
+      );
     }
 
     return (
@@ -99,17 +108,17 @@ export function DetailsModal({
             {product.description}
           </ReactMarkdown>
         ) : (
-          <SafeHTMLRenderer 
+          <SafeHTMLRenderer
             html={formatDescription(product.description)}
             className="text-gray-600"
           />
         )}
       </div>
-    )
-  }
+    );
+  };
 
   // Rest of your original component remains exactly the same...
-  if (!product) return null
+  if (!product) return null;
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
