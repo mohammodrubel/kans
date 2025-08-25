@@ -8,11 +8,11 @@ import ProductSidebar from '@/components/ProductSidebar'
 import { getProductCategory } from '../api/category'
 import { getProduct } from '../api/product'
 import { useLanguage } from '../context/LanguageContext'
-// import { getProduct } from '../api/product'
 
 function Page() {
   const searchParams = useSearchParams()
   const router = useRouter()
+  const { currentLang } = useLanguage()
 
   const searchQuery = searchParams.get('search') || ''
   const id = searchParams.get('id') || ''
@@ -31,9 +31,8 @@ function Page() {
     setSearch(searchQuery)
   }, [searchQuery])
 
-  // Update URL query when user changes search input (debounce recommended)
+  // Update URL query when user changes search input
   useEffect(() => {
-    // Update URL with new search param (reset page to 1 if needed)
     const params = new URLSearchParams(window.location.search)
     if (search) {
       params.set('search', search)
@@ -41,7 +40,6 @@ function Page() {
       params.delete('search')
     }
     params.set('page', '1') // reset page on new search
-
     router.replace(`?${params.toString()}`, { scroll: false })
   }, [search])
 
@@ -52,6 +50,7 @@ function Page() {
     { name: 'page', value: page },
   ]
 
+  // Fetch categories and products
   useEffect(() => {
     const fetchCategory = async () => {
       try {
@@ -64,29 +63,56 @@ function Page() {
       }
     }
 
-   const fetchProduct = async () => {
-  try {
-    const data = await getProduct(metaData);
-    console.log(data?.data, 'frontend');
-    setProductData(data?.data || []); 
-  } catch (error) {
-    console.error(error);
-  } finally {
-    setLoadingProduct(false);
-  }
-}
+    const fetchProduct = async () => {
+      try {
+        const data = await getProduct(metaData)
+        setProductData(data?.data || [])
+      } catch (error) {
+        console.error(error)
+      } finally {
+        setLoadingProduct(false)
+      }
+    }
 
     fetchCategory()
     fetchProduct()
   }, [search, selectCategory, id, page, limit])
 
-  const products = productData || []
- const { currentLang } = useLanguage();
+  const getItemName = (item) => {
+    switch (currentLang) {
+      case 'ru':
+        return item.name_ru || item.name
+      case 'ar':
+        return item.name_ar || item.name
+      case 'az':
+        return item.name_az || item.name
+      case 'tr':
+        return item.name_tr || item.name
+      default:
+        return item.name
+    }
+  }
+
+  const getItemDescription = (item) => {
+    switch (currentLang) {
+      case 'ru':
+        return item.description_ru || item.description
+      case 'ar':
+        return item.description_ar || item.description
+      case 'az':
+        return item.description_az || item.description
+      case 'tr':
+        return item.description_tr || item.description
+      default:
+        return item.description
+    }
+  }
+
   return (
-    <div className="container mx-auto px-5" dir={currentLang === "ar" ? "rtl" : "ltr"}>
+    <div className="container mx-auto px-5" dir={currentLang === 'ar' ? 'rtl' : 'ltr'}>
       <ProductHeader
         search={search}
-        setSearch={setSearch}  
+        setSearch={setSearch}
         categoryData={categoryData}
         setSelectCategory={setSelectCategory}
       />
@@ -106,13 +132,22 @@ function Page() {
             <div
               className={`grid gap-4 justify-center
                 grid-cols-1
-                ${products.length === 1 ? 'md:grid-cols-1' : 'md:grid-cols-2'}
-                ${products.length <= 2 ? 'lg:grid-cols-2' : 'lg:grid-cols-3'}
-                ${products.length <= 3 ? 'xl:grid-cols-3' : 'xl:grid-cols-4'}
+                ${productData.length === 1 ? 'md:grid-cols-1' : 'md:grid-cols-2'}
+                ${productData.length <= 2 ? 'lg:grid-cols-2' : 'lg:grid-cols-3'}
+                ${productData.length <= 3 ? 'xl:grid-cols-3' : 'xl:grid-cols-4'}
               `}
             >
-              {products.length > 0 ? (
-                products.map((item) => <Product key={item?.id} product={item} />)
+              {productData.length > 0 ? (
+                productData.map((item) => (
+                  <Product
+                    key={item.id}
+                    product={{
+                      ...item,
+                      name: getItemName(item),
+                      description: getItemDescription(item),
+                    }}
+                  />
+                ))
               ) : (
                 <p className="col-span-full text-center text-gray-500">
                   No products found.
