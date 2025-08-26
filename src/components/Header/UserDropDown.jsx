@@ -1,15 +1,28 @@
-import { removeFromLocaleStorage } from '@/utils/localeStoratge'
-import { DropdownMenu } from '@radix-ui/react-dropdown-menu'
-import { CircleUserRound } from 'lucide-react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-import { Button } from '../ui/button'
-import { DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu'
+
+
+import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
+import { CircleUserRound } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Button } from "../ui/button";
+import {
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import { getFormLocaleStorage, removeFromLocaleStorage } from "@/utils/localeStoratge";
 
 function UserDropDown({ labels }) {
   const [token, setToken] = useState(null);
-  const router = useRouter()
+  const router = useRouter();
+
+  useEffect(() => {
+    const tokenInfo = getFormLocaleStorage("accessToken");
+    setToken(tokenInfo);
+  }, []);
+
   // Handle logout
   const logout = () => {
     removeFromLocaleStorage("accessToken");
@@ -21,7 +34,10 @@ function UserDropDown({ labels }) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button className="p-1 rounded-full hover:bg-gray-100 transition-colors focus:outline-none">
-          <CircleUserRound size={22} className="text-gray-500 hover:text-green-600" />
+          <CircleUserRound
+            size={22}
+            className="text-gray-500 hover:text-green-600"
+          />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 shadow-xl border" align="end">
@@ -56,7 +72,7 @@ function UserDropDown({ labels }) {
         )}
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }
 
-export default UserDropDown
+export default UserDropDown;

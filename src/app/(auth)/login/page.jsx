@@ -26,6 +26,7 @@ export default function Login() {
         toast.success(res?.message);
         setTimeout(() => {
           router.push("/");
+          window.location.href = "/";
         }, 3000);
       } else if (res?.success === false) {
         toast.error(res?.message);
