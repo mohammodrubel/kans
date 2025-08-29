@@ -21,6 +21,7 @@ import Image from "next/image";
 import Logo from "./Logo";
 import useTranslation from "@/hooks/useTranslation";
 import { useLanguage } from "@/app/context/LanguageContext";
+import Link from "next/link";
 
 export function Footer() {
   const t=useTranslation();
@@ -28,34 +29,59 @@ export function Footer() {
   
   return (
     <footer
-  className="bg-white border-t border-slate-200"
-  dir={currentLang === 'ar' ? 'rtl' : 'ltr'}
->
+      className="bg-white border-t border-slate-200"
+      dir={currentLang === "ar" ? "rtl" : "ltr"}
+    >
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Logo and Social Media */}
           <div className="space-y-6">
             <div className="flex items-center space-x-2">
               <div className="text-2xl font-bold text-pink-500 flex items-center">
-                <Logo/>
+                <Logo />
               </div>
             </div>
 
             <div className="space-y-3">
-              <p className="text-sm text-slate-600">{t("navigation.foot", "© 2021-2025 WEE HUB GENERAL TRADING LLC")}</p>
-              <p className="text-sm text-slate-500">{t("navigation.All", "All rights reserved")}</p>
+              <p className="text-sm text-slate-600">
+                {t(
+                  "navigation.foot",
+                  "© 2021-2025 WEE HUB GENERAL TRADING LLC"
+                )}
+              </p>
+              <p className="text-sm text-slate-500">
+                {t("navigation.All", "All rights reserved")}
+              </p>
             </div>
 
             <div className="space-y-3">
-              <p className="text-sm font-medium text-slate-700"> {t("navigation.Stay", "Stay in the loop with WEE news and offers")}</p>
+              <p className="text-sm font-medium text-slate-700">
+                {" "}
+                {t(
+                  "navigation.Stay",
+                  "Stay in the loop with WEE news and offers"
+                )}
+              </p>
               <div className="flex space-x-3">
-                <Button size="sm" variant="outline" className="p-2 bg-transparent">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="p-2 bg-transparent"
+                >
                   <Facebook className="w-4 h-4 text-blue-600" />
                 </Button>
-                <Button size="sm" variant="outline" className="p-2 bg-transparent">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="p-2 bg-transparent"
+                >
                   <Send className="w-4 h-4 text-blue-500" />
                 </Button>
-                <Button size="sm" variant="outline" className="p-2 bg-transparent">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="p-2 bg-transparent"
+                >
                   <Instagram className="w-4 h-4 text-pink-600" />
                 </Button>
               </div>
@@ -70,57 +96,83 @@ export function Footer() {
             </h3>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="text-sm text-slate-600 hover:text-slate-800 transition-colors">
-                 {t("navigation.AboutUs", "About Us")}
-                </a>
+                <Link 
+                  href="/about"
+                  className="text-sm text-slate-600 hover:text-slate-800 transition-colors"
+                >
+                  {t("navigation.AboutUs", "About Us")}
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-sm text-slate-600 hover:text-slate-800 transition-colors flex items-center">
+                <Link
+                  href="/terms"
+                  className="text-sm text-slate-600 hover:text-slate-800 transition-colors flex items-center"
+                >
                   <FileText className="w-3 h-3 mr-2" />
-                 {t("navigation.Terms", "Terms of Use")}
-                </a>
+                  {t("navigation.Terms", "Terms of Use")}
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-sm text-slate-600 hover:text-slate-800 transition-colors flex items-center">
+                <a
+                  href="#"
+                  className="text-sm text-slate-600 hover:text-slate-800 transition-colors flex items-center"
+                >
                   <Shield className="w-3 h-3 mr-2" />
                   {t("navigation.Privacy", "Privacy Policy")}
                 </a>
               </li>
               <li>
-                <a href="#" className="text-sm text-slate-600 hover:text-slate-800 transition-colors">
+                <a
+                  href="#"
+                  className="text-sm text-slate-600 hover:text-slate-800 transition-colors"
+                >
                   {t("navigation.TermsCon", "Terms & Conditions")}
                 </a>
               </li>
               <li>
-                <a href="#" className="text-sm text-slate-600 hover:text-slate-800 transition-colors flex items-center">
+                <Link 
+                  href="/support"
+                  className="text-sm text-slate-600 hover:text-slate-800 transition-colors flex items-center"
+                >
                   <HelpCircle className="w-3 h-3 mr-2" />
                   {t("navigation.helpSup", " Help & Support")}
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
 
           {/* Customer Section */}
           <div className="space-y-4">
-            <h3 className="font-semibold text-slate-800">{t("navigation.Customer", "Customer ")}</h3>
+            <h3 className="font-semibold text-slate-800">
+              {t("navigation.Customer", "Customer ")}
+            </h3>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="text-sm text-slate-600 hover:text-slate-800 transition-colors flex items-center">
+                <Link
+                  href="/delivery"
+                  className="text-sm text-slate-600 hover:text-slate-800 transition-colors flex items-center"
+                >
                   <Phone className="w-3 h-3 mr-2" />
                   {t("navigation.Delivery", "Delivery Information")}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-sm text-slate-600 hover:text-slate-800 transition-colors flex items-center">
+                <Link
+                  href="/payment"
+                  className="text-sm text-slate-600 hover:text-slate-800 transition-colors flex items-center"
+                >
                   <CreditCard className="w-3 h-3 mr-2" />
-                 {t("navigation.Payment", " Payment Method")}
-                </a>
+                  {t("navigation.Payment", " Payment Method")}
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-sm text-slate-600 hover:text-slate-800 transition-colors flex items-center">
+                <Link
+                  href="/return-policy"
+                  className="text-sm text-slate-600 hover:text-slate-800 transition-colors flex items-center"
+                >
                   <RotateCcw className="w-3 h-3 mr-2" />
                   {t("navigation.Return", "Return Policy")}
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -143,13 +195,19 @@ export function Footer() {
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-sm text-slate-600 hover:text-slate-800 transition-colors">
-                     {t("navigation.Agreement", "Seller Agreement")}
+                  <a
+                    href="#"
+                    className="text-sm text-slate-600 hover:text-slate-800 transition-colors"
+                  >
+                    {t("navigation.Agreement", "Seller Agreement")}
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-sm text-slate-600 hover:text-slate-800 transition-colors">
-                   {t("navigation.WEE", " Start selling on WEE")}
+                  <a
+                    href="#"
+                    className="text-sm text-slate-600 hover:text-slate-800 transition-colors"
+                  >
+                    {t("navigation.WEE", " Start selling on WEE")}
                   </a>
                 </li>
               </ul>
@@ -165,7 +223,9 @@ export function Footer() {
                   <Mail className="w-4 h-4 mr-2" />
                   help@wee.ae
                 </a>
-                <p className="text-xs text-slate-500 ml-6">{t("navigation.CustomerSe", "Customer Service")}</p>
+                <p className="text-xs text-slate-500 ml-6">
+                  {t("navigation.CustomerSe", "Customer Service")}
+                </p>
               </div>
 
               <div className="space-y-2">
@@ -176,7 +236,9 @@ export function Footer() {
                   <Mail className="w-4 h-4 mr-2" />
                   mp@wee.ae
                 </a>
-                <p className="text-xs text-slate-500 ml-6">{t("navigation.parSup", "Partner Support")}</p>
+                <p className="text-xs text-slate-500 ml-6">
+                  {t("navigation.parSup", "Partner Support")}
+                </p>
               </div>
 
               <Button
@@ -192,5 +254,5 @@ export function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }
