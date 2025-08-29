@@ -1,69 +1,77 @@
+"use client";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   CreditCard,
-  Smartphone,
   Wallet,
   Shield,
   Lock,
   CheckCircle,
   AlertCircle,
 } from "lucide-react";
+import useTranslation from "@/hooks/useTranslation";
 
 export default function PaymentPage() {
-
+  const t = useTranslation();
 
   const securityFeatures = [
     {
       icon: <Shield className="h-6 w-6" />,
-      title: "SSL Encryption",
-      description: "All transactions are protected with 256-bit SSL encryption",
+      title: t("payment.security_ssl", "SSL Encryption"),
+      description: t(
+        "payment.security_ssl_desc",
+        "All transactions are protected with 256-bit SSL encryption"
+      ),
     },
     {
       icon: <Lock className="h-6 w-6" />,
-      title: "PCI Compliance",
-      description: "We meet the highest standards for payment card security",
+      title: t("payment.security_pci", "PCI Compliance"),
+      description: t(
+        "payment.security_pci_desc",
+        "We meet the highest standards for payment card security"
+      ),
     },
     {
       icon: <CheckCircle className="h-6 w-6" />,
-      title: "Fraud Protection",
-      description: "Advanced fraud detection systems monitor all transactions",
+      title: t("payment.security_fraud", "Fraud Protection"),
+      description: t(
+        "payment.security_fraud_desc",
+        "Advanced fraud detection systems monitor all transactions"
+      ),
     },
   ];
 
   const billingInfo = [
     {
-      title: "Billing Address",
+      title: t("payment.billing_address", "Billing Address"),
       details: [
-        "Must match your payment method address",
-        "Required for all credit card transactions",
-        "Can be different from delivery address",
-        "Verified for security purposes",
+        t("payment.billing_address_1", "Must match your payment method address"),
+        t("payment.billing_address_2", "Required for all credit card transactions"),
+        t("payment.billing_address_3", "Can be different from delivery address"),
+        t("payment.billing_address_4", "Verified for security purposes"),
       ],
     },
     {
-      title: "Payment Processing",
+      title: t("payment.billing_processing", "Payment Processing"),
       details: [
-        "Charges processed when order ships",
-        "Pre-authorization may appear immediately",
-        "Refunds processed within 3-5 business days",
-        "Currency: USD only",
+        t("payment.billing_processing_1", "Charges processed when order ships"),
+        t("payment.billing_processing_2", "Pre-authorization may appear immediately"),
+        t("payment.billing_processing_3", "Refunds processed within 3-5 business days"),
+        t("payment.billing_processing_4", "Currency: USD only"),
       ],
     },
     {
-      title: "Subscription Billing",
+      title: t("payment.billing_subscription", "Subscription Billing"),
       details: [
-        "Recurring orders billed automatically",
-        "5% discount on all subscription orders",
-        "Cancel or modify anytime before next billing",
-        "Email notifications before each charge",
+        t("payment.billing_subscription_1", "Recurring orders billed automatically"),
+        t("payment.billing_subscription_2", "5% discount on all subscription orders"),
+        t("payment.billing_subscription_3", "Cancel or modify anytime before next billing"),
+        t("payment.billing_subscription_4", "Email notifications before each charge"),
       ],
     },
   ];
@@ -73,11 +81,13 @@ export default function PaymentPage() {
       {/* Header */}
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-foreground mb-4">
-          Payment Methods
+          {t("payment.title", "Payment Methods")}
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          We accept multiple secure payment options to make your fresh fruit
-          shopping experience convenient and safe.
+          {t(
+            "payment.subtitle",
+            "We accept multiple secure payment options to make your fresh fruit shopping experience convenient and safe."
+          )}
         </p>
       </div>
 
@@ -86,28 +96,28 @@ export default function PaymentPage() {
         <div className="flex items-center justify-center mb-4">
           <Shield className="h-8 w-8 text-primary mr-3" />
           <h2 className="text-2xl font-bold text-primary">
-            100% Secure Payments
+            {t("payment.secure_banner", "100% Secure Payments")}
           </h2>
         </div>
         <p className="text-center text-muted-foreground">
-          Your payment information is encrypted and secure. We never store your
-          credit card details on our servers.
+          {t(
+            "payment.secure_banner_desc",
+            "Your payment information is encrypted and secure. We never store your credit card details on our servers."
+          )}
         </p>
       </div>
 
       {/* Security Features */}
       <section className="mb-12">
         <h2 className="text-3xl font-bold text-foreground mb-6">
-          Security Features
+          {t("payment.security_title", "Security Features")}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {securityFeatures.map((feature, index) => (
             <Card key={index} className="bg-[#a8e6cf]">
               <CardContent className="pt-6">
                 <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0 text-primary">
-                    {feature.icon}
-                  </div>
+                  <div className="flex-shrink-0 text-primary">{feature.icon}</div>
                   <div>
                     <h3 className="font-semibold mb-2">{feature.title}</h3>
                     <p className="text-sm text-muted-foreground">
@@ -124,7 +134,7 @@ export default function PaymentPage() {
       {/* Billing Information */}
       <section className="mb-12">
         <h2 className="text-3xl font-bold text-foreground mb-6">
-          Billing Information
+          {t("payment.billing_title", "Billing Information")}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {billingInfo.map((info, index) => (
@@ -134,8 +144,8 @@ export default function PaymentPage() {
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2">
-                  {info.details.map((detail, detailIndex) => (
-                    <li key={detailIndex} className="flex items-start text-sm">
+                  {info.details.map((detail, i) => (
+                    <li key={i} className="flex items-start text-sm">
                       <CheckCircle className="h-4 w-4 text-primary mr-2 mt-0.5 flex-shrink-0" />
                       <span className="text-muted-foreground">{detail}</span>
                     </li>
@@ -150,71 +160,67 @@ export default function PaymentPage() {
       {/* Payment Process */}
       <section className="mb-12">
         <h2 className="text-3xl font-bold text-foreground mb-6">
-          How Payment Works
+          {t("payment.process_title", "How Payment Works")}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <div className="text-center">
-            <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center mx-auto mb-4 text-xl font-bold">
-              1
+          {[
+            {
+              step: "1",
+              title: t("payment.process_step1", "Add to Cart"),
+              desc: t("payment.process_step1_desc", "Select your fresh fruits and proceed to checkout"),
+            },
+            {
+              step: "2",
+              title: t("payment.process_step2", "Choose Payment"),
+              desc: t("payment.process_step2_desc", "Select your preferred payment method"),
+            },
+            {
+              step: "3",
+              title: t("payment.process_step3", "Secure Processing"),
+              desc: t("payment.process_step3_desc", "Payment is encrypted and processed securely"),
+            },
+            {
+              step: "4",
+              title: t("payment.process_step4", "Order Confirmed"),
+              desc: t("payment.process_step4_desc", "Receive confirmation and tracking information"),
+            },
+          ].map((item, i) => (
+            <div key={i} className="text-center">
+              <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center mx-auto mb-4 text-xl font-bold">
+                {item.step}
+              </div>
+              <h3 className="font-semibold mb-2">{item.title}</h3>
+              <p className="text-sm text-muted-foreground">{item.desc}</p>
             </div>
-            <h3 className="font-semibold mb-2">Add to Cart</h3>
-            <p className="text-sm text-muted-foreground">
-              Select your fresh fruits and proceed to checkout
-            </p>
-          </div>
-          <div className="text-center">
-            <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center mx-auto mb-4 text-xl font-bold">
-              2
-            </div>
-            <h3 className="font-semibold mb-2">Choose Payment</h3>
-            <p className="text-sm text-muted-foreground">
-              Select your preferred payment method
-            </p>
-          </div>
-          <div className="text-center">
-            <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center mx-auto mb-4 text-xl font-bold">
-              3
-            </div>
-            <h3 className="font-semibold mb-2">Secure Processing</h3>
-            <p className="text-sm text-muted-foreground">
-              Payment is encrypted and processed securely
-            </p>
-          </div>
-          <div className="text-center">
-            <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center mx-auto mb-4 text-xl font-bold">
-              4
-            </div>
-            <h3 className="font-semibold mb-2">Order Confirmed</h3>
-            <p className="text-sm text-muted-foreground">
-              Receive confirmation and tracking information
-            </p>
-          </div>
+          ))}
         </div>
       </section>
 
       {/* Special Offers */}
       <section className="mb-12">
         <h2 className="text-3xl font-bold text-foreground mb-6">
-          Payment Offers
+          {t("payment.offers_title", "Payment Offers")}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card className="bg-gradient-to-r from-green-100 to-green-200 border-green-300">
             <CardHeader>
               <CardTitle className="flex items-center">
                 <Wallet className="h-5 w-5 mr-2 text-green-600" />
-                First-Time Customer Discount
+                {t("payment.offers_first_time", "First-Time Customer Discount")}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground mb-4">
-                Get 15% off your first order when you pay with any digital
-                wallet.
+                {t(
+                  "payment.offers_first_time_desc",
+                  "Get 15% off your first order when you pay with any digital wallet."
+                )}
               </p>
               <Button
                 variant="outline"
                 className="w-full bg-transparent border-green-200 text-green-700"
               >
-                Learn More
+                {t("payment.offers_learn_more", "Learn More")}
               </Button>
             </CardContent>
           </Card>
@@ -223,18 +229,21 @@ export default function PaymentPage() {
             <CardHeader>
               <CardTitle className="flex items-center">
                 <CreditCard className="h-5 w-5 mr-2 text-green-600" />
-                Subscription Savings
+                {t("payment.offers_subscription", "Subscription Savings")}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground mb-4">
-                Save 5% on all recurring orders with automatic billing setup.
+                {t(
+                  "payment.offers_subscription_desc",
+                  "Save 5% on all recurring orders with automatic billing setup."
+                )}
               </p>
               <Button
                 variant="outline"
                 className="w-full bg-transparent border-green-400 text-green-700"
               >
-                Set Up Subscription
+                {t("payment.offers_setup_subscription", "Set Up Subscription")}
               </Button>
             </CardContent>
           </Card>
@@ -243,39 +252,46 @@ export default function PaymentPage() {
 
       {/* FAQ */}
       <section>
-        <h2 className="text-3xl font-bold text-foreground mb-6">Payment FAQ</h2>
+        <h2 className="text-3xl font-bold text-foreground mb-6">
+          {t("payment.faq_title", "Payment FAQ")}
+        </h2>
         <Card>
           <CardContent className="pt-6">
             <div className="space-y-6">
               <div>
                 <h3 className="font-semibold mb-2 flex items-center">
                   <AlertCircle className="h-4 w-4 mr-2 text-primary" />
-                  When will I be charged?
+                  {t("payment.faq_q1", "When will I be charged?")}
                 </h3>
                 <p className="text-sm text-muted-foreground ml-6">
-                  Your payment method will be charged when your order is
-                  prepared for shipping. For pre-orders, payment is processed
-                  when items become available.
+                  {t(
+                    "payment.faq_a1",
+                    "Your payment method will be charged when your order is prepared for shipping. For pre-orders, payment is processed when items become available."
+                  )}
                 </p>
               </div>
               <div>
                 <h3 className="font-semibold mb-2 flex items-center">
                   <AlertCircle className="h-4 w-4 mr-2 text-primary" />
-                  Can I change my payment method after ordering?
+                  {t("payment.faq_q2", "Can I change my payment method after ordering?")}
                 </h3>
                 <p className="text-sm text-muted-foreground ml-6">
-                  Payment methods can be updated within 1 hour of placing your
-                  order. Contact our support team for assistance.
+                  {t(
+                    "payment.faq_a2",
+                    "Payment methods can be updated within 1 hour of placing your order. Contact our support team for assistance."
+                  )}
                 </p>
               </div>
               <div>
                 <h3 className="font-semibold mb-2 flex items-center">
                   <AlertCircle className="h-4 w-4 mr-2 text-primary" />
-                  What if my payment fails?
+                  {t("payment.faq_q3", "What if my payment fails?")}
                 </h3>
                 <p className="text-sm text-muted-foreground ml-6">
-                  If payment fails, we'll notify you immediately and hold your
-                  order for 24 hours while you update your payment information.
+                  {t(
+                    "payment.faq_a3",
+                    "If payment fails, we'll notify you immediately and hold your order for 24 hours while you update your payment information."
+                  )}
                 </p>
               </div>
             </div>
