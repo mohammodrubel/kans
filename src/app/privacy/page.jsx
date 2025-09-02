@@ -118,11 +118,11 @@ export default function PrivacyPage() {
             "We are committed to protecting your privacy and ensuring the security of your personal information."
           )}
         </p>
-        <div className="flex items-center justify-center mt-6">
+        {/* <div className="flex items-center justify-center mt-6">
           <Badge variant="outline" className="text-sm">
             {t("privacy.lastUpdated", "Last updated: December 2024")}
           </Badge>
-        </div>
+        </div> */}
       </div>
 
       {/* Privacy Commitment */}

@@ -96,7 +96,7 @@ export function Footer() {
             </h3>
             <ul className="space-y-3">
               <li>
-                <Link 
+                <Link
                   href="/about"
                   className="text-sm text-slate-600 hover:text-slate-800 transition-colors"
                 >
@@ -114,14 +114,14 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="/privacy"
                   className="text-sm text-slate-600 hover:text-slate-800 transition-colors flex items-center"
                 >
                   <Shield className="w-3 h-3 mr-2" />
                   {t("navigation.Privacy", "Privacy Policy")}
                 </a>
               </li>
-             
+
               {/* <li>
                 <Link 
                   href="/support"
@@ -172,7 +172,7 @@ export function Footer() {
 
           {/* Seller Section & Contact */}
           <div className="space-y-6">
-            <div className="space-y-4">
+            {/* <div className="space-y-4">
               <h3 className="font-semibold text-slate-800 flex items-center">
                 <Store className="w-4 h-4 mr-2" />
                 {t("navigation.Seller", "Seller ")}
@@ -204,7 +204,7 @@ export function Footer() {
                   </a>
                 </li>
               </ul>
-            </div>
+            </div> */}
 
             {/* Contact Information */}
             <div className="space-y-4">
@@ -214,7 +214,7 @@ export function Footer() {
                   className="flex items-center text-sm font-medium text-slate-800 hover:text-pink-600 transition-colors"
                 >
                   <Mail className="w-4 h-4 mr-2" />
-                  help@wee.ae
+                  Help@origin.az
                 </a>
                 <p className="text-xs text-slate-500 ml-6">
                   {t("navigation.CustomerSe", "Customer Service")}
@@ -227,21 +227,21 @@ export function Footer() {
                   className="flex items-center text-sm font-medium text-slate-800 hover:text-pink-600 transition-colors"
                 >
                   <Mail className="w-4 h-4 mr-2" />
-                  mp@wee.ae
+                  Info@origin.az
                 </a>
                 <p className="text-xs text-slate-500 ml-6">
                   {t("navigation.parSup", "Partner Support")}
                 </p>
               </div>
 
-              <Button
+              {/* <Button
                 variant="outline"
                 size="sm"
                 className="w-full justify-start text-green-600 border-green-200 hover:bg-green-50 bg-transparent"
               >
                 <MessageCircle className="w-4 h-4 mr-2" />
                 {t("navigation.WhatsApp", "Get in touch via WhatsApp")}
-              </Button>
+              </Button> */}
             </div>
           </div>
         </div>

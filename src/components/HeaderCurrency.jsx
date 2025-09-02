@@ -62,7 +62,7 @@ export function LanguageDropdown() {
                 alt={country.name} 
                className="w-5 h-3.5 object-cover"
                />
-            <span>{country.locale}</span>           </div> 
+            <span>{country.currency}</span>           </div> 
             {/* {country.name} ({country.currency}) */}
           </DropdownMenuItem>
         ))}
