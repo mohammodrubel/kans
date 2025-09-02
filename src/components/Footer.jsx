@@ -96,7 +96,7 @@ export function Footer() {
             </h3>
             <ul className="space-y-3">
               <li>
-                <Link 
+                <Link
                   href="/about"
                   className="text-sm text-slate-600 hover:text-slate-800 transition-colors"
                 >
@@ -121,7 +121,7 @@ export function Footer() {
                   {t("navigation.Privacy", "Privacy Policy")}
                 </a>
               </li>
-             
+
               {/* <li>
                 <Link 
                   href="/support"
@@ -214,7 +214,7 @@ export function Footer() {
                   className="flex items-center text-sm font-medium text-slate-800 hover:text-pink-600 transition-colors"
                 >
                   <Mail className="w-4 h-4 mr-2" />
-                  help@wee.ae
+                  Help@origin.az
                 </a>
                 <p className="text-xs text-slate-500 ml-6">
                   {t("navigation.CustomerSe", "Customer Service")}
@@ -227,7 +227,7 @@ export function Footer() {
                   className="flex items-center text-sm font-medium text-slate-800 hover:text-pink-600 transition-colors"
                 >
                   <Mail className="w-4 h-4 mr-2" />
-                  mp@wee.ae
+                  Info@origin.az
                 </a>
                 <p className="text-xs text-slate-500 ml-6">
                   {t("navigation.parSup", "Partner Support")}
