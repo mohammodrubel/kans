@@ -165,16 +165,47 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { FaDollarSign, FaRubleSign, FaLiraSign, FaMoneyBillWave } from "react-icons/fa";
+// import { FaDollarSign, FaRubleSign, FaLiraSign, FaMoneyBillWave } from "react-icons/fa";
 
 const countries = [
-  { name: "English", locale: "en-US", currency: "USD", icon: <FaDollarSign className="inline h-4 w-4" /> },
-  { name: "Русский", locale: "ru-RU", currency: "RUB", icon: <FaRubleSign className="inline h-4 w-4" /> },
-  { name: "العربية", locale: "ar-SA", currency: "AED", icon: <FaMoneyBillWave className="inline h-4 w-4" /> },
-  { name: "Azərbaycanca", locale: "az-AZ", currency: "AZN", icon: <FaMoneyBillWave className="inline h-4 w-4" /> },
-  { name: "Türkçe", locale: "tr-TR", currency: "TRY", icon: <FaLiraSign className="inline h-4 w-4" /> },
+  { name: "English", locale: "en-US", currency: "USD", symbol: "$" },
+  { name: "Русский", locale: "ru-RU", currency: "RUB", symbol: "₽" },
+  { name: "العربية", locale: "ar-SA", currency: "AED", symbol: "د.إ" },
+  { name: "Azərbaycanca", locale: "az-AZ", currency: "AZN", symbol: "₼" },
+  { name: "Türkçe", locale: "tr-TR", currency: "TRY", symbol: "₺" },
 ];
-
+// const countries = [
+//   {
+//     name: "English",
+//     locale: "en-US",
+//     currency: "USD",
+//     icon: <FaDollarSign className="inline h-4 w-4" />,
+//   },
+//   {
+//     name: "Русский",
+//     locale: "ru-RU",
+//     currency: "RUB",
+//     icon: <FaRubleSign className="inline h-4 w-4" />,
+//   },
+//   {
+//     name: "العربية",
+//     locale: "ar-SA",
+//     currency: "AED",
+//     icon: <FaMoneyBillWave className="inline h-4 w-4" />,
+//   },
+//   {
+//     name: "Azərbaycanca",
+//     locale: "az-AZ",
+//     currency: "AZN",
+//     icon: <FaMoneyBillWave className="inline h-4 w-4" />,
+//   },
+//   {
+//     name: "Türkçe",
+//     locale: "tr-TR",
+//     currency: "TRY",
+//     icon: <FaLiraSign className="inline h-4 w-4" />,
+//   },
+// ];
 export default function AutoCurrencyFormatter({ price }) {
   const [currency, setCurrency] = useState("USD");
 
@@ -208,15 +239,17 @@ export default function AutoCurrencyFormatter({ price }) {
   }).format(value);
 
   const [integerPart, decimalPart] = formatted.split(".");
-  const icon = countries.find((c) => c.currency === currency)?.icon;
+  const symbol = countries.find((c) => c.currency === currency)?.symbol;
 
   return (
     <span className="flex items-center gap-1">
-      <span className="font-semibold lowercase">{currency}</span> {/* lowercase currency code */}
-      {icon} {/* Currency icon */}
+      <span className="font-semibold lowercase">{currency}</span>{" "}
+      {/* lowercase currency code */}
+      {symbol} {/* Currency icon */}
       <span>
         {integerPart}
-        {decimalPart && <span className="text-xs">.{decimalPart}</span>} {/* smaller decimal */}
+        {decimalPart && <span className="text-xs">.{decimalPart}</span>}{" "}
+        {/* smaller decimal */}
       </span>
     </span>
   );
