@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { getFormLocaleStorage, removeFromLocaleStorage } from "@/utils/localeStoratge";
+import useTranslation from "@/hooks/useTranslation";
 
 function UserDropDown({ labels }) {
   const [token, setToken] = useState(null);
@@ -29,7 +30,7 @@ function UserDropDown({ labels }) {
     setToken(null);
     router.push("/login");
   };
-
+const t = useTranslation();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -65,7 +66,7 @@ function UserDropDown({ labels }) {
           <div className="px-2 py-2 space-y-2">
             <Link href="/login">
               <Button className="bg-green-600 hover:bg-green-700 text-white w-full">
-                {labels.login}
+                {/* {labels.login} */} {t("login.login_btn", "Login")}
               </Button>
             </Link>
           </div>

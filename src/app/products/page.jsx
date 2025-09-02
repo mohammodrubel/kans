@@ -8,12 +8,13 @@ import ProductSidebar from '@/components/ProductSidebar'
 import { getProductCategory } from '../api/category'
 import { getProduct } from '../api/product'
 import { useLanguage } from '../context/LanguageContext'
+import useTranslation from '@/hooks/useTranslation'
 
 function Page() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const { currentLang } = useLanguage()
-
+const t = useTranslation();
   const searchQuery = searchParams.get('search') || ''
   const id = searchParams.get('id') || ''
 
@@ -150,7 +151,7 @@ function Page() {
                 ))
               ) : (
                 <p className="col-span-full text-center text-gray-500">
-                  No products found.
+               {  t("product.nofound", " No products found.")}
                 </p>
               )}
             </div>
