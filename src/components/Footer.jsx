@@ -121,15 +121,8 @@ export function Footer() {
                   {t("navigation.Privacy", "Privacy Policy")}
                 </a>
               </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-sm text-slate-600 hover:text-slate-800 transition-colors"
-                >
-                  {t("navigation.TermsCon", "Terms & Conditions")}
-                </a>
-              </li>
-              <li>
+             
+              {/* <li>
                 <Link 
                   href="/support"
                   className="text-sm text-slate-600 hover:text-slate-800 transition-colors flex items-center"
@@ -137,7 +130,7 @@ export function Footer() {
                   <HelpCircle className="w-3 h-3 mr-2" />
                   {t("navigation.helpSup", " Help & Support")}
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
 
@@ -147,7 +140,7 @@ export function Footer() {
               {t("navigation.Customer", "Customer ")}
             </h3>
             <ul className="space-y-3">
-              <li>
+              {/* <li>
                 <Link
                   href="/delivery"
                   className="text-sm text-slate-600 hover:text-slate-800 transition-colors flex items-center"
@@ -155,7 +148,7 @@ export function Footer() {
                   <Phone className="w-3 h-3 mr-2" />
                   {t("navigation.Delivery", "Delivery Information")}
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link
                   href="/payment"

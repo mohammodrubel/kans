@@ -21,34 +21,34 @@ export default function ReturnPolicyPage() {
 
   const returnReasons = [
     {
-      reason: t("returnReasons.quality.title", "Quality Issues"),
+      reason: t("returnReasons.quality_title", "Quality Issues"),
       icon: <AlertTriangle className="h-8 w-8" />,
-      timeframe: t("returnReasons.quality.timeframe", "24 hours"),
-      refundType: t("returnReasons.quality.refund", "Full refund + credit"),
+      timeframe: t("returnReasons.quality_timeframe", "24 hours"),
+      refundType: t("returnReasons.quality_refund", "Full refund + credit"),
       description: t(
-        "returnReasons.quality.description",
+        "returnReasons.quality_description",
         "Damaged, spoiled, or not fresh upon delivery"
       ),
       color: "text-red-500",
     },
     {
-      reason: t("returnReasons.wrong.title", "Wrong Item"),
+      reason: t("returnReasons.wrong_title", "Wrong Item"),
       icon: <XCircle className="h-8 w-8" />,
-      timeframe: t("returnReasons.wrong.timeframe", "48 hours"),
-      refundType: t("returnReasons.wrong.refund", "Full refund"),
+      timeframe: t("returnReasons.wrong_timeframe", "48 hours"),
+      refundType: t("returnReasons.wrong_refund", "Full refund"),
       description: t(
-        "returnReasons.wrong.description",
+        "returnReasons.wrong_description",
         "Received different fruits than ordered"
       ),
       color: "text-orange-500",
     },
     {
-      reason: t("returnReasons.delivery.title", "Delivery Issues"),
+      reason: t("returnReasons.delivery_titlee", "Delivery Issues"),
       icon: <Clock className="h-8 w-8" />,
-      timeframe: t("returnReasons.delivery.timeframe", "72 hours"),
-      refundType: t("returnReasons.delivery.refund", "Full refund"),
+      timeframe: t("returnReasons.delivery_timeframe", "72 hours"),
+      refundType: t("returnReasons.delivery_refund", "Full refund"),
       description: t(
-        "returnReasons.delivery.description",
+        "returnReasons.delivery_description",
         "Late delivery causing spoilage"
       ),
       color: "text-blue-500",
@@ -58,30 +58,30 @@ export default function ReturnPolicyPage() {
   const returnProcess = [
     {
       step: 1,
-      title: t("returnProcess.step1.title", "Contact Us"),
+      title: t("returnProcess.step1_title", "Contact Us"),
       description: t(
-        "returnProcess.step1.description",
+        "returnProcess.step1_description",
         "Report the issue within the specified timeframe"
       ),
-      action: t("returnProcess.step1.action", "Call, email, or use our online form"),
+      action: t("returnProcess.step1_action", "Call, email, or use our online form"),
     },
     {
       step: 2,
-      title: t("returnProcess.step2.title", "Provide Details"),
+      title: t("returnProcess.step2_title", "Provide Details"),
       description: t(
-        "returnProcess.step2.description",
+        "returnProcess.step2_description",
         "Share photos and order information"
       ),
-      action: t("returnProcess.step2.action", "Upload photos of the issue"),
+      action: t("returnProcess.step2_action", "Upload photos of the issue"),
     },
     {
       step: 3,
-      title: t("returnProcess.step3.title", "Get Approval"),
+      title: t("returnProcess.step3_title", "Get Approval"),
       description: t(
-        "returnProcess.step3.description",
+        "returnProcess.step3_description",
         "We'll review and approve your return request"
       ),
-      action: t("returnProcess.step3.action", "Receive confirmation within 2 hours"),
+      action: t("returnProcess.step3_action", "Receive confirmation within 2 hours"),
     },
   ];
 
@@ -90,11 +90,11 @@ export default function ReturnPolicyPage() {
       {/* Header */}
       <div className="text-center mb-20">
         <h1 className="text-5xl font-extrabold text-primary mb-6 tracking-tight drop-shadow-sm">
-          {t("returnPrivacy.title", "Return Policy")}
+          {t("returnPrivacy.return_title", "Return Policy")}
         </h1>
         <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
           {t(
-            "returnPrivacy.subtitle",
+            "returnPrivacy.return_subtitle",
             "Your satisfaction is our priority. We stand behind the quality of our fresh fruits with a comprehensive return and refund policy."
           )}
         </p>
@@ -105,12 +105,12 @@ export default function ReturnPolicyPage() {
         <div className="flex items-center justify-center mb-6 relative z-10">
           <Shield className="h-12 w-12 text-primary mr-4" />
           <h2 className="text-4xl font-bold text-primary">
-            {t("returnPrivacy.banner.title", "100% Freshness Guarantee")}
+            {t("returnPrivacy.banner_title", "100% Freshness Guarantee")}
           </h2>
         </div>
         <p className="text-center text-muted-foreground text-lg relative z-10">
           {t(
-            "returnPrivacy.banner.description",
+            "returnPrivacy.banner_description",
             "If you're not completely satisfied with the quality and freshness of your fruits, we'll make it right with a full refund or replacement."
           )}
         </p>
@@ -121,7 +121,7 @@ export default function ReturnPolicyPage() {
       {/* Return Reasons */}
       <section className="mb-20">
         <h2 className="text-3xl font-bold text-foreground mb-12 text-center">
-          {t("returnReasons.title", "Valid Return Reasons")}
+          {t("returnReasons.Reasons_title", "Valid Return Reasons")}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {returnReasons.map((item, index) => (
@@ -170,7 +170,7 @@ export default function ReturnPolicyPage() {
       {/* Return Process */}
       <section className="mb-20">
         <h2 className="text-3xl font-bold text-foreground mb-12 text-center">
-          {t("returnProcess.title", "How to Return")}
+          {t("returnProcess.returnProcesstitle", "How to Return")}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {returnProcess.map((step, index) => (

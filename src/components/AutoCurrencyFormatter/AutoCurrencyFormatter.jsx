@@ -1,6 +1,10 @@
 
 
 
+
+
+
+
 // "use client";
 
 // import { useEffect, useState } from "react";
@@ -39,14 +43,17 @@
 //     else value = Number(price[currency] || 0);
 //   }
 
-//   return (
-//     <span>
-//       {new Intl.NumberFormat(undefined, {
-//         style: "currency",
-//         currency: currency,
-//       }).format(value)}
-//     </span>
-//   );
+//   // Format number with currency code
+//   const formatted = new Intl.NumberFormat(undefined, {
+//     style: "currency",
+//     currency: currency,
+//     currencyDisplay: "code",
+//   }).format(value);
+
+//   // Just make the currency code lowercase
+//   const formattedLower = formatted.replace(currency, currency.toLowerCase());
+
+//   return <span>{formattedLower}</span>;
 // }
 
 // // ✅ Helper function to get numeric price for calculations
@@ -76,13 +83,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { FaDollarSign, FaRubleSign, FaLiraSign, FaMoneyBillWave } from "react-icons/fa";
 
 const countries = [
-  { name: "English", locale: "en-US", currency: "USD" },
-  { name: "Русский", locale: "ru-RU", currency: "RUB" },
-  { name: "العربية", locale: "ar-SA", currency: "AED" },
-  { name: "Azərbaycanca", locale: "az-AZ", currency: "AZN" },
-  { name: "Türkçe", locale: "tr-TR", currency: "TRY" },
+  { name: "English", locale: "en-US", currency: "USD", icon: <FaDollarSign className="inline h-4 w-4" /> },
+  { name: "Русский", locale: "ru-RU", currency: "RUB", icon: <FaRubleSign className="inline h-4 w-4" /> },
+  { name: "العربية", locale: "ar-SA", currency: "AED", icon: <FaMoneyBillWave className="inline h-4 w-4" /> }, // fallback
+  { name: "Azərbaycanca", locale: "az-AZ", currency: "AZN", icon: <FaMoneyBillWave className="inline h-4 w-4" /> }, // fallback
+  { name: "Türkçe", locale: "tr-TR", currency: "TRY", icon: <FaLiraSign className="inline h-4 w-4" /> },
 ];
 
 export default function AutoCurrencyFormatter({ price }) {
@@ -118,10 +126,14 @@ export default function AutoCurrencyFormatter({ price }) {
     currencyDisplay: "code",
   }).format(value);
 
-  // Just make the currency code lowercase
   const formattedLower = formatted.replace(currency, currency.toLowerCase());
+  const icon = countries.find((c) => c.currency === currency)?.icon;
 
-  return <span>{formattedLower}</span>;
+  return (
+    <span className="flex items-center gap-1">
+      {icon} {formattedLower}
+    </span>
+  );
 }
 
 // ✅ Helper function to get numeric price for calculations

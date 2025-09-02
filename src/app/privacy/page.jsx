@@ -16,40 +16,64 @@ export default function PrivacyPage() {
   const dataTypes = [
     {
       icon: <Users className="h-5 w-5" />,
-      type: t("privacy.dataTypes.personalInfo.type", "Personal Information"),
-      examples: t("privacy.dataTypes.personalInfo.examples", [
-        "Name, email address, phone number",
-        "Billing and shipping addresses",
-        "Payment information",
-      ]),
+      type: t("privacy.dataTypes_personalInfo_type", "Personal Information"),
+      examples1: t(
+        "privacy.dataTypes_personalInfo_name",
+        "Name, email address, phone number"
+      ),
+      examples2: t(
+        "privacy.dataTypes_personalInfo_address",
+        "Billing and shipping addresses"
+      ),
+      examples3: t(
+        "privacy.dataTypes_personalInfo_payment",
+        "Payment information"
+      ),
+
       purpose: t(
-        "privacy.dataTypes.personalInfo.purpose",
+        "privacy.dataTypes_personalInfo_purpose",
         "Account creation, order processing, customer service"
       ),
     },
     {
       icon: <Database className="h-5 w-5" />,
-      type: t("privacy.dataTypes.usageData.type", "Usage Data"),
-      examples: t("privacy.dataTypes.usageData.examples", [
-        "Pages visited, time spent on site",
-        "Device information, IP address",
-        "Browser type and version",
-      ]),
+      type: t("privacy.dataTypes_usageData_type", "Usage Data"),
+      examples1: t(
+        "privacy.dataTypes_usageData_pages",
+        "Pages visited, time spent on site"
+      ),
+      examples2: t(
+        "privacy.dataTypes_usageData_device",
+        "Device information, IP address"
+      ),
+      examples3: t(
+        "privacy.dataTypes_usageData_browser",
+        "Browser type and version"
+      ),
+
       purpose: t(
-        "privacy.dataTypes.usageData.purpose",
+        "privacy.dataTypes_usageData_purpose",
         "Website improvement, analytics, security"
       ),
     },
     {
       icon: <Globe className="h-5 w-5" />,
-      type: t("privacy.dataTypes.communicationData.type", "Communication Data"),
-      examples: t("privacy.dataTypes.communicationData.examples", [
-        "Email communications",
-        "Customer service interactions",
-        "Marketing preferences",
-      ]),
+      type: t("privacy.dataTypes_communicationData_type", "Communication Data"),
+      examples1: t(
+        "privacy.dataTypes_communicationData_email",
+        "Email communications"
+      ),
+      examples2: t(
+        "privacy.dataTypes_communicationData_customerService",
+        "Customer service interactions"
+      ),
+      examples3: t(
+        "privacy.dataTypes_communicationData_marketing",
+        "Marketing preferences"
+      ),
+
       purpose: t(
-        "privacy.dataTypes.communicationData.purpose",
+        "privacy.dataTypes_communicationData_purpose",
         "Customer support, marketing communications, service updates"
       ),
     },
@@ -86,11 +110,11 @@ export default function PrivacyPage() {
       {/* Header */}
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-foreground mb-4">
-          {t("privacy.title", "Privacy Policy")}
+          {t("privacy.privacy_title", "Privacy Policy")}
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
           {t(
-            "privacy.description",
+            "privacy.privacy_description",
             "We are committed to protecting your privacy and ensuring the security of your personal information."
           )}
         </p>
@@ -107,14 +131,11 @@ export default function PrivacyPage() {
           <Shield className="h-8 w-8 text-primary mt-1 flex-shrink-0" />
           <div>
             <h2 className="text-2xl font-bold text-primary mb-2">
-              {t(
-                "privacy.commitment.title",
-                "Our Privacy Commitment"
-              )}
+              {t("privacy.commitment_title", "Our Privacy Commitment")}
             </h2>
             <p className="text-muted-foreground">
               {t(
-                "privacy.commitment.description",
+                "privacy.commitment_description",
                 "At FreshFruit, we respect your privacy and are committed to protecting your personal information. This policy explains how we collect, use, and safeguard your data when you use our services."
               )}
             </p>
@@ -125,7 +146,7 @@ export default function PrivacyPage() {
       {/* Information We Collect */}
       <section className="mb-12">
         <h2 className="text-3xl font-bold text-foreground mb-6">
-          {t("privacy.dataTypes.title", "Information We Collect")}
+          {t("privacy.dataTypes_title", "Information We Collect")}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {dataTypes.map((data, index) => (
@@ -140,19 +161,29 @@ export default function PrivacyPage() {
                 <div className="space-y-4">
                   <div>
                     <h4 className="font-semibold mb-2">
-                      {t("privacy.dataTypes.examples", "Examples:")}
+                      {t("privacy.dataTypes_examples", "Examples:")}
                     </h4>
                     <ul className="space-y-1 text-sm text-muted-foreground">
-                      {data.examples.map((example, eIndex) => (
-                        <li key={eIndex}>• {example}</li>
-                      ))}
+                      {data.examples ? (
+                        data.examples.map((example, eIndex) => (
+                          <li key={eIndex}>• {example}</li>
+                        ))
+                      ) : (
+                        <>
+                          {data.examples1 && <li>• {data.examples1}</li>}
+                          {data.examples2 && <li>• {data.examples2}</li>}
+                          {data.examples3 && <li>• {data.examples3}</li>}
+                        </>
+                      )}
                     </ul>
                   </div>
                   <div>
                     <h4 className="font-semibold mb-2">
-                      {t("privacy.dataTypes.purpose", "Purpose:")}
+                      {t("privacy.dataTypes_purpose", "Purpose:")}
                     </h4>
-                    <p className="text-sm text-muted-foreground">{data.purpose}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {data.purpose}
+                    </p>
                   </div>
                 </div>
               </CardContent>
@@ -164,7 +195,7 @@ export default function PrivacyPage() {
       {/* How We Use Information */}
       <section className="mb-12">
         <h2 className="text-3xl font-bold text-foreground mb-6">
-          {t("privacy.useInfo.title", "How We Use Your Information")}
+          {t("privacy.useInfo_title", "How We Use Your Information")}
         </h2>
         <Card>
           <CardContent className="pt-6">
@@ -172,39 +203,31 @@ export default function PrivacyPage() {
               <div>
                 <h3 className="font-semibold mb-3 flex items-center">
                   <Eye className="h-4 w-4 mr-2 text-primary" />
-                  {t("privacy.useInfo.serviceProvision", "Service Provision")}
+                  {t("privacy.useInfo_serviceProvision", "Service Provision")}
                 </h3>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  {t("privacy.useInfo.serviceProvisionList", [
-                    "Process and fulfill your orders",
-                    "Provide customer support and service",
-                    "Send order confirmations and updates",
-                    "Manage your account and preferences",
-                    "Process payments and prevent fraud",
-                  ]).map((item, i) => (
-                    <li key={i}>• {item}</li>
-                  ))}
-                </ul>
+               <ul className="space-y-2 text-sm text-muted-foreground">
+    <li>• {t("privacy.serviceProvision_order", "Process and fulfill your orders")}</li>
+    <li>• {t("privacy.serviceProvision_support", "Provide customer support and service")}</li>
+    <li>• {t("privacy.serviceProvision_updates", "Send order confirmations and updates")}</li>
+    <li>• {t("privacy.serviceProvision_account", "Manage your account and preferences")}</li>
+    <li>• {t("privacy.serviceProvision_payments", "Process payments and prevent fraud")}</li>
+  </ul>
               </div>
               <div>
                 <h3 className="font-semibold mb-3 flex items-center">
                   <Globe className="h-4 w-4 mr-2 text-primary" />
                   {t(
-                    "privacy.useInfo.communicationMarketing",
+                    "privacy.useInfo_communicationMarketing",
                     "Communication & Marketing"
                   )}
                 </h3>
                 <ul className="space-y-2 text-sm text-muted-foreground">
-                  {t("privacy.useInfo.communicationMarketingList", [
-                    "Send promotional offers and newsletters",
-                    "Notify you about new products and services",
-                    "Conduct surveys and gather feedback",
-                    "Provide personalized recommendations",
-                    "Send important service announcements",
-                  ]).map((item, i) => (
-                    <li key={i}>• {item}</li>
-                  ))}
-                </ul>
+  <li>• {t("privacy.communicationMarketing_offers", "Send promotional offers and newsletters")}</li>
+  <li>• {t("privacy.communicationMarketing_notifications", "Notify you about new products and services")}</li>
+  <li>• {t("privacy.communicationMarketing_surveys", "Conduct surveys and gather feedback")}</li>
+  <li>• {t("privacy.communicationMarketing_recommendations", "Provide personalized recommendations")}</li>
+  <li>• {t("privacy.communicationMarketing_announcements", "Send important service announcements")}</li>
+</ul>
               </div>
             </div>
           </CardContent>

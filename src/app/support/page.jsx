@@ -387,7 +387,7 @@ export default function SupportPage() {
   const contactMethods = [
     {
       icon: <Phone className="h-8 w-8" />,
-      title: t("support.contact.phone.title", "Phone Support"),
+      title: t("support.contact_phone_title", "Phone Support"),
       description: t("support.contact.phone.description", "Speak directly with our support team"),
       details: "(555) 123-FRUIT",
       availability: t("support.contact.phone.availability", "7 days a week, 8 AM - 8 PM EST"),
@@ -509,7 +509,7 @@ const quickActions = [
       {/* Header */}
       <div className="text-center py-10 bg-[#defcf9] rounded-2xl mb-12">
         <h1 className="text-4xl font-bold text-foreground mb-4">
-          {t("support.header.title", "Help & Support")}
+          {t("support.header_title", "Help & Support")}
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
           {t("support.header.subtitle", "We're here to help! Find answers to common questions or get in touch with our support team.")}
