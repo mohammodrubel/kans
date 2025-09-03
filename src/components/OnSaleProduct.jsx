@@ -90,10 +90,10 @@ const t= useTranslation();
   return (
     <div className="container mx-auto" dir={currentLang === "ar" ? "rtl" : "ltr"}>
       <div className="mb-2 p-3 bg-white rounded-2xl">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <div className="grid grid-cols-1  lg:grid-cols-12 gap-4">
           {/* Banner Column */}
           <div className="lg:col-span-2">
-            <div className="flex flex-col gap-5 items-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-5 items-center">
               {bannerPhoto.map((item) => (
                 <div key={item.id} className="relative group w-full">
                   <Link href={item?.url || "#"} passHref>
@@ -124,7 +124,7 @@ const t= useTranslation();
             <h2 className="font-bold text-xl mb-4">
               {t("navigation.Sale", " On Sale")}
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
               {onSaleProduct.slice(0, 8).map((product) => (
                 <Product
                   key={product.id}
