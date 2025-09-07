@@ -1,4 +1,4 @@
-"use server"
+"use server";
 
 export const getProduct = async (args = []) => {
   const queryParams = args.reduce((acc, { name, value }) => {
@@ -8,10 +8,13 @@ export const getProduct = async (args = []) => {
 
   try {
     const queryString = new URLSearchParams(queryParams).toString();
-    const res = await fetch(`https://egg.dordham.com/api/v1/products/?${queryString}`, {
-      cache: 'no-cache',
-    });
-    
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/v1/products/?${queryString}`,
+      {
+        cache: "no-cache",
+      }
+    );
+
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`);
     }
@@ -19,27 +22,30 @@ export const getProduct = async (args = []) => {
     return {
       success: true,
       data: data.data || [], // Ensure we return the actual product array
-      pagination: data.pagination || null // Include pagination if available
+      pagination: data.pagination || null, // Include pagination if available
     };
   } catch (error) {
     console.error("Error fetching products:", error);
     return {
       success: false,
       error: error.message,
-      data: []
+      data: [],
     };
   }
 };
 
 export const getSingleProduct = async (id) => {
   try {
-    const res = await fetch(`https://egg.dordham.com/api/v1/products/${id}`, {
-      cache: 'no-store'
-    })
-    console.log(res)
-    return await res.json()
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/v1/products/${id}`,
+      {
+        cache: "no-store",
+      }
+    );
+    console.log(res);
+    return await res.json();
   } catch (error) {
-    console.error("Error fetching single category:", error)
-    return null
+    console.error("Error fetching single category:", error);
+    return null;
   }
-}
+};

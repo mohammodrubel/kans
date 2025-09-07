@@ -1,30 +1,31 @@
-
-"use server"
+"use server";
 
 export const getAllBlog = async () => {
   try {
-    const res = await fetch('https://egg.dordham.com/api/v1/blogs', {
-      cache: 'no-store'
-    })
-    return await res.json()
-
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/v1/blogs`, {
+      cache: "no-store",
+    });
+    return await res.json();
   } catch (error) {
-    console.error("Error fetching categories:", error)
-    return null
+    console.error("Error fetching categories:", error);
+    return null;
   }
-}
+};
 
 export const getSingleBlog = async (id) => {
   try {
-    const res = await fetch(`https://egg.dordham.com/api/v1/blogs/${id}`, {
-      cache: 'no-store'
-    })
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/v1/blogs/${id}`,
+      {
+        cache: "no-store",
+      }
+    );
     if (!res.ok) {
-      throw new Error('Failed to fetch blog')
+      throw new Error("Failed to fetch blog");
     }
-    return await res.json()
+    return await res.json();
   } catch (error) {
-    console.error("Error fetching blog:", error)
-    throw error
+    console.error("Error fetching blog:", error);
+    throw error;
   }
-}
+};

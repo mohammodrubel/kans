@@ -19,7 +19,10 @@ export function FeaturedProducts() {
   const [error, setError] = useState(null);
 
   const { currentLang, translations } = useLanguage(); // ✅ Context থেকে আনো
-  const plugin = useMemo(() => Autoplay({ delay: 2000, stopOnInteraction: true }), []);
+  const plugin = useMemo(
+    () => Autoplay({ delay: 2000, stopOnInteraction: true }),
+    []
+  );
 
   // Helper function: translation বা fallback
   const t = useTranslation();
@@ -28,7 +31,9 @@ export function FeaturedProducts() {
     const fetchProducts = async () => {
       try {
         setIsLoading(true);
-        const res = await fetch(`https://egg.dordham.com/api/v1/products`);
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_API}/v1/products`
+        );
 
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
@@ -80,10 +85,13 @@ export function FeaturedProducts() {
   };
 
   return (
-    <div className="container mx-auto py-10" dir={currentLang === "ar" ? "rtl" : "ltr"}>
+    <div
+      className="container mx-auto py-10"
+      dir={currentLang === "ar" ? "rtl" : "ltr"}
+    >
       <div className="w-full">
         <h2 className="text-2xl font-bold text-gray-700 mb-4">
-         {t("navigation.Featured", "Featured Products")}
+          {t("navigation.Featured", "Featured Products")}
         </h2>
 
         {isLoading ? (

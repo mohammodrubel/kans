@@ -1,31 +1,34 @@
-"use server"
+"use server";
 
 export const getOnSaleProduct = async () => {
   try {
-    const res = await fetch('https://egg.dordham.com/api/v1/on-sale', {
-      cache: 'no-store'
-    })
-  
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/v1/on-sale`, {
+      cache: "no-store",
+    });
+
     if (!res.ok) {
-      throw new Error(`Failed to fetch: ${res.status} ${res.statusText}`)
+      throw new Error(`Failed to fetch: ${res.status} ${res.statusText}`);
     }
 
-    const data = await res.json() 
-    console.log(data) 
-    return data
+    const data = await res.json();
+    console.log(data);
+    return data;
   } catch (error) {
-    console.error("Error fetching categories:", error)
-    return error
+    console.error("Error fetching categories:", error);
+    return error;
   }
-}
+};
 export const getSingleOnsaleProduct = async (id) => {
   try {
-    const res = await fetch(`https://egg.dordham.com/api/v1/on-sale/${id}`, {
-      cache: 'no-store'
-    })
-    return await res.json()
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/v1/on-sale/${id}`,
+      {
+        cache: "no-store",
+      }
+    );
+    return await res.json();
   } catch (error) {
-    console.error("Error fetching single category:", error)
-    return null
+    console.error("Error fetching single category:", error);
+    return null;
   }
-}
+};

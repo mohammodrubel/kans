@@ -2,16 +2,16 @@
 
 export const registerUser = async (data) => {
   console.log("Sending data:", data);
-  const url = `https://egg.dordham.com/api/register`;
+  const url = `${process.env.NEXT_PUBLIC_BASE_API}/register`;
 
   try {
     const res = await fetch(url, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-      cache: 'no-store',
+      cache: "no-store",
     });
 
     const responseBody = await res.json();

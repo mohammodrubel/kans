@@ -35,9 +35,12 @@ export function LanguageProvider({ children }) {
           return;
         }
 
-        const res = await fetch(`https://egg.dordham.com/api/v1/lang/${lang}`, {
-          signal: controller.signal,
-        });
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_API}/v1/lang/${lang}`,
+          {
+            signal: controller.signal,
+          }
+        );
 
         const contentType = res.headers.get("content-type");
         if (!contentType || !contentType.includes("application/json")) {

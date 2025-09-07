@@ -1,15 +1,16 @@
+"use server";
 
-
-"use server"
-
-export const getAllCustomers= async () => {
+export const getAllCustomers = async () => {
   try {
-    const res = await fetch('https://egg.dordham.com/api/v1/customers', {
-      cache: 'no-store'
-    })
-    return await res.json()
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/v1/customers`,
+      {
+        cache: "no-store",
+      }
+    );
+    return await res.json();
   } catch (error) {
-    console.error("Error fetching categories:", error)
-    return null
+    console.error("Error fetching categories:", error);
+    return null;
   }
-}
+};

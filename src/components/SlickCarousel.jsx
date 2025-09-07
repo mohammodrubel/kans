@@ -33,7 +33,9 @@ const SlickCarousel = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("https://egg.dordham.com/api/v1/sliders");
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_API}/v1/sliders`
+        );
         const json = await res.json();
         setData(json?.data || []);
       } catch (e) {

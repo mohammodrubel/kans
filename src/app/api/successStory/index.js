@@ -1,15 +1,17 @@
 // src/app/api/category/index.js or /lib/server/category.js
-"use server"
+"use server";
 
-export const getProductSuccessStory= async () => {
+export const getProductSuccessStory = async () => {
   try {
-    const res = await fetch('https://egg.dordham.com/api/v1/success-stories', {
-      cache: 'no-store'
-    })
-    return await res.json()
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/v1/success-stories`,
+      {
+        cache: "no-store",
+      }
+    );
+    return await res.json();
   } catch (error) {
-    console.error("Error fetching categories:", error)
-    return null
+    console.error("Error fetching categories:", error);
+    return null;
   }
-}
-
+};
