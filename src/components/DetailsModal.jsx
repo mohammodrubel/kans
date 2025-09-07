@@ -199,6 +199,18 @@ export function DetailsModal({
                   <AutoCurrencyFormatter price={product.converted_price} />
                 </span>
               )}
+                        {product.discounted_price?.saved > 0 && (
+                <span className="text-green-600 font-medium ml-1 flex items-center gap-1">
+                  Save 
+                  <AutoCurrencyFormatter
+                    price={{
+                      USD: product.discounted_price.saved,
+                      converted: product.discounted_price.convertedSaved,
+                    }}
+                  />
+                </span>
+              )}
+              
             </div>
 
             {renderDynamicContent()}
