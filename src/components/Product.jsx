@@ -1,7 +1,3 @@
-
-
-
-
 "use client";
 
 import { addFav, getAllFavList } from "@/app/api/wishlist";
@@ -13,7 +9,7 @@ import { Heart } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import AutoCurrencyFormatter, { getPriceInCurrency } from "./AutoCurrencyFormatter/AutoCurrencyFormatter";
+import AutoCurrencyFormatter from "./AutoCurrencyFormatter/AutoCurrencyFormatter";
 import { DetailsModal } from "./DetailsModal";
 import { useLanguage } from "@/app/context/LanguageContext";
 
@@ -25,11 +21,16 @@ const Product = ({ product }) => {
 
   const getItemName = (item) => {
     switch (currentLang) {
-      case "ru": return item.name_ru || item.name;
-      case "ar": return item.name_ar || item.name;
-      case "az": return item.name_az || item.name;
-      case "tr": return item.name_tr || item.name;
-      default: return item.name;
+      case "ru":
+        return item.name_ru || item.name;
+      case "ar":
+        return item.name_ar || item.name;
+      case "az":
+        return item.name_az || item.name;
+      case "tr":
+        return item.name_tr || item.name;
+      default:
+        return item.name;
     }
   };
 
@@ -38,8 +39,12 @@ const Product = ({ product }) => {
       try {
         if (token) {
           const response = await getAllFavList(token);
-          const data = Array.isArray(response?.data) ? response.data : Array.isArray(response) ? response : [];
-          setIsInWishlist(data.some(item => item.product_id === product.id));
+          const data = Array.isArray(response?.data)
+            ? response.data
+            : Array.isArray(response)
+            ? response
+            : [];
+          setIsInWishlist(data.some((item) => item.product_id === product.id));
         }
       } catch (error) {
         console.error("Error fetching wishlist:", error);
@@ -55,8 +60,11 @@ const Product = ({ product }) => {
       if (!token) return toast.error("Please login first.");
       const res = await addFav({ product_id: product.id }, token);
       if (res?.status) {
-        toast.success(res.message || (isInWishlist ? "Removed from wishlist" : "Added to wishlist"));
-        setIsInWishlist(prev => !prev);
+        toast.success(
+          res.message ||
+            (isInWishlist ? "Removed from wishlist" : "Added to wishlist")
+        );
+        setIsInWishlist((prev) => !prev);
       } else {
         toast.error("Failed to update wishlist.");
       }
@@ -64,7 +72,8 @@ const Product = ({ product }) => {
       console.error("Error toggling wishlist:", error);
     }
   };
-
+const saveAmount = Number(product.converted_price) - Number(product.discounted_price);
+console.log("Save:", saveAmount);
   return (
     <>
       <Card
@@ -109,10 +118,12 @@ const Product = ({ product }) => {
           <h3 className="font-medium text-gray-900 line-clamp-1 leading-tight text-sm sm:text-base">
             {getItemName(product)}
           </h3>
-          
+
           <div className="flex flex-col">
             <div className="font-semibold text-base sm:text-lg text-gray-900">
-              <AutoCurrencyFormatter price={product.discounted_price || product.converted_price} />
+              <AutoCurrencyFormatter
+                price={product.discounted_price || product.converted_price}
+              />
             </div>
 
             {product.discount > 0 && (
@@ -125,12 +136,43 @@ const Product = ({ product }) => {
                 </span>
               </div>
             )}
-                           {/* <span className="text-green-600 font-medium ml-2">
-                  Save {(
-                    getPriceInCurrency(product.converted_price) -
-                    getPriceInCurrency(product.discounted_price)
-                  ).toFixed(2)}
+            {/* <span className="text-green-600 font-medium ml-2">
+                  Save {
+                  //(
+                  //  (product.converted_price) -
+                  //   (product.discounted_price)
+                  // ).toFixed(2)
+                   <AutoCurrencyFormatter
+                price={Number(product.converted_price) - Number(product.discounted_price)}
+              />
+                  }
                 </span> */}
+                 <span className="text-green-600 font-medium ml-2">
+    Save <AutoCurrencyFormatter price={saveAmount} />
+  </span>
+            {/* {product.discount > 0 &&
+              product.converted_price != null &&
+              product.discounted_price != null && (
+                <span className="text-green-600 font-medium ml-2">
+                  Save{" "}
+                  {(
+                  // (product.converted_price) -
+                  // (product.discounted_price)
+                   <AutoCurrencyFormatter price={product.converted_price} /> -
+                   <AutoCurrencyFormatter price={product.discounted_price} />
+                  ).toFixed(2)}
+                </span>
+              )} */}
+              {/* {product.discount > 0 &&
+  product.converted_price != null &&
+  product.discounted_price != null && (
+    <span className="text-green-600 font-medium ml-2">
+      Save{" "}
+      <AutoCurrencyFormatter
+        price={(product.converted_price) - (product.discounted_price)}
+      />
+    </span>
+)} */}
           </div>
         </CardContent>
       </Card>
@@ -148,5 +190,3 @@ const Product = ({ product }) => {
 };
 
 export default Product;
-
-

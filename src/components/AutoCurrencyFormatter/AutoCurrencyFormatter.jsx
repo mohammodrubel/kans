@@ -62,6 +62,7 @@ export default function AutoCurrencyFormatter({ price }) {
 
   if (!price) return null;
 
+
   let value = 0;
   if (typeof price === "number" || typeof price === "string") {
     value = Number(price);
@@ -82,7 +83,7 @@ export default function AutoCurrencyFormatter({ price }) {
 
   return (
     <span className="flex items-center gap-1">
-      <span className="font-semibold lowercase">{currency}</span>{" "}
+      {/* <span className="font-semibold lowercase">{currency}</span>{" "} */}
       {/* lowercase currency code */}
       {symbol} {/* Currency icon */}
       <span>

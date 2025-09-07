@@ -62,29 +62,35 @@ export function Footer() {
                   "Stay in the loop with WEE news and offers"
                 )}
               </p>
-              <div className="flex space-x-3">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="p-2 bg-transparent"
-                >
-                  <Facebook className="w-4 h-4 text-blue-600" />
-                </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="p-2 bg-transparent"
-                >
-                  <Send className="w-4 h-4 text-blue-500" />
-                </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="p-2 bg-transparent"
-                >
-                  <Instagram className="w-4 h-4 text-pink-600" />
-                </Button>
-              </div>
+                <div className="flex space-x-3">
+      <Link href="http://facebook.com/origin.az" target="_blank">
+        <Button
+          size="sm"
+          variant="outline"
+          className="p-2 bg-transparent"
+        >
+          <Facebook className="w-4 h-4 text-blue-600" />
+        </Button>
+      </Link>
+      <Link href="http://telegram.com/origin.az" target="_blank">
+        <Button
+          size="sm"
+          variant="outline"
+          className="p-2 bg-transparent"
+        >
+          <Send className="w-4 h-4 text-blue-500" />
+        </Button>
+      </Link>
+      <Link href="http://instagram.com/origin.az" target="_blank">
+        <Button
+          size="sm"
+          variant="outline"
+          className="p-2 bg-transparent"
+        >
+          <Instagram className="w-4 h-4 text-pink-600" />
+        </Button>
+      </Link>
+    </div>
             </div>
           </div>
 
