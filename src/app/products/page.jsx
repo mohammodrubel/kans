@@ -25,7 +25,7 @@ const t = useTranslation();
   const [productData, setProductData] = useState([])
   const [loadingProduct, setLoadingProduct] = useState(true)
   const [page, setPage] = useState(1)
-  const [limit, setLimit] = useState(8)
+  const [limit, setLimit] = useState(999)
 
   // Sync local search state when URL search param changes
   useEffect(() => {
@@ -93,7 +93,7 @@ const t = useTranslation();
         return item.name
     }
   }
-
+// console.log(productData, "product");
   const getItemDescription = (item) => {
     switch (currentLang) {
       case 'ru':
@@ -132,10 +132,10 @@ const t = useTranslation();
           ) : (
             <div
               className={`grid gap-4 justify-center
-                grid-cols-1
-                ${productData.length === 1 ? 'md:grid-cols-1' : 'md:grid-cols-2'}
-                ${productData.length <= 2 ? 'lg:grid-cols-2' : 'lg:grid-cols-3'}
-                ${productData.length <= 3 ? 'xl:grid-cols-3' : 'xl:grid-cols-4'}
+                grid-cols-2
+                ${productData.length === 1 ? 'md:grid-cols-2' : 'md:grid-cols-2'}
+                ${productData.length <= 2 ? 'lg:grid-cols-3' : 'lg:grid-cols-3'}
+                ${productData.length <= 3 ? 'xl:grid-cols-5' : 'xl:grid-cols-5'}
               `}
             >
               {productData.length > 0 ? (
