@@ -64,13 +64,26 @@ export default function AutoCurrencyFormatter({ price }) {
 
 
   let value = 0;
+  // if (typeof price === "number" || typeof price === "string") {
+  //   value = Number(price);
+  // } else if (typeof price === "object") {
+  //   if (currency === "USD") value = Number(price.USD || 0);
+  //   else if (price.converted) value = Number(price.converted[currency] || 0);
+  //   else value = Number(price[currency] || 0);
+  // }
   if (typeof price === "number" || typeof price === "string") {
-    value = Number(price);
-  } else if (typeof price === "object") {
-    if (currency === "USD") value = Number(price.USD || 0);
-    else if (price.converted) value = Number(price.converted[currency] || 0);
-    else value = Number(price[currency] || 0);
+  value = Number(price);
+} else if (typeof price === "object") {
+  if (currency === "USD") {
+    value = Number(price.USD || 0);
+  } else if (price.converted) {
+    value = Number(price.converted[currency] || 0);
+  } else if (price.convertedSaved) {
+    value = Number(price.convertedSaved[currency] || 0);
+  } else {
+    value = Number(price[currency] || 0);
   }
+}
 
   // Format number with 2 decimals
   const formatted = new Intl.NumberFormat(undefined, {

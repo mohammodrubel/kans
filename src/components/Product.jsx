@@ -72,8 +72,9 @@ const Product = ({ product }) => {
       console.error("Error toggling wishlist:", error);
     }
   };
-const saveAmount = Number(product.converted_price) - Number(product.discounted_price);
-console.log("Save:", saveAmount);
+  const saveAmount =
+    Number(product.converted_price) - Number(product.discounted_price);
+  console.log("Save:", saveAmount);
   return (
     <>
       <Card
@@ -136,43 +137,19 @@ console.log("Save:", saveAmount);
                 </span>
               </div>
             )}
-            {/* <span className="text-green-600 font-medium ml-2">
-                  Save {
-                  //(
-                  //  (product.converted_price) -
-                  //   (product.discounted_price)
-                  // ).toFixed(2)
-                   <AutoCurrencyFormatter
-                price={Number(product.converted_price) - Number(product.discounted_price)}
-              />
-                  }
-                </span> */}
-                 <span className="text-green-600 font-medium ml-2">
-    Save <AutoCurrencyFormatter price={saveAmount} />
+
+            {product.discounted_price?.saved > 0 && (
+  <span className="text-green-600 font-medium ml-1 flex items-center gap-1">
+    Save 
+    <AutoCurrencyFormatter
+      price={{
+        USD: product.discounted_price.saved,
+        converted: product.discounted_price.convertedSaved,
+      }}
+    />
   </span>
-            {/* {product.discount > 0 &&
-              product.converted_price != null &&
-              product.discounted_price != null && (
-                <span className="text-green-600 font-medium ml-2">
-                  Save{" "}
-                  {(
-                  // (product.converted_price) -
-                  // (product.discounted_price)
-                   <AutoCurrencyFormatter price={product.converted_price} /> -
-                   <AutoCurrencyFormatter price={product.discounted_price} />
-                  ).toFixed(2)}
-                </span>
-              )} */}
-              {/* {product.discount > 0 &&
-  product.converted_price != null &&
-  product.discounted_price != null && (
-    <span className="text-green-600 font-medium ml-2">
-      Save{" "}
-      <AutoCurrencyFormatter
-        price={(product.converted_price) - (product.discounted_price)}
-      />
-    </span>
-)} */}
+)}
+
           </div>
         </CardContent>
       </Card>
